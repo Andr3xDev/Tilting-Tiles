@@ -112,6 +112,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Contact
 
 Andrés Felipe Chavarro Plazas -- andres.chavarro-p@mail.escuelaing.edu.co
+
 David Santiago Espinosa Rojas -- david.espinosa-r@mail.escuelaing.edu.co
 
 Project Link: https://github.com/Andr3xDev/Tilting-Tiles
