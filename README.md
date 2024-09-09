@@ -94,7 +94,11 @@ Just have a PC
 Some features that we are developing step by step.
 
 Sprints 1:
+<<<<<<< HEAD
 - [ ] Make the class diagram and secuence.
+=======
+- [ ] Make the class diagram.
+>>>>>>> 7935e7298932ba9f51a9e7448a8df986f8ddebb8
 - [ ] Put some code to advance.
 
 Sprints 2:   
