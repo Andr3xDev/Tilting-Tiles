@@ -77,7 +77,7 @@ Just have a PC
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/Andr3xDev/Tilting-Tiles
    ```
 **(Pendiente a avanzar cn el proyecto)**
 
@@ -94,11 +94,8 @@ Just have a PC
 Some features that we are developing step by step.
 
 Sprints 1:
-<<<<<<< HEAD
+Sprints 1: 
 - [ ] Make the class diagram and secuence.
-=======
-- [ ] Make the class diagram.
->>>>>>> 7935e7298932ba9f51a9e7448a8df986f8ddebb8
 - [ ] Put some code to advance.
 
 Sprints 2:   
