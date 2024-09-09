@@ -91,14 +91,27 @@ Just have a PC
 
 <!-- ROADMAP -->
 ## Roadmap
-Some features that we are developing 
+Some features that we are developing step by step.
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+Sprints 1:
+- [ ] Make the class diagram and secuence.
+- [ ] Put some code to advance.
 
+Sprints 2:   
+- [ ] Create the board from some parameters like size.
+- [ ] Add, delete or move a tile in the board.
 
+Sprints 3:
+- [ ] Add or delete the glue to the tile.
+- [ ] Tilt the board.
+
+Sprints 4:
+- [ ] Verity if final condicion it's complete.
+- [ ] Get information from the puzzle.
+
+Sprints 5:
+- [ ] Mave visible or not the proyect
+- [ ] End of proyect
 
 
 <!-- LICENSE -->

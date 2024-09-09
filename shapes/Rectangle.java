@@ -9,7 +9,7 @@ import java.awt.*;
 
 
  
-public class Rectangle{
+public class Rectangle extends Piece{
 
     public static int EDGES = 4;
     
