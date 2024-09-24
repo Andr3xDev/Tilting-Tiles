@@ -103,25 +103,25 @@ Sprints 1:
 - [ ] Mini-cicle 3.
   - [x] Make minimal GUI.
   - [ ] Add & delete glue functions.
-- [ ] Mini-cicle 3.
   - [x] Consult information of the puzzle.
+- [ ] Mini-cicle 4.
+  - [x] Document.
   - [ ] Make the board visible and invisible.
-  - [ ] Finish and comparatios functions.
+  - [x] Finish and comparatios functions.
 
 Sprints 2:   
-- [ ] Mini-cicle 1.
-  - [ ] Make the class diagram and secuence.
-  - [x] Create basics clasess.
+- [x] Mini-cicle 1.
+  - [x] Make the class diagram and secuence.
+  - [x] Create basics new clasess.
 - [ ] Mini-cicle 2.
-  - [ ] Create the constructors.
-  - [ ] Create add, delete & relocade functions.
+  - [ ] Switch boards.
+  - [ ] Smart tilt.
 - [ ] Mini-cicle 3.
-  - [x] Make minimal GUI.
-  - [ ] Add & delete glue functions.
+  - [ ] Consult tiles which can't move.
+  - [x] Consult tiles left.
 - [ ] Mini-cicle 3.
-  - [ ] Consult information of the puzzle.
-  - [ ] Make the board visible and invisible.
-  - [ ] Finish and comparatios functions.
+  - [ ] Perfec details.
+  - [ ] Docuemnt.
 
 Sprints 3:
 (Pendient)
