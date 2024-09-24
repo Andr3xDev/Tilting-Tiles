@@ -93,26 +93,44 @@ Just have a PC
 ## Roadmap
 Some features that we are developing step by step.
 
-Sprints 1:
 Sprints 1: 
-- [ ] Make the class diagram and secuence.
-- [ ] Put some code to advance.
+- [x] Mini-cicle 1.
+  - [x] Make the class diagram and secuence.
+  - [x] Create basics clasess.
+- [x] Mini-cicle 2.
+  - [x] Create the constructors.
+  - [x] Create add, delete & relocade functions.
+- [ ] Mini-cicle 3.
+  - [x] Make minimal GUI.
+  - [ ] Add & delete glue functions.
+- [ ] Mini-cicle 3.
+  - [x] Consult information of the puzzle.
+  - [ ] Make the board visible and invisible.
+  - [ ] Finish and comparatios functions.
 
 Sprints 2:   
-- [ ] Create the board from some parameters like size.
-- [ ] Add, delete or move a tile in the board.
+- [ ] Mini-cicle 1.
+  - [ ] Make the class diagram and secuence.
+  - [x] Create basics clasess.
+- [ ] Mini-cicle 2.
+  - [ ] Create the constructors.
+  - [ ] Create add, delete & relocade functions.
+- [ ] Mini-cicle 3.
+  - [x] Make minimal GUI.
+  - [ ] Add & delete glue functions.
+- [ ] Mini-cicle 3.
+  - [ ] Consult information of the puzzle.
+  - [ ] Make the board visible and invisible.
+  - [ ] Finish and comparatios functions.
 
 Sprints 3:
-- [ ] Add or delete the glue to the tile.
-- [ ] Tilt the board.
+(Pendient)
 
 Sprints 4:
-- [ ] Verity if final condicion it's complete.
-- [ ] Get information from the puzzle.
+(Pendient)
 
 Sprints 5:
-- [ ] Mave visible or not the proyect
-- [ ] End of proyect
+(Pendient)
 
 
 <!-- LICENSE -->
