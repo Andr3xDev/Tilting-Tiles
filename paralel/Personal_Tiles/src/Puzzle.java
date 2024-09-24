@@ -1,24 +1,33 @@
-import javax.swing.*;
-
 /**
- * Write a description of class Puzzle here.
+ * The initial project aims to develop an application that allows simulating a
+ * situation inspired by Problem F of the 2023 Tilting international programming marathon
+ * Tiles. In this simulator you want to test a special glue, Gummy Glue, which is used
+ * applied on a tile causes it and the neighboring tiles to stick together.
  *
- * @author Andrés Chavarro & David Espinosa
- * @version Version 0.5
+ * @author Andrés Felipe Chavarro Plazas
+ * @author David Santiago Espinosa Rojas
+ * @since 27-08-2024
+ * @version Version 0.6
  */
-//! Falta poner la descripcion
 
 public class Puzzle {
 
-    //* Variables
+    //* ------ Variables ------
     private int height;
     private int width;
     public Tiles[][] board;
     private Rectangle table;
     private int missingSpace;
+    private char[][] actualEnding;
+    private char[][] startBoard;
+    private char[][] actualboard;
+
+    //* ------ Constructors ------
 
     /**
-     * Constructor for objects of class Puzzle
+     * Constructor to create a board without objectives
+     * @param height to set the height of the board.
+     * @param width to set the width of the board.
      */
     public Puzzle(int height, int width) {
         this.height = height;
@@ -26,13 +35,53 @@ public class Puzzle {
         this.board = new Tiles[width][height];
         this.table = new Rectangle();
         this.missingSpace = width*height;
+        this.actualboard = new char[width][height];
+        setActualBoard();
         makeVisible();
     }
 
-    // + missing others constructors
+    /**
+     * Constructor to create a board with objectives, board is built empty.
+     * @param ending Matrix of charts with the final objective arrangement of the board.
+     */
+    public Puzzle(char[][] ending) {
+        this.height = ending.length;
+        this.width = ending[0].length;
+        this.board = new Tiles[width][height];
+        this.table = new Rectangle();
+        this.missingSpace = width*height;
+        this.actualEnding = ending;
+        this.actualboard = new char[width][height];
+        setActualBoard();
+        makeVisible();
+    }
 
     /**
-     * Function to add tiles to the board
+     * Constructor to create a board with objectives, it builds the board with the initial arrangement
+     * @param start Matrix of charts with the initial arrangement of the board.
+     * @param ending Matrix of charts with the final objective arrangement of the board.
+     */
+    public Puzzle(char[][] start, char[][] ending) {
+        this.height = start.length;
+        this.width = start[0].length;
+        this.board = new Tiles[width][height];
+        this.table = new Rectangle();
+        this.missingSpace = width*height;
+        this.actualEnding = ending;
+        this.startBoard = start;
+        this.actualboard = new char[width][height];
+        initialPrint();
+        setActualBoard();
+        makeVisible();
+    }
+
+    //* ------ Methods ------
+
+    /**
+     * Function to add tiles to the board, it checks if the position is valid and if it is empty.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
      */
     public void addTile(int row, int column, String color) {
         if (row >= this.width || column >= this.height || row < 0 || column < 0 || board[row][column] != null){
@@ -42,10 +91,13 @@ public class Puzzle {
             board[row][column] = tile;
             this.missingSpace--;
         }
+        setActualBoard();
     }
 
     /**
-     * Function to delete tiles from the board
+     * Function to delete tiles from the board, it checks if the position is valid and if there is a tile.
+     * @param row It's the row of the tile objective.
+     * @param column It's the column of the tile objective.
      */
     public void deleteTile(int row, int column) {
         if (row >= this.width || column >= this.height || row < 0 || column < 0 ){
@@ -60,12 +112,15 @@ public class Puzzle {
                 this.missingSpace++;
             }
         }
+        setActualBoard();
     }
 
     /**
-     * Function to relocate tiles in the board
-     * @param from
-     * @param to
+     * Function to relocate tiles in the board to a new position, it checks if the position is valid and if there is a tile.
+     * @param from List with the row and column of the tile to move.
+     *             The first element is the row and the second element is the column.
+     * @param to List with the row and column of the objective position.
+     *           The first element is the row and the second element is the column.
      */
     public void relocateTile(int[] from, int[] to) {
         int row = from[0];
@@ -88,6 +143,7 @@ public class Puzzle {
             tile.setPosY(newRow-row);
             tile.makeVisible();
         }
+        setActualBoard();
     }
 
 
@@ -125,6 +181,7 @@ public class Puzzle {
             board[row][column] = tile;
             this.missingSpace--;
         }
+        setActualBoard();
     }
 
     public void tilt(char direction) {
@@ -194,25 +251,50 @@ public class Puzzle {
 
     //public void tilt() {}
 
-    //public void isGoal() {}
+    /**
+     * Function to compare the actual arrangement of the board with the final arrangement if it exists.
+     * If the final arrangement is not set, it will print a message.
+     */
+    public void isGoal() {
+        if (actualEnding == null) {
+            System.out.println("There is no goal to compare");
+        } else {
+            for (int i = 0; i < this.width; i++) {
+                for (int j = 0; j < this.height; j++) {
+                    if (actualboard[i][j] != actualEnding[i][j]) {
+                        System.out.println("The board is not in the goal");
+                        return;
+                    }
+                }
+            }
+            System.out.println("The board is in the goal");
+            finish();
+        }
+    }
 
+
+    /**
+     * Function to print the actual arrangement of the board. It means, te internal function of the board.
+     */
     public void actualArrangemment() {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
-                if (board[i][j] != null) {
-                    System.out.print(board[i][j].getName());
-                } else {
-                    System.out.print('O');
-                }
+                System.out.print(actualboard[i][j]);
             }
             System.out.println();
         }
     }
 
-    public int misPlacedTiles() {
-        return this.missingSpace;
+    /**
+     * Function to get how many tiles can be placed in the board.
+     */
+    public void misPlacedTiles() {
+        System.out.println(this.missingSpace);
     }
 
+    /**
+     * Function to make the board visible. Includes the table and the tiles.
+     */
     public void makeVisible(){
         table.makeVisible();
         table.changeSize((height*20)+height*3+2,(width*20)+width*3+2);
@@ -221,6 +303,9 @@ public class Puzzle {
         table.moveVertical(-3);
     }
 
+    /**
+     * Function to make the board invisible. Includes the table and the tiles.
+     */
     public void makeInvisible() {
         table.makeInvisible();
         for (int i = 0; i < this.width; i++) {
@@ -233,8 +318,12 @@ public class Puzzle {
     }
 
     public void finish() {
-
+        makeInvisible();
+        System.out.println("Game was finished");
     }
+
+    //* ------ Private Methods ------
+    // used to complementary the others methods.
 
     private boolean isFree(Tiles tile) {
         int row = tile.getPosX();
@@ -244,10 +333,25 @@ public class Puzzle {
         Tiles ng3 = board[row][column-1];
         Tiles ng4 = board[row+1][column];
 
-        if (!ng1.getGlued() || !ng2.getGlued() || !ng3.getGlued() || !ng4.getGlued()) {
-            return false;
-        } else {
-            return true;
+        return ng1.getGlued() && ng2.getGlued() && ng3.getGlued() && ng4.getGlued();
+    }
+
+    private void setActualBoard() {
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
+                if (board[i][j] != null) {
+                    this.actualboard[i][j] = board[i][j].getName();
+                } else {
+                    this.actualboard[i][j] = 'O';
+                }
+            }
         }
     }
+
+    private void initialPrint(){
+
+    }
+
+    //* ------ Getters and Setters ------
+
 }

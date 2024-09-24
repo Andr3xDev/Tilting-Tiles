@@ -1,3 +1,14 @@
+/**
+ * Class to represent the tiles of the board. It has the attributes to represent the tiles in the GUI board.
+ * Also, it has the attributes to represent the holes in the GUI board.
+ * The class has the methods to make visible and invisible the tiles and holes.
+ *
+ * @author Andrés Felipe Chavarro Plazas
+ * @author David Santiago Espinosa Rojas
+ * @since 27-08-2024
+ * @version 0.5
+ */
+
 public class Tiles {
     //* attributes of the class
     private int posX;
@@ -11,11 +22,11 @@ public class Tiles {
     private boolean hole;
 
     /**
-     * Constructor for objects of class Tiles
-     * @param posX
-     * @param posY
-     * @param name
-     * @param color
+     * Constructor for Tiles of class Board. Most part of the attributes are initialized by default.
+     * name is initialized by the first letter of the color.
+     * @param posX Row position to represent the tile in the GUI board.
+     * @param posY Column position to represent the tile in the GUI board.
+     * @param color Color and the name of the tile.
      */
     public Tiles(int posX, int posY, String color) {
         this.posX = posX;
@@ -30,9 +41,11 @@ public class Tiles {
     }
 
     /**
-     * Constructor for objects of class Tiles
-     * @param posX
-     * @param posY
+     * Constructor for the holes of class Board. Most part of the attributes are initialized by default.
+     * X is the name of the hole.
+     *
+     * @param posX row position to represent the hole in the GUI board.
+     * @param posY column position to represent the hole in the GUI board.
      */
     public Tiles(int posX, int posY) {
         this.posX = posX;
@@ -46,8 +59,7 @@ public class Tiles {
     }
 
     /**
-     * Function to glue tiles
-     * @param tile
+     * Function to make visible the tiles. It's a help function to make invisible the board.
      */
     public void makeVisible() {
         tile.makeVisible();
@@ -58,7 +70,7 @@ public class Tiles {
     }
 
     /**
-     * Function to glue tiles
+     * Function to make visible the holes. It's a help function to make invisible the board.
      */
     public void makeVisibleX() {
         holeTile.makeVisible();
@@ -80,28 +92,25 @@ public class Tiles {
 
 
     //* getters and setters
+
     // positions
     public int getPosX() {
         return posX;
     }
-
     public void setPosX(int posX) {
         this.posX = posX;
     }
-
     public int getPosY() {
         return posY;
     }
-
     public void setPosY(int posY) {
         this.posY = posY;
     }
 
     // name
-    public String getName() {
-        return this.name;
+    public char getName() {
+        return this.name.charAt(0);
     }
-
     public void setName(String name) {
         this.name = String.valueOf(name.charAt(0));
     }
@@ -110,15 +119,12 @@ public class Tiles {
     public String getColor() {
         return color;
     }
-
     public void setColor(String color) {
         this.color = color;
     }
-
     public Rectangle getTile() {
         return tile;
     }
-
     public void setTile(Rectangle tile) {
         this.tile = tile;
     }

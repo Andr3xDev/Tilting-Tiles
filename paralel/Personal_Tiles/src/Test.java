@@ -7,7 +7,8 @@ public class Test {
         //test5();
         //test6();
         //test7();
-        test8();
+        //test8();
+        test9();
     }
 
     public static void test1(){
@@ -91,5 +92,19 @@ public class Test {
         puzzle.directionVertical(3);
         System.out.println("----------------------");
         puzzle.actualArrangemment();
+    }
+    public static void test9(){
+        char[][] ending = new char[][]{{'r','r','r'},{'0','r','0'},{'0','0','0'}};
+        Puzzle puzzle = new Puzzle(ending);
+        puzzle.addTile(0, 0, "red");
+        puzzle.addTile(2, 2, "blue");
+        puzzle.actualArrangemment();
+        puzzle.deleteTile(0,0);
+        puzzle.actualArrangemment();
+        puzzle.isGoal();
+        puzzle.relocateTile(new int[]{2,2},new int[]{1,1});
+        puzzle.deleteTile(1,1);
+        puzzle.misPlacedTiles();
+
     }
 }
