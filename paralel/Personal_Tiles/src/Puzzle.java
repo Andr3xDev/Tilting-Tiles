@@ -240,7 +240,7 @@ public class Puzzle {
      * Function to move the tiles to the left or right. It's used by Tilt to select the direction.
      * @param place It's the direcciont to move the tiles. 0 is left and height-1 is right.
      */
-    public void directionHorizontal(int place){
+    private void directionHorizontal(int place){
         if (place == 0){ //IZQUIERDA
             for(int i = 0; i<width; i++){
                 for (int j = 0; j<height; j++){
@@ -270,7 +270,7 @@ public class Puzzle {
      * Function to move the tiles to the up or down. It's used by Tilt to select the direction.
      * @param place It's the direcciont to move the tiles. 0 is up and width-1 is down.
      */
-    public void directionVertical(int place){
+    private void directionVertical(int place){
         if (place == 0){ //ARRIBA
             for(int i = 0; i<height; i++){
                 for (int j = 0; j<width; j++){
@@ -370,6 +370,23 @@ public class Puzzle {
     }
 
     /**
+     * Function to check if a tile without glue can move in any direction. It will print a message if the tile can not move.
+     */
+    public void canNotMove(){
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
+                Tiles tile = board[i][j];
+                if (tile != null && !tile.getGlued()){
+                    if (maxMoveLeft(tile) == 0 && maxMoveRight(tile) == 0 && maxMoveUp(tile) == 0 && maxMoveDown(tile) == 0){
+                        System.out.println("The tile in position "+i+","+j+" can not move");
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
      * Function to finish the game. It will make the board invisible and print a message when the goal is complete.
      */
     public void finish() {
@@ -381,24 +398,6 @@ public class Puzzle {
     //* ------ Private Methods ------
     // used to complementary the others methods.
 
-    private Tiles[] getTilesGlued(Tiles tile){
-        return tile.tilesGlued;
-    }
-
-    private int moveTile(int row, int column){
-        int minSpace = 0;
-        for (int i = 0; i < row; i++) {
-            Tiles[] tiles = getTilesGlued(board[row][column]);
-            if (tiles[i] != null){
-                Tiles tile = tiles[i];
-                if (tile.getHole()){
-                    deleteTile(row,column);
-                    minSpace++;
-                }
-            }
-        }
-        return 0;
-    }
     /**
      * Function to set the actual arrangement of the board. it represents the internal arrangement of the board.
      */
@@ -435,6 +434,64 @@ public class Puzzle {
             }
         }
     }
+
+
+    private int maxMoveLeft(Tiles tile){
+        int max = 0;
+        int posX = tile.getPosX();
+        for (int columnA = posX; columnA < this.width; columnA++){
+            if (board[posX][columnA] == null){
+                max++;
+            } else if(board[posX][columnA].getHole()){
+                deleteTile(posX,columnA);
+                return max;
+            }
+        }
+        return max;
+    }
+
+    private int maxMoveRight(Tiles tile){
+        int max = 0;
+        int posX = tile.getPosX();
+        for (int columnA = 0; columnA < posX; columnA++){
+            if (board[posX][columnA] == null){
+                max++;
+            } else if(board[posX][columnA].getHole()){
+                deleteTile(posX,columnA);
+                return max;
+            }
+        }
+        return max;
+    }
+
+    private int maxMoveUp(Tiles tile){
+        int max = 0;
+        int posY = tile.getPosY();
+        for (int columnA = 0; columnA < posY; columnA++){
+            if (board[columnA][posY] == null){
+                max++;
+            } else if(board[columnA][posY].getHole()){
+                deleteTile(posY,columnA);
+                return max;
+            }
+        }
+        return max;
+    }
+
+    private int maxMoveDown(Tiles tile){
+        int max = 0;
+        int posY = tile.getPosY();
+        for (int columnA = posY; columnA < this.height; columnA++){
+            if (board[columnA][posY] == null){
+                max++;
+            } else if(board[columnA][posY].getHole()){
+                deleteTile(posY,columnA);
+                return max;
+            }
+        }
+        return max;
+    }
+
 
     //* ------ Getters and Setters ------
 

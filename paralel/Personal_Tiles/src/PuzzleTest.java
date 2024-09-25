@@ -248,6 +248,24 @@ public class PuzzleTest {
         assertFalse(puzzle.isGoal());
     }
 
+    //* Can move
+    @Test
+    public void tileCanMove(){
+        Puzzle puzzle = new Puzzle(3,3);
+        puzzle.addTile(0,0,"red");
+        puzzle.addTile(0,1,"blue");
+        //assertTrue(puzzle.canNotMove());
+    }
+    @Test
+    public void tileCanNotMove(){
+        Puzzle puzzle = new Puzzle(3,3);
+        puzzle.addTile(0,0,"red");
+        puzzle.addTile(0,1,"blue");
+        puzzle.addTile(1,0,"green");
+        puzzle.addTile(2,0,"white");
+        puzzle.addTile(0,2,"orange");
+        //assertFalse(puzzle.canNotMove());
+    }
 
     /**
      * Tears down the test fixture.
