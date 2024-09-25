@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Test {
     public static void main(String[] args) {
         //test1();
@@ -6,9 +8,10 @@ public class Test {
         //test4();
         //test5();
         //test6();
-        test7();
+        //test7();
         //test8();
         //test9();
+        test10();
     }
 
     public static void test1(){
@@ -103,5 +106,19 @@ public class Test {
         Puzzle puzzle = new Puzzle(ending);
         puzzle.actualArrangemment();
         puzzle.missPlacedTiles();
+    }
+    public static void test10(){
+        Puzzle puzzle = new Puzzle(3,3);
+        puzzle.addTile(0,2,"red");
+        puzzle.addTile(0,1,"blue");
+        puzzle.addTile(1,1,"green");
+        puzzle.addGlue(0,1);
+        Tiles tile = puzzle.board[0][1];
+        System.out.println(tile.getGlued());
+        System.out.println(Arrays.toString(tile.getTilesGlued()));
+        puzzle.deleteGlue(0,1);
+        System.out.println(tile.getGlued());
+        System.out.println(Arrays.toString(tile.getTilesGlued()));
+        //puzzle.tilt('D');
     }
 }

@@ -139,8 +139,8 @@ public class Tiles {
     public boolean getGlued() {
         return glued;
     }
-    public boolean setGlued(boolean glued) {
-        return this.glued = glued;
+    public void setGlued(boolean glued) {
+        this.glued = glued;
     }
 
     // hole
@@ -157,5 +157,12 @@ public class Tiles {
     }
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public void setTilesGlued(Tiles[] tilesGlued) {
+        this.tilesGlued = tilesGlued;
+    }
+    public Tiles[] getTilesGlued() {
+        return tilesGlued;
     }
 }

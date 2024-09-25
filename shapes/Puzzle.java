@@ -156,10 +156,26 @@ public class Puzzle {
             System.out.println("There is no tile in this position or it have glue already");
         } else{
             tile.setGlued(true);
-            tile.tilesGlued[0] = board[row][column+1]; //abajo
-            tile.tilesGlued[1] = board[row][column-1]; //arriba
-            tile.tilesGlued[2] = board[row+1][column]; //derecha
-            tile.tilesGlued[3] = board[row-1][column]; //izquierda
+            if (column+1 >= this.height || board[row][column+1] == null){
+                tile.tilesGlued[0] = null; //abajo
+            } else {
+                tile.tilesGlued[0] = board[row][column+1]; //abajo
+            }
+            if (column-1 < 0 || board[row][column-1] == null){
+                tile.tilesGlued[1] = null; //arriba
+            } else {
+                tile.tilesGlued[1] = board[row][column-1]; //arriba
+            }
+            if (row+1 >= this.width || board[row+1][column] == null){
+                tile.tilesGlued[2] = null; //derecha
+            } else {
+                tile.tilesGlued[2] = board[row+1][column]; //derecha
+            }
+            if (row-1 < 0 || board[row-1][column] == null){
+                tile.tilesGlued[3] = null; //izquierda
+            } else {
+                tile.tilesGlued[3] = board[row-1][column]; //izquierda
+            }
         }
     }
 
@@ -365,17 +381,24 @@ public class Puzzle {
     //* ------ Private Methods ------
     // used to complementary the others methods.
 
-    private boolean isFree(Tiles tile) {
-        int row = tile.getPosX();
-        int column = tile.getPosY();
-        Tiles ng1 = board[row][column];
-        Tiles ng2 = board[row][column+1];
-        Tiles ng3 = board[row][column-1];
-        Tiles ng4 = board[row+1][column];
-
-        return ng1.getGlued() && ng2.getGlued() && ng3.getGlued() && ng4.getGlued();
+    private Tiles[] getTilesGlued(Tiles tile){
+        return tile.tilesGlued;
     }
 
+    private int moveTile(int row, int column){
+        int minSpace = 0;
+        for (int i = 0; i < row; i++) {
+            Tiles[] tiles = getTilesGlued(board[row][column]);
+            if (tiles[i] != null){
+                Tiles tile = tiles[i];
+                if (tile.getHole()){
+                    deleteTile(row,column);
+                    minSpace++;
+                }
+            }
+        }
+        return 0;
+    }
     /**
      * Function to set the actual arrangement of the board. it represents the internal arrangement of the board.
      */
