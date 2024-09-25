@@ -24,8 +24,8 @@ public class Triangle{
     public Triangle(){
         height = 30;
         width = 40;
-        xPosition = 80;
-        yPosition = 15;
+        xPosition = 0;
+        yPosition = 0;
         color = "green";
         isVisible = false;
     }

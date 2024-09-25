@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Rectangle
-comment0.text=\r\n\ A\ rectangle\ that\ can\ be\ manipulated\ and\ that\ draws\ itself\ on\ a\ canvas.\r\n\ \r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\ (Modified)\r\n\ @version\ 1.0\ \ (15\ July\ 2000)()\r\n
+comment0.text=\r\n\ A\ rectangle\ that\ can\ be\ manipulated\ and\ that\ draws\ itself\ on\ a\ canvas.\r\n\r\n\ @author\ \ Michael\ Kolling\ and\ David\ J.\ Barnes\ (Modified)\r\n\ @version\ 1.0\ \ (15\ July\ 2000)()\r\n
 comment1.params=
 comment1.target=Rectangle()
 comment1.text=\r\n\ Create\ a\ new\ rectangle\ at\ default\ position\ with\ default\ color.\r\n
@@ -15,7 +15,7 @@ comment12.target=void\ changeSize(int,\ int)
 comment12.text=\r\n\ Change\ the\ size\ to\ the\ new\ size\r\n\ @param\ newHeight\ the\ new\ height\ in\ pixels.\ newHeight\ must\ be\ >\=0.\r\n\ @param\ newWidht\ the\ new\ width\ in\ pixels.\ newWidth\ must\ be\ >\=0.\r\n
 comment13.params=newColor
 comment13.target=void\ changeColor(java.lang.String)
-comment13.text=\r\n\ Change\ the\ color.\ \r\n\ @param\ color\ the\ new\ color.\ Valid\ colors\ are\ "red",\ "yellow",\ "blue",\ "green",\r\n\ "magenta"\ and\ "black".\r\n
+comment13.text=\r\n\ Change\ the\ color.\r\n\ @param\ color\ the\ new\ color.\ Valid\ colors\ are\ "red",\ "yellow",\ "blue",\ "green",\r\n\ "magenta"\ and\ "black".\r\n
 comment14.params=
 comment14.target=void\ draw()
 comment14.text=\r\n\ Draw\ the\ rectangle\ with\ current\ specifications\ on\ screen.\r\n
@@ -31,8 +31,8 @@ comment3.text=\r\n\ Make\ this\ rectangle\ invisible.\ If\ it\ was\ already\ inv
 comment4.params=
 comment4.target=void\ moveRight()
 comment4.text=\r\n\ Move\ the\ rectangle\ a\ few\ pixels\ to\ the\ right.\r\n
-comment5.params=
-comment5.target=void\ moveLeft()
+comment5.params=i
+comment5.target=void\ moveLeft(int)
 comment5.text=\r\n\ Move\ the\ rectangle\ a\ few\ pixels\ to\ the\ left.\r\n
 comment6.params=
 comment6.target=void\ moveUp()

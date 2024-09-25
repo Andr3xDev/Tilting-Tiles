@@ -196,7 +196,7 @@ public class Puzzle {
         }
     }
 
-    public void directionHorizontal(int place){
+    private void directionHorizontal(int place){
         if (place == 0){ //IZQUIERDA
             for(int i = 0; i<width; i++){
                 for (int j = 0; j<height; j++){
@@ -220,9 +220,10 @@ public class Puzzle {
                 place = height-1;
             }
         }
+        setActualBoard();
     }
 
-    public void directionVertical(int place){
+    private void directionVertical(int place){
         if (place == 0){ //ARRIBA
             for(int i = 0; i<height; i++){
                 for (int j = 0; j<width; j++){
@@ -246,6 +247,7 @@ public class Puzzle {
                 place = height-1;
             }
         }
+        setActualBoard();
     }
 
     //public void tilt() {}

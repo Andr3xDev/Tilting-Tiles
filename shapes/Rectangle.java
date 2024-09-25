@@ -1,18 +1,15 @@
-import java.awt.*;
-
 /**
  * A rectangle that can be manipulated and that draws itself on a canvas.
- * 
+ *
  * @author  Michael Kolling and David J. Barnes (Modified)
  * @version 1.0  (15 July 2000)()
  */
 
 
- 
-public class Rectangle extends Piece{
+public class Rectangle{
 
     public static int EDGES = 4;
-    
+
     private int height;
     private int width;
     private int xPosition;
@@ -26,12 +23,12 @@ public class Rectangle extends Piece{
     public Rectangle(){
         height = 30;
         width = 40;
-        xPosition = 70;
-        yPosition = 15;
+        xPosition = 0;
+        yPosition = 0;
         color = "magenta";
         isVisible = false;
     }
-    
+
 
     /**
      * Make this rectangle visible. If it was already visible, do nothing.
@@ -40,7 +37,7 @@ public class Rectangle extends Piece{
         isVisible = true;
         draw();
     }
-    
+
     /**
      * Make this rectangle invisible. If it was already invisible, do nothing.
      */
@@ -48,7 +45,7 @@ public class Rectangle extends Piece{
         erase();
         isVisible = false;
     }
-    
+
     /**
      * Move the rectangle a few pixels to the right.
      */
@@ -59,7 +56,7 @@ public class Rectangle extends Piece{
     /**
      * Move the rectangle a few pixels to the left.
      */
-    public void moveLeft(){
+    public void moveLeft(int i){
         moveHorizontal(-20);
     }
 
@@ -148,9 +145,9 @@ public class Rectangle extends Piece{
         width = newWidth;
         draw();
     }
-    
+
     /**
-     * Change the color. 
+     * Change the color.
      * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
      * "magenta" and "black".
      */
@@ -167,8 +164,8 @@ public class Rectangle extends Piece{
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color,
-                new java.awt.Rectangle(xPosition, yPosition, 
-                                       width, height));
+                    new java.awt.Rectangle(xPosition, yPosition,
+                            width, height));
             canvas.wait(10);
         }
     }

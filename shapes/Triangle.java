@@ -2,15 +2,15 @@ import java.awt.*;
 
 /**
  * A triangle that can be manipulated and that draws itself on a canvas.
- * 
+ *
  * @author  Michael Kolling and David J. Barnes
  * @version 1.0  (15 July 2000)
  */
 
 public class Triangle{
-    
+
     public static int VERTICES=3;
-    
+
     private int height;
     private int width;
     private int xPosition;
@@ -24,8 +24,8 @@ public class Triangle{
     public Triangle(){
         height = 30;
         width = 40;
-        xPosition = 140;
-        yPosition = 15;
+        xPosition = 0;
+        yPosition = 0;
         color = "green";
         isVisible = false;
     }
@@ -37,7 +37,7 @@ public class Triangle{
         isVisible = true;
         draw();
     }
-    
+
     /**
      * Make this triangle invisible. If it was already invisible, do nothing.
      */
@@ -45,7 +45,7 @@ public class Triangle{
         erase();
         isVisible = false;
     }
-    
+
     /**
      * Move the triangle a few pixels to the right.
      */
@@ -145,9 +145,9 @@ public class Triangle{
         width = newWidth;
         draw();
     }
-    
+
     /**
-     * Change the color. 
+     * Change the color.
      * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
      * "magenta" and "black".
      */
