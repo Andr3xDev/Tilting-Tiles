@@ -126,10 +126,36 @@ public class PuzzleTest {
     }
 
     //* Add glue
-
+    public void shouldAddGlue(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "blue");
+        puzzle.addGlue(1, 1);
+        Tiles tile = puzzle.board[1][1];
+        assertTrue(tile.getGlued());
+    }
+    public void shouldNotAddGlue(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addGlue(0, 0);
+        Tiles tile = puzzle.board[1][1];
+        assertFalse(tile.getGlued());
+    }
 
     //* Delete glue
-
+    public void shouldDeleteGlue(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "blue");
+        puzzle.addGlue(1, 1);
+        Tiles tile = puzzle.board[1][1];
+        puzzle.deleteGlue(1, 1);
+        assertFalse(tile.getGlued());
+    }
+    public void shouldNotDeleteGlue(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(0, 0, "blue");
+        puzzle.deleteGlue(0, 0);
+        Tiles tile = puzzle.board[0][0];
+        assertFalse(tile.getGlued());
+    }
 
     //* Make hole
     @Test
@@ -191,6 +217,35 @@ public class PuzzleTest {
         puzzle.addTile(1, 0, "blue");
         puzzle.addTile(0, 0, "blue");
         assertNotEquals(puzzle.getMissingSpace(), 2);
+    }
+
+    //* Tilt puzzle
+    @Test
+    public void shouldTiltPuzzle(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(0, 0, "red");
+        puzzle.addTile(2, 2, "blue");
+        puzzle.tilt('R');
+        Tiles tile = puzzle.board[0][2];
+        assertNotNull(tile);
+    }
+
+    //* is gloal
+    @Test
+    public void shouldIsGoal(){
+        char[][] ending = new char[][]{{'r','O','O'},{'O','O','O'},{'O','O','r'}};
+        Puzzle puzzle = new Puzzle(ending);
+        puzzle.addTile(0, 0, "red");
+        puzzle.addTile(2, 2, "red");
+        assertTrue(puzzle.isGoal());
+    }
+    @Test
+    public void shouldIsNotGoal(){
+        char[][] ending = new char[][]{{'r','O','r'},{'O','O','O'},{'O','O','r'}};
+        Puzzle puzzle = new Puzzle(ending);
+        puzzle.addTile(0, 0, "red");
+        puzzle.addTile(2, 2, "red");
+        assertFalse(puzzle.isGoal());
     }
 
 

@@ -152,9 +152,9 @@ public class Puzzle {
      */
     public void addGlue(int row, int column) {
         Tiles tile = board[row][column];
-        if (tile == null) {
-            System.out.println("There is no tile in this position");
-        } else if (!tile.getGlued()){
+        if (tile == null || tile.getGlued() || tile.getHole()) {
+            System.out.println("There is no tile in this position or it have glue already");
+        } else{
             tile.setGlued(true);
             tile.tilesGlued[0] = board[row][column+1]; //abajo
             tile.tilesGlued[1] = board[row][column-1]; //arriba
@@ -171,14 +171,14 @@ public class Puzzle {
      */
     public void deleteGlue(int row, int column) {
         Tiles tile = board[row][column];
-        if (tile == null) {
+        if (tile == null || !tile.getGlued() || tile.getHole()) {
             System.out.println("There is no tile in this position");
-        } else if (tile.getGlued()){
+        } else{
             tile.setGlued(false);
-            tile.tilesGlued[0] = null;
-            tile.tilesGlued[1] = null;
-            tile.tilesGlued[2] = null;
-            tile.tilesGlued[3] = null;
+            tile.tilesGlued[0] = null; //abajo
+            tile.tilesGlued[1] = null; //arriba
+            tile.tilesGlued[2] = null; //derecha
+            tile.tilesGlued[3] = null; //izquierda
         }
     }
 
@@ -287,7 +287,7 @@ public class Puzzle {
      * If the final arrangement is not set, it will print a message.
      * Otherwise, it will compare the two arrangements and determinate equality.
      */
-    public void isGoal() {
+    public boolean isGoal() {
         if (actualEnding == null) {
             System.out.println("There is no goal to compare");
         } else {
@@ -295,13 +295,14 @@ public class Puzzle {
                 for (int j = 0; j < this.height; j++) {
                     if (actualboard[i][j] != actualEnding[i][j]) {
                         System.out.println("The board is not in the goal");
-                        return;
+                        return false;
                     }
                 }
             }
             System.out.println("The board is in the goal");
             finish();
         }
+        return true;
     }
 
 

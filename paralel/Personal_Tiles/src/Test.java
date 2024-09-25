@@ -6,7 +6,7 @@ public class Test {
         //test4();
         //test5();
         //test6();
-        //test7();
+        test7();
         //test8();
         //test9();
     }
@@ -46,9 +46,9 @@ public class Test {
         Tiles tile = puzzle.board[1][1];
         System.out.println(tile.getGlued());
         System.out.println(tile.tilesGlued[1].getName());
-        puzzle.actualArrangemment();
-        puzzle.deleteGlue(1,1);
         System.out.println(tile.tilesGlued[3].getName());
+        puzzle.deleteGlue(1, 1);
+        System.out.println(tile.getGlued());
     }
     public static void test5(){
         Puzzle puzzle = new Puzzle(4, 4);
