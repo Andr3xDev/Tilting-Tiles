@@ -12,10 +12,10 @@ comment11.target=void\ slowMoveVertical(int)
 comment11.text=\r\n\ Slowly\ move\ the\ rectangle\ vertically.\r\n\ @param\ distance\ the\ desired\ distance\ in\ pixels\r\n
 comment12.params=newHeight\ newWidth
 comment12.target=void\ changeSize(int,\ int)
-comment12.text=\r\n\ Change\ the\ size\ to\ the\ new\ size\r\n\ @param\ newHeight\ the\ new\ height\ in\ pixels.\ newHeight\ must\ be\ >\=0.\r\n\ @param\ newWidht\ the\ new\ width\ in\ pixels.\ newWidth\ must\ be\ >\=0.\r\n
+comment12.text=\r\n\ Change\ the\ size\ to\ the\ new\ size\r\n\ @param\ newHeight\ the\ new\ height\ in\ pixels.\ newHeight\ must\ be\ >\=0.\r\n\ @param\ newWidth\ the\ new\ width\ in\ pixels.\ newWidth\ must\ be\ >\=0.\r\n
 comment13.params=newColor
 comment13.target=void\ changeColor(java.lang.String)
-comment13.text=\r\n\ Change\ the\ color.\r\n\ @param\ color\ the\ new\ color.\ Valid\ colors\ are\ "red",\ "yellow",\ "blue",\ "green",\r\n\ "magenta"\ and\ "black".\r\n
+comment13.text=\r\n\ Change\ the\ color.\r\n\ @param\ newColor\ the\ new\ color.\ Valid\ colors\ are\ "red",\ "yellow",\ "blue",\ "green",\r\n\ "magenta"\ and\ "black".\r\n
 comment14.params=
 comment14.target=void\ draw()
 comment14.text=\r\n\ Draw\ the\ rectangle\ with\ current\ specifications\ on\ screen.\r\n

@@ -68,8 +68,8 @@ public class Tiles {
         tile.makeVisible();
         tile.changeColor(this.color);
         tile.changeSize(20, 20);
-        tile.moveHorizontal(posX * 20 + 5);
-        tile.moveVertical(posY * 20 + 5);
+        tile.moveHorizontal(posX * 23);
+        tile.moveVertical(posY * 23);
     }
 
     /**
@@ -79,8 +79,8 @@ public class Tiles {
         holeTile.makeVisible();
         holeTile.changeColor(this.color);
         holeTile.changeSize(20,20);
-        holeTile.moveHorizontal((posX * 20) + 15);
-        holeTile.moveVertical((posY * 20)+4);
+        holeTile.moveHorizontal(posX * 23);
+        holeTile.moveVertical(posY * 23);
     }
 
     public void makeVisible() {

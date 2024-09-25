@@ -23,8 +23,8 @@ public class Rectangle{
     public Rectangle(){
         height = 30;
         width = 40;
-        xPosition = 0;
-        yPosition = 0;
+        xPosition = 70;
+        yPosition = 15;
         color = "magenta";
         isVisible = false;
     }
@@ -137,7 +137,7 @@ public class Rectangle{
     /**
      * Change the size to the new size
      * @param newHeight the new height in pixels. newHeight must be >=0.
-     * @param newWidht the new width in pixels. newWidth must be >=0.
+     * @param newWidth the new width in pixels. newWidth must be >=0.
      */
     public void changeSize(int newHeight, int newWidth) {
         erase();
@@ -148,7 +148,7 @@ public class Rectangle{
 
     /**
      * Change the color.
-     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
+     * @param newColor the new color. Valid colors are "red", "yellow", "blue", "green",
      * "magenta" and "black".
      */
     public void changeColor(String newColor){

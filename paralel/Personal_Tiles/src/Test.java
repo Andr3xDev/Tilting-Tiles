@@ -6,7 +6,7 @@ public class Test {
         //test4();
         //test5();
         //test6();
-        test7();
+        //test7();
         //test8();
         //test9();
     }
@@ -22,6 +22,9 @@ public class Test {
         puzzle.addTile(0, 2, "red");
         puzzle.addTile(1, 2, "blue");
         puzzle.actualArrangemment();
+        puzzle.deleteTile(0,2);
+        puzzle.deleteTile(1,2);
+        puzzle.missPlacedTiles();
     }
     public static void test3(){
         Puzzle puzzle = new Puzzle(3, 3);
@@ -54,8 +57,8 @@ public class Test {
         System.out.println("----------------------");
         int[] to;
         int[] from;
-        to = new int[]{1,1};
-        from = new int[]{0,2};
+        to = new int[]{1,0};
+        from = new int[]{1,1};
         puzzle.relocateTile(to,from);
         puzzle.relocateTile(from,to);
         puzzle.actualArrangemment();
@@ -77,8 +80,8 @@ public class Test {
         puzzle.addTile(3, 0, "orange");
         puzzle.addTile(3, 3, "green");
         puzzle.actualArrangemment();
-        puzzle.makeHole(2,3);
-        puzzle.tilt('L');
+        //puzzle.makeHole(2,3);
+        puzzle.tilt('D');
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }
@@ -89,8 +92,8 @@ public class Test {
         puzzle.addTile(1, 3, "white");
         puzzle.addTile(3, 3, "green");
         puzzle.actualArrangemment();
-        puzzle.makeHole(2,3);
-        //puzzle.directionVertical(3);
+        //puzzle.makeHole(2,3);
+        puzzle.tilt('D');
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }

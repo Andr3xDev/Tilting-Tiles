@@ -20,6 +20,7 @@ public class Tiles {
     private boolean glued;
     public Tiles[] tilesGlued;
     private boolean hole;
+    private boolean visible;
 
     /**
      * Constructor for Tiles of class Board. Most part of the attributes are initialized by default.
@@ -37,6 +38,7 @@ public class Tiles {
         this.glued = false;
         this.hole = false;
         this.tilesGlued = new Tiles[4];
+        this.visible = true;
         makeVisibleCreate();
     }
 
@@ -55,6 +57,7 @@ public class Tiles {
         this.holeTile = new Triangle();
         this.glued = false;
         this.hole = true;
+        this.visible = true;
         makeVisibleX();
     }
 
@@ -65,8 +68,8 @@ public class Tiles {
         tile.makeVisible();
         tile.changeColor(this.color);
         tile.changeSize(20, 20);
-        tile.moveHorizontal(posX * 20 + 5);
-        tile.moveVertical(posY * 20 + 5);
+        tile.moveHorizontal(posX * 23);
+        tile.moveVertical(posY * 23);
     }
 
     /**
@@ -76,18 +79,20 @@ public class Tiles {
         holeTile.makeVisible();
         holeTile.changeColor(this.color);
         holeTile.changeSize(20,20);
-        holeTile.moveHorizontal((posX * 20) + 15);
-        holeTile.moveVertical((posY * 20)+4);
+        holeTile.moveHorizontal(posX * 23);
+        holeTile.moveVertical(posY * 23);
     }
 
     public void makeVisible() {
         tile.makeVisible();
+        this.visible = true;
     }
     /**
      * Function to make invisible the tiles
      */
     public void makeInvisible() {
         tile.makeInvisible();
+        this.visible = false;
     }
 
 
@@ -146,4 +151,11 @@ public class Tiles {
         this.hole = hole;
     }
 
+    // visible
+    public boolean getVisible() {
+        return visible;
+    }
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

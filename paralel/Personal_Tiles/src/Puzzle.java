@@ -145,7 +145,11 @@ public class Puzzle {
         setActualBoard();
     }
 
-
+    /**
+     * Function to add glue to a tile. It checks if the position is valid and if there is a tile. Ignores the holes.
+     * @param row It's the row of the tile.
+     * @param column It's the column of the tile.
+     */
     public void addGlue(int row, int column) {
         Tiles tile = board[row][column];
         if (tile == null) {
@@ -159,6 +163,12 @@ public class Puzzle {
         }
     }
 
+    /**
+     * Function to delete the glue of a tile. It checks if the position is valid and if there is a tile with glue already.
+     * Holes are not glued.
+     * @param row It's the row of the tile.
+     * @param column It's the column of the tile.
+     */
     public void deleteGlue(int row, int column) {
         Tiles tile = board[row][column];
         if (tile == null) {
@@ -172,6 +182,11 @@ public class Puzzle {
         }
     }
 
+    /**
+     * Function to make a hole in the board. It checks if the position is valid and if there is no tile or another hole.
+     * @param row It's the row of the hole.
+     * @param column It's the column of the hole.
+     */
     public void makeHole(int row, int column) {
         if (row >= this.width || column >= this.height || row < 0 || column < 0 || board[row][column] != null){
             System.out.println("Row or column not valid");
@@ -183,19 +198,32 @@ public class Puzzle {
         setActualBoard();
     }
 
+    /**
+     * Function to tilt the board in a direction. It will move all the tiles to the direction selected.
+     * If a hole it's in the way, the tiles will fall/eliminate.
+     * @param direction It's the direction to tilt the board. It can be 'L' for left, 'R' for right, 'D' for down and 'U' for up.
+     */
     public void tilt(char direction) {
         switch (direction){
             case 'L':
                 directionHorizontal(0);
+                break;
             case 'R':
                 directionHorizontal(this.height-1);
+                break;
             case 'D':
                 directionVertical(this.width-1);
+                break;
             case 'U':
                 directionVertical(0);
+                break;
         }
     }
 
+    /**
+     * Function to move the tiles to the left or right. It's used by Tilt to select the direction.
+     * @param place It's the direcciont to move the tiles. 0 is left and height-1 is right.
+     */
     public void directionHorizontal(int place){
         if (place == 0){ //IZQUIERDA
             for(int i = 0; i<width; i++){
@@ -222,19 +250,23 @@ public class Puzzle {
         }
     }
 
+    /**
+     * Function to move the tiles to the up or down. It's used by Tilt to select the direction.
+     * @param place It's the direcciont to move the tiles. 0 is up and width-1 is down.
+     */
     public void directionVertical(int place){
         if (place == 0){ //ARRIBA
             for(int i = 0; i<height; i++){
                 for (int j = 0; j<width; j++){
                     Tiles tile = board[j][i];
-                    if (tile != null){
+                    if (tile != null && !tile.getHole()){
                         relocateTile(new int[]{j,i},new int[]{place,i});
                         place ++;
                     }
                 }
                 place = 0;
             }
-        }else {
+        }else { //ABAJO
             for(int i = 0; i<height; i++){
                 for (int j = width-1; j>=0; j--){
                     Tiles tile = board[j][i];
@@ -343,6 +375,9 @@ public class Puzzle {
         return ng1.getGlued() && ng2.getGlued() && ng3.getGlued() && ng4.getGlued();
     }
 
+    /**
+     * Function to set the actual arrangement of the board. it represents the internal arrangement of the board.
+     */
     private void setActualBoard() {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
@@ -355,6 +390,9 @@ public class Puzzle {
         }
     }
 
+    /**
+     * Function to add a tile to the board. It's a help function to make visible the initial board.
+     */
     private void makeVisibleC(){
         table.makeVisible();
         table.changeSize((height*20)+height*3+2,(width*20)+width*3+2);
@@ -363,6 +401,7 @@ public class Puzzle {
         table.moveVertical(-3);
     }
 
+    //- Pendiende a adicion
     private void initialPrint(){
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
@@ -379,9 +418,6 @@ public class Puzzle {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
-    }
     public int getMissingSpace() {
         return this.missingSpace;
     }
