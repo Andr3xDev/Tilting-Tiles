@@ -112,15 +112,16 @@ Sprints 1:
   - [x] Finish and comparatios functions.
 
 Sprints 2:   
-- [ ] Mini-cicle 1.
+- [x] Mini-cicle 1.
   - [x] Make the class diagram and secuence.
-  - [x] Create basics new clasess.
+  - [x] Create basics new methods.
   - [x] Add holes.
 - [ ] Mini-cicle 2.
   - [ ] Switch boards.
   - [ ] Smart tilt.
-- [ ] Mini-cicle 3.
-  - [ ] Consult tiles which can't move.
+  - [ ] Functionall holes
+- [x] Mini-cicle 3.
+  - [x] Consult tiles which can't move. (Missing glued tiles)
   - [x] Consult tiles left.
 - [ ] Mini-cicle 3.
   - [ ] Perfec details.
