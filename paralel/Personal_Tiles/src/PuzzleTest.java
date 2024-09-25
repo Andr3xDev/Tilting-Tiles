@@ -4,13 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The test class PuzzleTest.
- *
- * @author  (your name)
- * @version (a version number or a date)
+ Test class for the Puzzle class methods, these check the correct functioning of the program internally.
+ Cases are verified that should be fulfilled and others that should not. *
+ * @author Andres Felipe Chavarro Plazas
+ * @author David Santiago Espinosa Rojas
+ * @version 1.0
  */
-public class PuzzleTest
-{
+public class PuzzleTest {
+
     /**
      * Default constructor for test class PuzzleTest
      */
@@ -23,21 +24,17 @@ public class PuzzleTest
     @BeforeEach
     public void setUp() {}
 
+    //* constructors
     @Test
     public void shouldCreatePuzzle1(){
         Puzzle puzzle = new Puzzle(4, 4);
         assertEquals(puzzle.getHeight(),4);
     }
-
     @Test
-    public void shouldCreatePuzzle1E(){
-        Puzzle puzzle = new Puzzle(4,-1);
-        assertEquals(puzzle.getHeight(),4);
-    }
-    @Test
-    public void shouldCreatePuzzle1F(){
-        Puzzle puzzle = new Puzzle(3, 3);
-        assertEquals(puzzle.getHeight(),4);
+    public void shouldNotCreatePuzzle1(){
+        assertThrows(java.lang.NegativeArraySizeException.class, () -> {
+            new Puzzle(-4, 4);
+        });
     }
 
     @Test
@@ -46,7 +43,7 @@ public class PuzzleTest
         Puzzle puzzle = new Puzzle(finish);
         assertEquals(puzzle.getHeight(),3);
     }
-    @Test
+    @Test //! This test is not working
     public void shouldCreatePuzzle2E(){
         char[][] finish = new char[][]{{'r',99,'r'},{'0','r','0'},{'0','0','0'}};
         Puzzle puzzle = new Puzzle(finish);
@@ -60,8 +57,15 @@ public class PuzzleTest
         Puzzle puzzle = new Puzzle(finish);
         assertEquals(puzzle.getHeight(),3);
     }
+    @Test //! This test is not working
+    public void shouldCreatePuzzle33(){
+        char[][] finish = new char[][]{{'r','r','r'},{'0','r','0'},{'0','0','0'}};
+        char[][] start = new char[][]{{'r','0','0'},{'0','b','0'},{'w','0','0'}};
+        Puzzle puzzle = new Puzzle(finish);
+        assertEquals(puzzle.getHeight(),3);
+    }
 
-
+    //* Inserting tiles
     @Test
     public void shouldInsertTile(){
         Puzzle puzzle = new Puzzle(3, 3);
@@ -73,18 +77,122 @@ public class PuzzleTest
     @Test
     public void shouldNotInsertTile(){
         Puzzle puzzle = new Puzzle(3, 3);
-        puzzle.addTile(-1, 1, "red");
-        puzzle.addTile(1, 0, "blue");
-        Tiles tile = puzzle.board[1][1];
-        assertNotNull(tile);
+        puzzle.addTile(1, 1, "red");
+        if (puzzle.board[1][1] != null) {
+            puzzle.addTile(1, 1, "blue");
+        } else {
+            fail("There is a hole or a tile in that position");
+        }
     }
-    public void shouldNotInsertTile1(){
+
+    //* Deleting tiles
+    @Test
+    public void shouldDeleteTile(){
         Puzzle puzzle = new Puzzle(3, 3);
-        puzzle.addTile(-1, 1, "red");
-        puzzle.addTile(1, 0, "blue");
+        puzzle.addTile(1, 1, "red");
+        puzzle.deleteTile(1, 1);
+        Tiles tile = puzzle.board[1][1];
+        assertNull(tile);
+    }
+    public void shouldNotDeleteTile(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "red");
+        puzzle.deleteTile(0, 0);
         Tiles tile = puzzle.board[1][1];
         assertNotNull(tile);
     }
+
+    //* Relocating tiles
+    @Test
+    public void shouldRelocateTile(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "red");
+        puzzle.addTile(1, 2, "blue");
+        puzzle.relocateTile(new int[]{1,1}, new int[]{0,0});
+        Tiles tileInicial = puzzle.board[1][1];
+        Tiles tileFinal = puzzle.board[0][0];
+        assertNull(tileInicial);
+        assertNotNull(tileFinal);
+    }
+    public void shouldNotRelocateTile(){
+        Puzzle puzzle = new Puzzle(4, 3);
+        puzzle.addTile(1, 1, "green");
+        puzzle.addTile(1, 2, "red");
+        puzzle.relocateTile(new int[]{1,1}, new int[]{0,0});
+        Tiles tileStart = puzzle.board[1][1];
+        Tiles tileFinal = puzzle.board[0][0];
+        assertNull(tileStart);
+        assertNotNull(tileFinal);
+    }
+
+    //* Add glue
+
+
+    //* Delete glue
+
+
+    //* Make hole
+    @Test
+    public void shouldMakeHole(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.makeHole(1, 1);
+        puzzle.addTile(1, 1, "blue");
+        Tiles tile = puzzle.board[1][1];
+        assertTrue(tile.getHole());
+    }
+    @Test
+    public void shouldNotMakeHole(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "blue");
+        puzzle.makeHole(1, 1);
+        Tiles tile = puzzle.board[1][1];
+        assertNotNull(tile);
+    }
+
+    //* Make visible
+    @Test
+    public void shouldMakeVisible(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "blue");
+        puzzle.makeInvisible();
+        puzzle.makeVisible();
+        Tiles tile = puzzle.board[1][1];
+        assertTrue(tile.getVisible());
+    }
+
+    //* Make invisible
+    @Test
+    public void shouldMakeInvisible(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "blue");
+        puzzle.makeInvisible();
+        Tiles tile = puzzle.board[1][1];
+        assertFalse(tile.getVisible());
+    }
+
+    //* Actual arrangement
+    @Test //? Do we need this test?
+    public void shouldActualArrangement(){
+
+    }
+
+    //* Misplaced tiles
+    @Test
+    public void shouldMisplacedTiles(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "red");
+        puzzle.addTile(1, 0, "blue");
+        assertEquals(puzzle.getMissingSpace(), 7);
+    }
+    @Test
+    public void shouldNotMisplacedTiles(){
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTile(1, 1, "red");
+        puzzle.addTile(1, 0, "blue");
+        puzzle.addTile(0, 0, "blue");
+        assertNotEquals(puzzle.getMissingSpace(), 2);
+    }
+
 
     /**
      * Tears down the test fixture.

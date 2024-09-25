@@ -382,4 +382,11 @@ public class Puzzle {
     public void setHeight(int height) {
         this.height = height;
     }
+    public int getMissingSpace() {
+        return this.missingSpace;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
 }
