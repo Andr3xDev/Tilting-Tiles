@@ -128,7 +128,13 @@ Sprints 2:
   - [ ] Docuemnt.
 
 Sprints 3:
-(Pendient)
+- [ ] Mini-cicle 1.
+  - [ ] Update the class diagram and secuence.
+  - [ ] Create user class with methods
+- [ ] Mini-cicle 2.
+  - [ ] Solve the problem.
+  - [ ] Make the solve visible.
+  - [ ] Document.
 
 Sprints 4:
 (Pendient)
