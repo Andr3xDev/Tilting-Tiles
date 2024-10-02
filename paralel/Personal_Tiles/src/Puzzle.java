@@ -286,12 +286,16 @@ public class Puzzle {
             for(int i = 0; i<height; i++){
                 for (int j = width-1; j>=0; j--){
                     Tiles tile = board[j][i];
-                    if (tile != null){
+                    if (tile!=null && !tile.getGlued() || tile.getTilesGlued().length == 0){
+                        System.out.println("Tile in position "+j+","+i+" can not move");
+                    } else if (tile!=null && tile.getGlued() || tile.getTilesGlued().length > 0){
+                        System.out.println("Tile in position "+j+","+i+" can not move");
+                    } else if (tile != null && !tile.getHole()){
                         relocateTile(new int[]{j,i},new int[]{place,i});
                         place --;
                     }
-                }
                 place = height-1;
+                }
             }
         }
     }
@@ -436,57 +440,54 @@ public class Puzzle {
     }
 
 
-    private int maxMoveLeft(Tiles tile){
+    public int maxMoveLeft(Tiles tile){
         int max = 0;
         int posX = tile.getPosX();
-        for (int columnA = posX; columnA < this.width; columnA++){
-            if (board[posX][columnA] == null){
+        int posY = tile.getPosY();
+
+
+        for (int columna = posX - 1; columna >= 0; columna--) {
+            Tiles tileO = board[posY][columna];
+            if (tileO == null) {
                 max++;
-            } else if(board[posX][columnA].getHole()){
-                deleteTile(posX,columnA);
-                return max;
             }
         }
         return max;
     }
 
-    private int maxMoveRight(Tiles tile){
+    public int maxMoveRight(Tiles tile){
         int max = 0;
         int posX = tile.getPosX();
-        for (int columnA = 0; columnA < posX; columnA++){
-            if (board[posX][columnA] == null){
+        int posY = tile.getPosY();
+
+        for (int column = posX + 1; column < board[0].length; column++) {
+            Tiles tileO = board[posY][column];
+            if (tileO == null) {
                 max++;
-            } else if(board[posX][columnA].getHole()){
-                deleteTile(posX,columnA);
-                return max;
             }
         }
         return max;
     }
 
-    private int maxMoveUp(Tiles tile){
+    public int maxMoveUp(Tiles tile){
         int max = 0;
-        int posY = tile.getPosY();
-        for (int columnA = 0; columnA < posY; columnA++){
-            if (board[columnA][posY] == null){
+        int posX = tile.getPosX();
+        for (int fila = posX; fila >= 0; fila--){
+            Tiles tileO = board[fila][posX];
+            if (tileO == null){
                 max++;
-            } else if(board[columnA][posY].getHole()){
-                deleteTile(posY,columnA);
-                return max;
             }
         }
         return max;
     }
 
-    private int maxMoveDown(Tiles tile){
+    public int maxMoveDown(Tiles tile){
         int max = 0;
-        int posY = tile.getPosY();
-        for (int columnA = posY; columnA < this.height; columnA++){
-            if (board[columnA][posY] == null){
+        int posX = tile.getPosX();
+        for (int fila = posX; fila < this.height; fila++){
+            Tiles tileO = board[fila][posX];
+            if (tileO == null){
                 max++;
-            } else if(board[columnA][posY].getHole()){
-                deleteTile(posY,columnA);
-                return max;
             }
         }
         return max;

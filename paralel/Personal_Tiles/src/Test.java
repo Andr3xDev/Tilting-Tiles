@@ -12,8 +12,8 @@ public class Test {
         //test8();
         //test9();
         //test10();
-        //test11();
-        test12();
+        test11();
+        //test12();
     }
 
     public static void test1(){
@@ -125,11 +125,17 @@ public class Test {
     }
     public static void test11(){
         Puzzle puzzle = new Puzzle(4,4);
-        puzzle.addTile(0,2,"red");
-        puzzle.addTile(0,1,"blue");
-        puzzle.addTile(1,1,"green");
-        puzzle.addGlue(0,1);
-        Tiles tile = puzzle.board[0][1];
+        puzzle.addTile(0,0,"red");
+        puzzle.addTile(1,0,"blue");
+        puzzle.addTile(2,0,"purple");
+        puzzle.addTile(3,0,"green");
+        puzzle.addTile(2,2,"green");
+        puzzle.addTile(1,2,"green");
+        puzzle.addTile(3,3,"blue");
+        puzzle.addTile(2,3,"blue");
+        puzzle.addGlue(2,2);
+        Tiles tile = puzzle.board[2][2];
+        System.out.println(puzzle.maxMoveLeft(tile));
         System.out.println(tile.getGlued());
         System.out.println(Arrays.toString(tile.getTilesGlued()));
         //puzzle.tilt('D');
@@ -142,6 +148,6 @@ public class Test {
         puzzle.addTile(2,0,"white");
         puzzle.addTile(0,2,"orange");
         puzzle.canNotMove();
-        //puzzle.tilt('D');
+        puzzle.tilt('D');
     }
 }
