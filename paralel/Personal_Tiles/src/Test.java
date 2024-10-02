@@ -142,13 +142,15 @@ public class Test {
         //puzzle.tilt('D');
     }
     public static void test12(){
-        Puzzle puzzle = new Puzzle(3,3);
+        Puzzle puzzle = new Puzzle(5,3);
+        puzzle.addTile(0,2,"red");
+        puzzle.addTile(1,2,"blue");
         puzzle.addTile(0,0,"red");
-        puzzle.addTile(0,1,"blue");
-        puzzle.addTile(1,0,"green");
-        puzzle.addTile(2,0,"white");
-        puzzle.addTile(0,2,"orange");
-        puzzle.canNotMove();
-        puzzle.tilt('D');
+        puzzle.addTile(1,1,"orange");
+        puzzle.addTile(4,2,"green");
+        puzzle.actualArrangemment();
+        System.out.println("----------------------");
+        puzzle.tilt('L');
+        puzzle.actualArrangemment();
     }
 }

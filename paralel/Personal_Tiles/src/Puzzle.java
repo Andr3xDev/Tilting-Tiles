@@ -29,7 +29,7 @@ public class Puzzle {
      * @param height to set the height of the board.
      * @param width to set the width of the board.
      */
-    public Puzzle(int height, int width) {
+    public Puzzle(int width, int height) {
         this.height = height;
         this.width = width;
         this.board = new Tiles[width][height];
@@ -64,7 +64,7 @@ public class Puzzle {
     public Puzzle(char[][] start, char[][] ending) {
         this.height = start.length;
         this.width = start[0].length;
-        this.board = new Tiles[width][height];
+        this.board = new Tiles[height][width];
         this.table = new Rectangle();
         this.missingSpace = width*height;
         this.actualEnding = ending;
@@ -177,6 +177,7 @@ public class Puzzle {
                 tile.tilesGlued[3] = board[row-1][column]; //LEFT
             }
         }
+        setActualBoard();
     }
 
     /**
@@ -222,79 +223,28 @@ public class Puzzle {
     public void tilt(char direction) {
         switch (direction){
             case 'L':
-                directionHorizontal(0);
+                moveLeft();
                 break;
             case 'R':
-                directionHorizontal(this.height-1);
+                //directionHorizontal(this.height-1);
                 break;
             case 'D':
-                directionVertical(this.width-1);
+                //directionVertical(this.width-1);
                 break;
             case 'U':
-                directionVertical(0);
+                //directionVertical(0);
                 break;
         }
     }
 
-    /**
-     * Function to move the tiles to the left or right. It's used by Tilt to select the direction.
-     * @param place It's the direction to move the tiles. 0 is left and height-1 is right.
-     */
-    private void directionHorizontal(int place){
-        if (place == 0){ //LEFT = OUT to IN
-            for(int i = 0; i<width; i++){
-                for (int j = 0; j<height; j++){
-                    Tiles tile = board[i][j];
-                    if (tile != null){
-                        relocateTile(new int[]{i,j},new int[]{i,place});
-                        place ++;
-                    }
-                }   
-                place = 0;
-            }
-        }else { //RIGHT
-            for(int i = 0; i<width; i++){
-                for (int j = height-1; j>=0; j--){
-                    Tiles tile = board[i][j];
-                    if (tile != null){
-                        relocateTile(new int[]{i,j},new int[]{i,place});
-                        place --;
-                    }
-                }
-                place = height-1;
-            }
-        }
-    }
-
-    /**
-     * Function to move the tiles to the up or down. It's used by Tilt to select the direction.
-     * @param place It's the direction to move the tiles. 0 is up and width-1 is down.
-     */
-    private void directionVertical(int place){
-        if (place == 0){ //UP
-            for(int i = 0; i<height; i++){
-                for (int j = 0; j<width; j++){
-                    Tiles tile = board[j][i];
-                    if (tile != null && !tile.getHole()){
-                        relocateTile(new int[]{j,i},new int[]{place,i});
-                        place ++;
-                    }
-                }
-                place = 0;
-            }
-        }else { //DOWN
-            for(int i = 0; i<height; i++){
-                for (int j = width-1; j>=0; j--){
-                    Tiles tile = board[j][i];
-                    if (tile!=null && !tile.getGlued()){
-                        System.out.println("Tile in position "+j+","+i+" can not move");
-                    } else if (tile!=null && tile.getGlued()){
-                        System.out.println("Tile in position "+j+","+i+" can not move");
-                    } else if (tile != null && !tile.getHole()){
-                        relocateTile(new int[]{j,i},new int[]{place,i});
-                        place --;
-                    }
-                place = height-1;
+    private void moveLeft() {
+        for (int j = 0; j < this.height; j++) {
+            for (int i = 0;i < this.width; i++) {
+                Tiles tile = board[i][j];
+                if (tile != null) {
+                    int[] from = {tile.getPosY(), tile.getPosX()};
+                    int[] to = {tile.getPosY(), tile.getPosX()-maxMoveLeft(tile)};
+                    relocateTile(from,to);
                 }
             }
         }
@@ -422,7 +372,7 @@ public class Puzzle {
      */
     private void makeVisibleC(){
         table.makeVisible();
-        table.changeSize((height*20)+height*3+2,(width*20)+width*3+2);
+        table.changeSize((width*20)+width*3+2,(height*20)+height*3+2);
         table.changeColor("yellow");
         table.moveHorizontal(-3);
         table.moveVertical(-3);
