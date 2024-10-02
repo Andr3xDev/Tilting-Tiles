@@ -6,7 +6,7 @@
  * @author Andrés Felipe Chavarro Plazas
  * @author David Santiago Espinosa Rojas
  * @since 27-08-2024
- * @version 0.5
+ * @version 0.7
  */
 
 public class Tiles {
@@ -127,12 +127,6 @@ public class Tiles {
     }
     public void setColor(String color) {
         this.color = color;
-    }
-    public Rectangle getTile() {
-        return tile;
-    }
-    public void setTile(Rectangle tile) {
-        this.tile = tile;
     }
 
     // glued

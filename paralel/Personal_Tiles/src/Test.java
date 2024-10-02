@@ -12,8 +12,8 @@ public class Test {
         //test8();
         //test9();
         //test10();
-        test11();
-        //test12();
+        //test11();
+        test12();
     }
 
     public static void test1(){
@@ -117,10 +117,10 @@ public class Test {
         puzzle.addGlue(0,1);
         Tiles tile = puzzle.board[0][1];
         System.out.println(tile.getGlued());
-        System.out.println(Arrays.toString(tile.getTilesGlued()));
+        //System.out.println(Arrays.toString(tile.getTilesGlued()));
         puzzle.deleteGlue(0,1);
         System.out.println(tile.getGlued());
-        System.out.println(Arrays.toString(tile.getTilesGlued()));
+        //System.out.println(Arrays.toString(tile.getTilesGlued()));
         //puzzle.tilt('D');
     }
     public static void test11(){
@@ -133,9 +133,10 @@ public class Test {
         puzzle.addTile(1,2,"green");
         puzzle.addTile(3,3,"blue");
         puzzle.addTile(2,3,"blue");
-        puzzle.addGlue(2,2);
-        Tiles tile = puzzle.board[2][2];
-        System.out.println(puzzle.maxMoveLeft(tile));
+        //puzzle.addGlue(3,0);
+        Tiles tile = puzzle.board[0][0];
+        puzzle.makeHole(3,1);
+        System.out.println(puzzle.maxMoveDown(tile));
         System.out.println(tile.getGlued());
         System.out.println(Arrays.toString(tile.getTilesGlued()));
         //puzzle.tilt('D');

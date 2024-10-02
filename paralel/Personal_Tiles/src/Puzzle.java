@@ -13,14 +13,14 @@
 public class Puzzle {
 
     //* ------ Variables ------
-    private int height;
-    private int width;
+    private final int height;
+    private final int width;
     public Tiles[][] board;
-    private Rectangle table;
+    private final Rectangle table;
     private int missingSpace;
     private char[][] actualEnding;
     private char[][] startBoard;
-    private char[][] actualboard;
+    private final char[][] actualBoard;
 
     //* ------ Constructors ------
 
@@ -35,7 +35,7 @@ public class Puzzle {
         this.board = new Tiles[width][height];
         this.table = new Rectangle();
         this.missingSpace = width*height;
-        this.actualboard = new char[width][height];
+        this.actualBoard = new char[width][height];
         setActualBoard();
         makeVisibleC();
     }
@@ -51,7 +51,7 @@ public class Puzzle {
         this.table = new Rectangle();
         this.missingSpace = width*height;
         this.actualEnding = ending;
-        this.actualboard = new char[width][height];
+        this.actualBoard = new char[width][height];
         setActualBoard();
         makeVisibleC();
     }
@@ -69,7 +69,7 @@ public class Puzzle {
         this.missingSpace = width*height;
         this.actualEnding = ending;
         this.startBoard = start;
-        this.actualboard = start;
+        this.actualBoard = start;
         initialPrint();
         makeVisibleC();
     }
@@ -130,7 +130,7 @@ public class Puzzle {
             System.out.println("Row or column not valid");
         }
         if (newRow >= this.width || newColumn >= this.height || newRow < 0 || newColumn < 0 ){
-            System.out.println("Row or column objetive not valid");
+            System.out.println("Row or column objective not valid");
         }
         Tiles tile = board[row][column];
         if (tile == null || tile.getGlued()) {
@@ -157,24 +157,24 @@ public class Puzzle {
         } else{
             tile.setGlued(true);
             if (column+1 >= this.height || board[row][column+1] == null){
-                tile.tilesGlued[0] = null; //abajo
+                tile.tilesGlued[0] = null; //DOWN
             } else {
-                tile.tilesGlued[0] = board[row][column+1]; //abajo
+                tile.tilesGlued[0] = board[row][column+1]; //DOWN
             }
             if (column-1 < 0 || board[row][column-1] == null){
-                tile.tilesGlued[1] = null; //arriba
+                tile.tilesGlued[1] = null; //UP
             } else {
-                tile.tilesGlued[1] = board[row][column-1]; //arriba
+                tile.tilesGlued[1] = board[row][column-1]; //UP
             }
             if (row+1 >= this.width || board[row+1][column] == null){
-                tile.tilesGlued[2] = null; //derecha
+                tile.tilesGlued[2] = null; //RIGHT
             } else {
-                tile.tilesGlued[2] = board[row+1][column]; //derecha
+                tile.tilesGlued[2] = board[row+1][column]; //RIGHT
             }
             if (row-1 < 0 || board[row-1][column] == null){
-                tile.tilesGlued[3] = null; //izquierda
+                tile.tilesGlued[3] = null; //LEFT
             } else {
-                tile.tilesGlued[3] = board[row-1][column]; //izquierda
+                tile.tilesGlued[3] = board[row-1][column]; //LEFT
             }
         }
     }
@@ -191,10 +191,10 @@ public class Puzzle {
             System.out.println("There is no tile in this position");
         } else{
             tile.setGlued(false);
-            tile.tilesGlued[0] = null; //abajo
-            tile.tilesGlued[1] = null; //arriba
-            tile.tilesGlued[2] = null; //derecha
-            tile.tilesGlued[3] = null; //izquierda
+            tile.tilesGlued[0] = null; //DOWN
+            tile.tilesGlued[1] = null; //UP
+            tile.tilesGlued[2] = null; //RIGHT
+            tile.tilesGlued[3] = null; //LEFT
         }
     }
 
@@ -238,10 +238,10 @@ public class Puzzle {
 
     /**
      * Function to move the tiles to the left or right. It's used by Tilt to select the direction.
-     * @param place It's the direcciont to move the tiles. 0 is left and height-1 is right.
+     * @param place It's the direction to move the tiles. 0 is left and height-1 is right.
      */
     private void directionHorizontal(int place){
-        if (place == 0){ //IZQUIERDA
+        if (place == 0){ //LEFT = OUT to IN
             for(int i = 0; i<width; i++){
                 for (int j = 0; j<height; j++){
                     Tiles tile = board[i][j];
@@ -249,10 +249,10 @@ public class Puzzle {
                         relocateTile(new int[]{i,j},new int[]{i,place});
                         place ++;
                     }
-                }
+                }   
                 place = 0;
             }
-        }else { //DERECHA
+        }else { //RIGHT
             for(int i = 0; i<width; i++){
                 for (int j = height-1; j>=0; j--){
                     Tiles tile = board[i][j];
@@ -268,10 +268,10 @@ public class Puzzle {
 
     /**
      * Function to move the tiles to the up or down. It's used by Tilt to select the direction.
-     * @param place It's the direcciont to move the tiles. 0 is up and width-1 is down.
+     * @param place It's the direction to move the tiles. 0 is up and width-1 is down.
      */
     private void directionVertical(int place){
-        if (place == 0){ //ARRIBA
+        if (place == 0){ //UP
             for(int i = 0; i<height; i++){
                 for (int j = 0; j<width; j++){
                     Tiles tile = board[j][i];
@@ -282,13 +282,13 @@ public class Puzzle {
                 }
                 place = 0;
             }
-        }else { //ABAJO
+        }else { //DOWN
             for(int i = 0; i<height; i++){
                 for (int j = width-1; j>=0; j--){
                     Tiles tile = board[j][i];
-                    if (tile!=null && !tile.getGlued() || tile.getTilesGlued().length == 0){
+                    if (tile!=null && !tile.getGlued()){
                         System.out.println("Tile in position "+j+","+i+" can not move");
-                    } else if (tile!=null && tile.getGlued() || tile.getTilesGlued().length > 0){
+                    } else if (tile!=null && tile.getGlued()){
                         System.out.println("Tile in position "+j+","+i+" can not move");
                     } else if (tile != null && !tile.getHole()){
                         relocateTile(new int[]{j,i},new int[]{place,i});
@@ -313,7 +313,7 @@ public class Puzzle {
         } else {
             for (int i = 0; i < this.width; i++) {
                 for (int j = 0; j < this.height; j++) {
-                    if (actualboard[i][j] != actualEnding[i][j]) {
+                    if (actualBoard[i][j] != actualEnding[i][j]) {
                         System.out.println("The board is not in the goal");
                         return false;
                     }
@@ -332,7 +332,7 @@ public class Puzzle {
     public void actualArrangemment() {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
-                System.out.print(actualboard[i][j]);
+                System.out.print(actualBoard[i][j]);
             }
             System.out.println();
         }
@@ -409,9 +409,9 @@ public class Puzzle {
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
                 if (board[i][j] != null) {
-                    this.actualboard[i][j] = board[i][j].getName();
+                    this.actualBoard[i][j] = board[i][j].getName();
                 } else {
-                    this.actualboard[i][j] = 'O';
+                    this.actualBoard[i][j] = 'O';
                 }
             }
         }
@@ -428,7 +428,7 @@ public class Puzzle {
         table.moveVertical(-3);
     }
 
-    //- Pendiende a adicion
+    //- missing do it with the final board
     private void initialPrint(){
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
@@ -445,10 +445,13 @@ public class Puzzle {
         int posX = tile.getPosX();
         int posY = tile.getPosY();
 
-
-        for (int columna = posX - 1; columna >= 0; columna--) {
-            Tiles tileO = board[posY][columna];
-            if (tileO == null) {
+        for (int column = posX - 1; column >= 0; column--) {
+            Tiles tileO = board[posY][column];
+            if (tileO == null){
+                max++;
+            } else if (tileO.getHole() && !tile.getGlued() ){
+                return -1;
+            } else if (tileO.getHole() && tile.getGlued()){
                 max++;
             }
         }
@@ -462,7 +465,11 @@ public class Puzzle {
 
         for (int column = posX + 1; column < board[0].length; column++) {
             Tiles tileO = board[posY][column];
-            if (tileO == null) {
+            if (tileO == null){
+                max++;
+            } else if (tileO.getHole() && !tile.getGlued() ){
+                return -1;
+            } else if (tileO.getHole() && tile.getGlued()){
                 max++;
             }
         }
@@ -476,6 +483,10 @@ public class Puzzle {
             Tiles tileO = board[fila][posX];
             if (tileO == null){
                 max++;
+            } else if (tileO.getHole() && !tile.getGlued() ){
+                return -1;
+            } else if (tileO.getHole() && tile.getGlued()){
+                max++;
             }
         }
         return max;
@@ -487,6 +498,10 @@ public class Puzzle {
         for (int fila = posX; fila < this.height; fila++){
             Tiles tileO = board[fila][posX];
             if (tileO == null){
+                max++;
+            } else if (tileO.getHole() && !tile.getGlued() ){
+                return -1;
+            } else if (tileO.getHole() && tile.getGlued()){
                 max++;
             }
         }
@@ -502,9 +517,5 @@ public class Puzzle {
 
     public int getMissingSpace() {
         return this.missingSpace;
-    }
-
-    public int getWidth() {
-        return this.width;
     }
 }
