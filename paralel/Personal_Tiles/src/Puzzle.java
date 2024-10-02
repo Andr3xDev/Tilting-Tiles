@@ -226,13 +226,13 @@ public class Puzzle {
                 moveLeft();
                 break;
             case 'R':
-                //directionHorizontal(this.height-1);
+                moveRight();
                 break;
             case 'D':
-                //directionVertical(this.width-1);
+                moveDown();
                 break;
             case 'U':
-                //directionVertical(0);
+                moveUp();
                 break;
         }
     }
@@ -241,10 +241,65 @@ public class Puzzle {
         for (int j = 0; j < this.height; j++) {
             for (int i = 0;i < this.width; i++) {
                 Tiles tile = board[i][j];
-                if (tile != null) {
-                    int[] from = {tile.getPosY(), tile.getPosX()};
-                    int[] to = {tile.getPosY(), tile.getPosX()-maxMoveLeft(tile)};
-                    relocateTile(from,to);
+                if (tile != null && !tile.getHole()) {
+                    if (maxMoveLeft(tile) == -1){
+                        System.out.println("Hole in position "+i+","+j);
+                        deleteTile(i,j);
+                    } else {
+                        int[] from = {tile.getPosY(), tile.getPosX()};
+                        int[] to = {tile.getPosY(), tile.getPosX()-maxMoveLeft(tile)};
+                        relocateTile(from,to);
+                    }
+                }
+            }
+        }
+    }
+    private void moveRight() {
+        for (int j = 0; j < this.height; j++) {
+            for (int i = this.width-1;i >= 0; i--) {
+                Tiles tile = board[i][j];
+                if (tile != null && !tile.getHole()) {
+                    if (maxMoveRight(tile) == -1){
+                        deleteTile(i,j);
+                    } else {
+                        int[] from = {tile.getPosY(), tile.getPosX()};
+                        int[] to = {tile.getPosY(), tile.getPosX()+maxMoveRight(tile)};
+                        relocateTile(from,to);
+                    }
+                }
+            }
+        }
+    }
+
+    private void moveDown() {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                Tiles tile = board[i][j];
+                if (tile != null && !tile.getHole()) {
+                    if (maxMoveDown(tile) == -1){
+                        deleteTile(i,j);
+                    } else {
+                        int[] from = {tile.getPosY(), tile.getPosX()};
+                        int[] to = {tile.getPosY()+maxMoveDown(tile), tile.getPosX()};
+                        relocateTile(from,to);
+                    }
+                }
+            }
+        }
+    }
+
+    private void moveUp() {
+        for (int j = 0; j < this.height; j++) {
+            for (int i = this.width-1;i >= 0; i--) {
+                Tiles tile = board[i][j];
+                if (tile != null && !tile.getHole()) {
+                    if (maxMoveRight(tile) == -1){
+                        deleteTile(i,j);
+                    } else {
+                        int[] from = {tile.getPosY(), tile.getPosX()};
+                        int[] to = {tile.getPosY(), tile.getPosX()+maxMoveRight(tile)};
+                        relocateTile(from,to);
+                    }
                 }
             }
         }
