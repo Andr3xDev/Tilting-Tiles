@@ -134,9 +134,9 @@ public class Test {
         puzzle.addTile(3,3,"blue");
         puzzle.addTile(2,3,"blue");
         //puzzle.addGlue(3,0);
-        Tiles tile = puzzle.board[0][0];
+        Tiles tile = puzzle.board[3][3];
         puzzle.makeHole(3,1);
-        System.out.println(puzzle.maxMoveDown(tile));
+        System.out.println(puzzle.maxMoveUp(tile));
         System.out.println(tile.getGlued());
         System.out.println(Arrays.toString(tile.getTilesGlued()));
         //puzzle.tilt('D');
@@ -144,14 +144,17 @@ public class Test {
     public static void test12(){
         Puzzle puzzle = new Puzzle(4,3);
         puzzle.addTile(0,2,"red");
-        puzzle.addTile(1,2,"blue");
-        puzzle.addTile(0,0,"red");
-        puzzle.addTile(1,1,"orange");
-        puzzle.addTile(3,2,"green");
-        puzzle.makeHole(3,0);
+        puzzle.addTile(2,2,"blue");
+        puzzle.addTile(0,1,"red");
+        puzzle.addTile(2,0,"orange");
+        puzzle.addTile(2,3,"green");
+        puzzle.makeHole(0,0);
         puzzle.actualArrangemment();
         System.out.println("----------------------");
         puzzle.tilt('D');
+        puzzle.actualArrangemment();
+        puzzle.tilt('L');
+        //puzzle.tilt('R');
         puzzle.actualArrangemment();
     }
 }

@@ -65,11 +65,12 @@ public class Tiles {
      * Function to make visible the tiles. It's a help function to make invisible the board.
      */
     public void makeVisibleCreate() {
-        tile.makeVisible();
         tile.changeColor(this.color);
         tile.changeSize(20, 20);
         tile.moveHorizontal(posX * 23);
         tile.moveVertical(posY * 23);
+        tile.makeVisible();
+
     }
 
     /**

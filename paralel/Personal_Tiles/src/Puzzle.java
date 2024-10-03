@@ -1,3 +1,4 @@
+import java.lang.Math;
 /**
  * The initial project aims to develop an application that allows simulating a
  * situation inspired by Problem F of the 2023 Tilting international programming marathon
@@ -32,10 +33,10 @@ public class Puzzle {
     public Puzzle(int width, int height) {
         this.height = height;
         this.width = width;
-        this.board = new Tiles[width][height];
+        this.board = new Tiles[height][width];
         this.table = new Rectangle();
         this.missingSpace = width*height;
-        this.actualBoard = new char[width][height];
+        this.actualBoard = new char[height][width];
         setActualBoard();
         makeVisibleC();
     }
@@ -83,10 +84,10 @@ public class Puzzle {
      * @param color Set the color and name of the tile.
      */
     public void addTile(int row, int column, String color) {
-        if (row >= this.width || column >= this.height || row < 0 || column < 0 || board[row][column] != null){
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
             System.out.println("Row or column not valid");
         } else {
-            Tiles tile = new Tiles(column, row, color);
+            Tiles tile = new Tiles(column,row,color);
             board[row][column] = tile;
             this.missingSpace--;
         }
@@ -99,7 +100,7 @@ public class Puzzle {
      * @param column It's the column of the tile objective.
      */
     public void deleteTile(int row, int column) {
-        if (row >= this.width || column >= this.height || row < 0 || column < 0 ){
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 ){
             System.out.println("Row or column not valid");
         } else {
             Tiles tile = board[row][column];
@@ -126,21 +127,21 @@ public class Puzzle {
         int column = from[1];
         int newRow = to[0];
         int newColumn = to[1];
-        if (row >= this.width || column >= this.height || row < 0 || column < 0 ){
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 ){
             System.out.println("Row or column not valid");
         }
-        if (newRow >= this.width || newColumn >= this.height || newRow < 0 || newColumn < 0 ){
+        if (newRow >= this.height || newColumn >= this.width || newRow < 0 || newColumn < 0 ){
             System.out.println("Row or column objective not valid");
         }
         Tiles tile = board[row][column];
         if (tile == null || tile.getGlued()) {
             System.out.println("Tile or position no valid to move");
-        } else {
-            board[row][column] = null;
-            board[newRow][newColumn] = tile;
-            tile.setPosX(newColumn-column);
-            tile.setPosY(newRow-row);
-            tile.makeVisibleCreate();
+        } else{
+            tile.setPosX(newColumn);
+            tile.setPosY(newRow);
+            String name = tile.getColor();
+            deleteTile(row,column);
+            addTile(newRow,newColumn,name);
         }
         setActualBoard();
     }
@@ -205,7 +206,7 @@ public class Puzzle {
      * @param column It's the column of the hole.
      */
     public void makeHole(int row, int column) {
-        if (row >= this.width || column >= this.height || row < 0 || column < 0 || board[row][column] != null){
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
             System.out.println("Row or column not valid");
         } else {
             Tiles tile = new Tiles(column, row);
@@ -238,13 +239,12 @@ public class Puzzle {
     }
 
     private void moveLeft() {
-        for (int j = 0; j < this.height; j++) {
-            for (int i = 0;i < this.width; i++) {
-                Tiles tile = board[i][j];
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0;j < this.height; j++) {
+                Tiles tile = board[j][i];
                 if (tile != null && !tile.getHole()) {
                     if (maxMoveLeft(tile) == -1){
-                        System.out.println("Hole in position "+i+","+j);
-                        deleteTile(i,j);
+                        deleteTile(j,i);
                     } else {
                         int[] from = {tile.getPosY(), tile.getPosX()};
                         int[] to = {tile.getPosY(), tile.getPosX()-maxMoveLeft(tile)};
@@ -255,12 +255,12 @@ public class Puzzle {
         }
     }
     private void moveRight() {
-        for (int j = 0; j < this.height; j++) {
-            for (int i = this.width-1;i >= 0; i--) {
-                Tiles tile = board[i][j];
+        for (int i = this.width-1; i >= 0 ; i--) {
+            for (int j = 0;j < this.height; j++) {
+                Tiles tile = board[j][i];
                 if (tile != null && !tile.getHole()) {
                     if (maxMoveRight(tile) == -1){
-                        deleteTile(i,j);
+                        deleteTile(j,i);
                     } else {
                         int[] from = {tile.getPosY(), tile.getPosX()};
                         int[] to = {tile.getPosY(), tile.getPosX()+maxMoveRight(tile)};
@@ -289,15 +289,16 @@ public class Puzzle {
     }
 
     private void moveUp() {
-        for (int j = 0; j < this.height; j++) {
-            for (int i = this.width-1;i >= 0; i--) {
+        for (int i = this.height-1; i >= 0; i--) {
+            for (int j = 0;j < width; j++) {
                 Tiles tile = board[i][j];
                 if (tile != null && !tile.getHole()) {
-                    if (maxMoveRight(tile) == -1){
+                    if (maxMoveUp(tile) == -1){
                         deleteTile(i,j);
                     } else {
+                        System.out.println(maxMoveUp(tile));
                         int[] from = {tile.getPosY(), tile.getPosX()};
-                        int[] to = {tile.getPosY(), tile.getPosX()+maxMoveRight(tile)};
+                        int[] to = {tile.getPosY()-maxMoveUp(tile), tile.getPosX()};
                         relocateTile(from,to);
                     }
                 }
@@ -335,8 +336,8 @@ public class Puzzle {
      * Function to print the actual arrangement of the board. It means, te internal function of the board.
      */
     public void actualArrangemment() {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
                 System.out.print(actualBoard[i][j]);
             }
             System.out.println();
@@ -411,8 +412,8 @@ public class Puzzle {
      * Function to set the actual arrangement of the board. it represents the internal arrangement of the board.
      */
     private void setActualBoard() {
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
                 if (board[i][j] != null) {
                     this.actualBoard[i][j] = board[i][j].getName();
                 } else {
@@ -427,7 +428,7 @@ public class Puzzle {
      */
     private void makeVisibleC(){
         table.makeVisible();
-        table.changeSize((width*20)+width*3+2,(height*20)+height*3+2);
+        table.changeSize((height*20)+height*3+2,(width*20)+width*3+2);
         table.changeColor("yellow");
         table.moveHorizontal(-3);
         table.moveVertical(-3);
@@ -468,7 +469,8 @@ public class Puzzle {
         int posX = tile.getPosX();
         int posY = tile.getPosY();
 
-        for (int column = posX + 1; column < board[0].length; column++) {
+        for (int column = posX + 1; column < this.width; column++) {
+            System.out.println(posX);
             Tiles tileO = board[posY][column];
             if (tileO == null){
                 max++;
@@ -483,8 +485,9 @@ public class Puzzle {
 
     public int maxMoveUp(Tiles tile){
         int max = 0;
+        int posY = tile.getPosY();
         int posX = tile.getPosX();
-        for (int fila = posX; fila >= 0; fila--){
+        for (int fila = posY; fila >= 0; fila--){
             Tiles tileO = board[fila][posX];
             if (tileO == null){
                 max++;
@@ -499,8 +502,9 @@ public class Puzzle {
 
     public int maxMoveDown(Tiles tile){
         int max = 0;
+        int posY = tile.getPosY();
         int posX = tile.getPosX();
-        for (int fila = posX; fila < this.height; fila++){
+        for (int fila = posY; fila < this.height; fila++){
             Tiles tileO = board[fila][posX];
             if (tileO == null){
                 max++;
