@@ -13,7 +13,9 @@ public class Test {
         //test9();
         //test10();
         //test11();
-        test12();
+        //test12();
+        //test13();
+        test14();
     }
 
     public static void test1(){
@@ -43,15 +45,14 @@ public class Test {
     }
 
     public static void test4(){
-        Puzzle puzzle = new Puzzle(5, 5);
+        Puzzle puzzle = new Puzzle(5, 3);
         puzzle.addTile(1, 1, "red");
         puzzle.addTile(1, 0, "blue");
         puzzle.addTile(0, 1, "green");
         puzzle.addGlue(1, 1);
-        Tiles tile = puzzle.board[1][1];
+        Tiles tile = puzzle.board[0][1];
         System.out.println(tile.getGlued());
-        System.out.println(tile.tilesGlued[1].getName());
-        System.out.println(tile.tilesGlued[3].getName());
+        System.out.println(Arrays.toString(tile.getTilesGlued()));
         puzzle.deleteGlue(1, 1);
         System.out.println(tile.getGlued());
     }
@@ -103,11 +104,17 @@ public class Test {
         puzzle.actualArrangemment();
     }
     public static void test9(){
-        char[][] ending = new char[][]{{'r','r','r'},{'0','r','0'},{'0','0','0'}};
-        char[][] starting = new char[][]{{'r','0','r'},{'0','r','0'},{'0','0','0'}};
-        Puzzle puzzle = new Puzzle(ending);
+        char[][] ending = new char[][]{{'r','r'},{'0','r'},{'0','0'}};
+        char[][] starting = new char[][]{{'r','0'},{'0','0',},{'0','r'}};
+        Puzzle puzzle = new Puzzle(starting, ending);
         puzzle.actualArrangemment();
+        System.out.println("----------------------");
+        System.out.println(puzzle.getHeight());
+        System.out.println("----------------------");
+        System.out.println(Arrays.deepToString(puzzle.getActualEnding()));
         puzzle.missPlacedTiles();
+        //puzzle.tilt('U');
+        puzzle.actualArrangemment();
     }
     public static void test10(){
         Puzzle puzzle = new Puzzle(3,3);
@@ -151,10 +158,43 @@ public class Test {
         puzzle.makeHole(0,0);
         puzzle.actualArrangemment();
         System.out.println("----------------------");
-        puzzle.tilt('D');
+        puzzle.tilt('R');
         puzzle.actualArrangemment();
         puzzle.tilt('L');
-        //puzzle.tilt('R');
+        puzzle.tilt('R');
+        puzzle.tilt('L');
         puzzle.actualArrangemment();
+    }
+    public static void test13() {
+        Puzzle puzzle = new Puzzle(6, 3);
+        puzzle.addTile(1, 2, "red");
+        puzzle.addTile(1, 1, "blue");
+        puzzle.addTile(1, 5, "blue");
+        puzzle.addTile(1, 0, "purple");
+        puzzle.addTile(0, 1, "green");
+        puzzle.addTile(2, 1, "white");
+        puzzle.addTile(2, 4, "red");
+        puzzle.addTile(0, 0, "pink");
+        puzzle.addGlue(1, 1);
+        Tiles tile = puzzle.board[1][2];
+        System.out.println(puzzle.maxMoveRight(tile));
+        //System.out.println(tile.getGlued());
+        System.out.println(Arrays.toString(tile.getTilesGlued()));
+        System.out.println(puzzle.maxMoveGlued(tile, 'R'));
+        System.out.println(Arrays.toString(puzzle.getNeighbors(puzzle.board[1][1])));
+        //puzzle.tilt('R');
+    }
+    public static void test14(){
+        PuzzleContest puzzle = new PuzzleContest();
+        //boolean a = puzzle.solve(new char[][]{{'r','r','r'},{'0','r','0'},{'0','0','0'}}, new char[][]{{'r','r','r'},{'0','0','r'},{'0','0','0'}});
+        //System.out.println(a);
+        Puzzle puzzlep = new Puzzle(new char[][]{{'r','r'},{'0','0'},{'0','r'}}, new char[][]{{'r','r'},{'0','r'},{'0','0'}});
+        puzzlep.actualArrangemment();
+        puzzlep.tilt('D');
+        puzzlep.actualArrangemment();
+        puzzlep.tilt('U');
+        //boolean b = puzzlep.isGoal();
+        puzzlep.actualArrangemment();
+        //System.out.println(b);
     }
 }

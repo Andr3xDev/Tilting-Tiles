@@ -70,7 +70,6 @@ public class Tiles {
         tile.moveHorizontal(posX * 23);
         tile.moveVertical(posY * 23);
         tile.makeVisible();
-
     }
 
     /**

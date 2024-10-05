@@ -1,4 +1,5 @@
 import java.lang.Math;
+
 /**
  * The initial project aims to develop an application that allows simulating a
  * situation inspired by Problem F of the 2023 Tilting international programming marathon
@@ -8,7 +9,7 @@ import java.lang.Math;
  * @author Andrés Felipe Chavarro Plazas
  * @author David Santiago Espinosa Rojas
  * @since 27-08-2024
- * @version Version 0.6
+ * @version Version 0.8
  */
 
 public class Puzzle {
@@ -19,14 +20,14 @@ public class Puzzle {
     public Tiles[][] board;
     private final Rectangle table;
     private int missingSpace;
-    private char[][] actualEnding;
+    private char[][]  actualEnding;
     private char[][] startBoard;
     private final char[][] actualBoard;
 
     //* ------ Constructors ------
 
     /**
-     * Constructor to create a board without objectives
+     * Constructor to create a board without initial or final objectives.
      * @param height to set the height of the board.
      * @param width to set the width of the board.
      */
@@ -42,17 +43,17 @@ public class Puzzle {
     }
 
     /**
-     * Constructor to create a board with objectives, board is built empty.
+     * Constructor to create a board with final arrangement, board is built empty.
      * @param ending Matrix of charts with the final objective arrangement of the board.
      */
     public Puzzle(char[][] ending) {
-        this.height = ending.length;
-        this.width = ending[0].length;
-        this.board = new Tiles[width][height];
+        this.width = ending.length;
+        this.height = ending[0].length;
+        this.board = new Tiles[height][width];
         this.table = new Rectangle();
         this.missingSpace = width*height;
         this.actualEnding = ending;
-        this.actualBoard = new char[width][height];
+        this.actualBoard = new char[height][width];
         setActualBoard();
         makeVisibleC();
     }
@@ -67,12 +68,13 @@ public class Puzzle {
         this.width = start[0].length;
         this.board = new Tiles[height][width];
         this.table = new Rectangle();
-        this.missingSpace = width*height;
+        this.missingSpace = start.length*start[0].length;
         this.actualEnding = ending;
         this.startBoard = start;
-        this.actualBoard = start;
-        initialPrint();
+        this.actualBoard = new char[height][width];
         makeVisibleC();
+        initialPrint();
+        setActualBoard();
     }
 
     //* ------ Methods ------
@@ -160,22 +162,26 @@ public class Puzzle {
             if (column+1 >= this.height || board[row][column+1] == null){
                 tile.tilesGlued[0] = null; //DOWN
             } else {
-                tile.tilesGlued[0] = board[row][column+1]; //DOWN
+                Tiles tileO = board[row][column+1];
+                tileO.tilesGlued[0] = tile; //DOWN
             }
             if (column-1 < 0 || board[row][column-1] == null){
                 tile.tilesGlued[1] = null; //UP
             } else {
-                tile.tilesGlued[1] = board[row][column-1]; //UP
+                Tiles tileO = board[row][column-1];
+                tileO.tilesGlued[1] = tile; //UP
             }
             if (row+1 >= this.width || board[row+1][column] == null){
                 tile.tilesGlued[2] = null; //RIGHT
             } else {
-                tile.tilesGlued[2] = board[row+1][column]; //RIGHT
+                Tiles tileO = board[row+1][column];
+                tileO.tilesGlued[2] = tile; //RIGHT
             }
             if (row-1 < 0 || board[row-1][column] == null){
                 tile.tilesGlued[3] = null; //LEFT
             } else {
-                tile.tilesGlued[3] = board[row-1][column]; //LEFT
+                Tiles tileO = board[row-1][column];
+                tileO.tilesGlued[3] = tile; //LEFT
             }
         }
         setActualBoard();
@@ -296,9 +302,9 @@ public class Puzzle {
                     if (maxMoveUp(tile) == -1){
                         deleteTile(i,j);
                     } else {
-                        System.out.println(maxMoveUp(tile));
                         int[] from = {tile.getPosY(), tile.getPosX()};
                         int[] to = {tile.getPosY()-maxMoveUp(tile), tile.getPosX()};
+                        System.out.println("From: "+from[0]+","+from[1]+" To: "+to[0]+","+to[1]);
                         relocateTile(from,to);
                     }
                 }
@@ -436,9 +442,9 @@ public class Puzzle {
 
     //- missing do it with the final board
     private void initialPrint(){
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                if (startBoard[i][j] != 'O') {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                if (startBoard[i][j] != '0') {
                     addTile(i,j,String.valueOf(startBoard[i][j]));
                 }
             }
@@ -459,6 +465,8 @@ public class Puzzle {
                 return -1;
             } else if (tileO.getHole() && tile.getGlued()){
                 max++;
+            } else if (tileO.getGlued() || tileO.getTilesGlued().length > 0){
+                return max;
             }
         }
         return max;
@@ -470,7 +478,6 @@ public class Puzzle {
         int posY = tile.getPosY();
 
         for (int column = posX + 1; column < this.width; column++) {
-            System.out.println(posX);
             Tiles tileO = board[posY][column];
             if (tileO == null){
                 max++;
@@ -491,7 +498,7 @@ public class Puzzle {
             Tiles tileO = board[fila][posX];
             if (tileO == null){
                 max++;
-            } else if (tileO.getHole() && !tile.getGlued() ){
+            } else if (tileO.getHole() && !tile.getGlued()){
                 return -1;
             } else if (tileO.getHole() && tile.getGlued()){
                 max++;
@@ -508,13 +515,53 @@ public class Puzzle {
             Tiles tileO = board[fila][posX];
             if (tileO == null){
                 max++;
-            } else if (tileO.getHole() && !tile.getGlued() ){
+            } else if (tileO.getHole() && !tile.getGlued()){
                 return -1;
             } else if (tileO.getHole() && tile.getGlued()){
                 max++;
             }
         }
         return max;
+    }
+
+
+    public int maxMoveGlued (Tiles tile, char direction){
+        int min = 999999999;
+        for (int i = 0; i < 4; i++){
+            if (tile.tilesGlued[i] != null){
+                Tiles tileO = tile.tilesGlued[i];
+                Tiles[] tiles = getNeighbors(tileO);
+                for (Tiles tl : tiles){
+                    min = switch (direction) {
+                        case 'R' -> Math.min(maxMoveRight(tl), min);
+                        case 'L' -> Math.min(maxMoveLeft(tl), min);
+                        case 'U' -> Math.min(maxMoveUp(tl), min);
+                        case 'D' -> Math.min(maxMoveDown(tl), min);
+                        default -> min;
+                    };
+                }
+            }
+        }
+        return min;
+    }
+
+    public Tiles[] getNeighbors(Tiles tile){
+        Tiles[] tiles = new Tiles[4];
+        int posX = tile.getPosX();
+        int posY = tile.getPosY();
+        if (posX+1 < this.width && board[posY][posX+1] != null){
+            tiles[0] = board[posY][posX+1]; //RIGHT
+        }
+        if (posX-1 >= 0 && board[posY][posX-1] != null){
+            tiles[1] = board[posY][posX-1]; //LEFT
+        }
+        if (posY+1 < this.height && board[posY+1][posX] != null){
+            tiles[2] = board[posY+1][posX]; //DOWN
+        }
+        if (posY-1 >= 0 && board[posY-1][posX] != null){
+            tiles[3] = board[posY-1][posX]; //UP
+        }
+        return tiles;
     }
 
 
@@ -526,5 +573,13 @@ public class Puzzle {
 
     public int getMissingSpace() {
         return this.missingSpace;
+    }
+
+    public char[][] getActualBoard() {
+        return actualBoard;
+    }
+
+    public char[][] getActualEnding() {
+        return actualEnding;
     }
 }
