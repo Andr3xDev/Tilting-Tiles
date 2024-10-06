@@ -16,6 +16,8 @@ public class Test {
         //test12();
         //test13();
         test14();
+        //test15();
+        //test16();
     }
 
     public static void test1(){
@@ -111,7 +113,7 @@ public class Test {
         System.out.println("----------------------");
         System.out.println(puzzle.getHeight());
         System.out.println("----------------------");
-        System.out.println(Arrays.deepToString(puzzle.getActualEnding()));
+        System.out.println(Arrays.deepToString(puzzle.getEndingBoard()));
         puzzle.missPlacedTiles();
         //puzzle.tilt('U');
         puzzle.actualArrangemment();
@@ -186,15 +188,21 @@ public class Test {
     }
     public static void test14(){
         PuzzleContest puzzle = new PuzzleContest();
-        //boolean a = puzzle.solve(new char[][]{{'r','r','r'},{'0','r','0'},{'0','0','0'}}, new char[][]{{'r','r','r'},{'0','0','r'},{'0','0','0'}});
-        //System.out.println(a);
-        Puzzle puzzlep = new Puzzle(new char[][]{{'r','r'},{'0','0'},{'0','r'}}, new char[][]{{'r','r'},{'0','r'},{'0','0'}});
-        puzzlep.actualArrangemment();
-        puzzlep.tilt('D');
-        puzzlep.actualArrangemment();
-        puzzlep.tilt('U');
-        //boolean b = puzzlep.isGoal();
-        puzzlep.actualArrangemment();
-        //System.out.println(b);
+        boolean a = puzzle.solve(new char[][]{{'0','r','0','0'},{'r','g','y','b'},{'0','b','0','0'},{'0','y','r','0'}},
+                new char[][]{{'y','r','b','r'},{'0','0','y','r'},{'0','0','0','g'},{'0','0','0','b'}});
+        //boolean b = puzzle.solve(new char[][]{{'0','0','0','0','b','0','0'}},
+        //        new char[][]{{'0','0','b','0','0','0','0'}});
+        System.out.println(a);
+    }
+    public static void test15(){
+        PuzzleContest puzzle = new PuzzleContest();
+        boolean a = puzzle.solve(new char[][]{{'r','r','0','0'},{'r','q','y','b'},{'0','0','0','0'},{'0','0','0','0'}},
+                new char[][]{{'0','0','0','0'},{'0','0','0','0'},{'0','0','r','r'},{'r','q','y','b'}});
+        System.out.println(a);
+    }
+    public static void test16(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.simulate(new char[][]{{'y','r','0'},{'0','0','b'},{'r','y','0'},{'b','0','0'}},
+                new char[][]{{'0','0','0'},{'0','0','b'},{'0','r','y'},{'b','y','b'}});
     }
 }

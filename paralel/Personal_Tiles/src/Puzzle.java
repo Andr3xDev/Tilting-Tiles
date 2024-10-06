@@ -1,4 +1,4 @@
-import java.lang.Math;
+// import java.lang.Math;
 
 /**
  * The initial project aims to develop an application that allows simulating a
@@ -22,7 +22,7 @@ public class Puzzle {
     private int missingSpace;
     private char[][]  actualEnding;
     private char[][] startBoard;
-    private final char[][] actualBoard;
+    private char[][] actualBoard;
 
     //* ------ Constructors ------
 
@@ -278,16 +278,17 @@ public class Puzzle {
     }
 
     private void moveDown() {
-        for (int i = 0; i < this.height; i++) {
+        for (int i = this.height - 1; i >= 0; i--) {
             for (int j = 0; j < this.width; j++) {
                 Tiles tile = board[i][j];
                 if (tile != null && !tile.getHole()) {
-                    if (maxMoveDown(tile) == -1){
-                        deleteTile(i,j);
-                    } else {
+                    int moveSteps = maxMoveDown(tile);
+                    if (moveSteps == -1) {
+                        deleteTile(i, j);
+                    } else if (moveSteps > 0) {
                         int[] from = {tile.getPosY(), tile.getPosX()};
-                        int[] to = {tile.getPosY()+maxMoveDown(tile), tile.getPosX()};
-                        relocateTile(from,to);
+                        int[] to = {tile.getPosY() + moveSteps, tile.getPosX()};
+                        relocateTile(from, to);
                     }
                 }
             }
@@ -295,16 +296,15 @@ public class Puzzle {
     }
 
     private void moveUp() {
-        for (int i = this.height-1; i >= 0; i--) {
+        for (int i = 0; i < height; i++) {
             for (int j = 0;j < width; j++) {
                 Tiles tile = board[i][j];
                 if (tile != null && !tile.getHole()) {
                     if (maxMoveUp(tile) == -1){
                         deleteTile(i,j);
-                    } else {
+                    } else if (maxMoveUp(tile) > 0) {
                         int[] from = {tile.getPosY(), tile.getPosX()};
                         int[] to = {tile.getPosY()-maxMoveUp(tile), tile.getPosX()};
-                        System.out.println("From: "+from[0]+","+from[1]+" To: "+to[0]+","+to[1]);
                         relocateTile(from,to);
                     }
                 }
@@ -323,10 +323,10 @@ public class Puzzle {
         if (actualEnding == null) {
             System.out.println("There is no goal to compare");
         } else {
-            for (int i = 0; i < this.width; i++) {
-                for (int j = 0; j < this.height; j++) {
+            for (int i = 0; i < this.height; i++) {
+                for (int j = 0; j < this.width; j++) {
                     if (actualBoard[i][j] != actualEnding[i][j]) {
-                        System.out.println("The board is not in the goal");
+                        //System.out.println("The board is not in the goal");
                         return false;
                     }
                 }
@@ -406,7 +406,7 @@ public class Puzzle {
      * Function to finish the game. It will make the board invisible and print a message when the goal is complete.
      */
     public void finish() {
-        makeInvisible();
+        //makeInvisible();
         System.out.println("Game was finished");
     }
 
@@ -423,7 +423,7 @@ public class Puzzle {
                 if (board[i][j] != null) {
                     this.actualBoard[i][j] = board[i][j].getName();
                 } else {
-                    this.actualBoard[i][j] = 'O';
+                    this.actualBoard[i][j] = '0';
                 }
             }
         }
@@ -494,7 +494,7 @@ public class Puzzle {
         int max = 0;
         int posY = tile.getPosY();
         int posX = tile.getPosX();
-        for (int fila = posY; fila >= 0; fila--){
+        for (int fila = posY - 1; fila >= 0; fila--){
             Tiles tileO = board[fila][posX];
             if (tileO == null){
                 max++;
@@ -511,7 +511,7 @@ public class Puzzle {
         int max = 0;
         int posY = tile.getPosY();
         int posX = tile.getPosX();
-        for (int fila = posY; fila < this.height; fila++){
+        for (int fila = posY + 1; fila < this.height; fila++){
             Tiles tileO = board[fila][posX];
             if (tileO == null){
                 max++;
@@ -579,7 +579,8 @@ public class Puzzle {
         return actualBoard;
     }
 
-    public char[][] getActualEnding() {
+
+    public char[][] getEndingBoard() {
         return actualEnding;
     }
 }
