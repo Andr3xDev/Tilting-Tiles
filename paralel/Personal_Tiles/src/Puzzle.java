@@ -264,7 +264,7 @@ public class Puzzle {
         for (int i = this.width-1; i >= 0 ; i--) {
             for (int j = 0;j < this.height; j++) {
                 Tiles tile = board[j][i];
-                if (tile != null && !tile.getHole()) {
+                if (tile != null && !tile.getHole() && !tile.getGlued()) {
                     if (maxMoveRight(tile) == -1){
                         deleteTile(j,i);
                     } else {
@@ -272,6 +272,10 @@ public class Puzzle {
                         int[] to = {tile.getPosY(), tile.getPosX()+maxMoveRight(tile)};
                         relocateTile(from,to);
                     }
+                } else if (tile != null && !tile.getHole() && !tile.getGlued()) {
+                    int[] from = {tile.getPosY(), tile.getPosX()};
+                    int[] to = {tile.getPosY(), tile.getPosX()+maxMoveGlued(tile,'R')};
+                    relocateTile(from,to);
                 }
             }
         }
@@ -423,7 +427,7 @@ public class Puzzle {
                 if (board[i][j] != null) {
                     this.actualBoard[i][j] = board[i][j].getName();
                 } else {
-                    this.actualBoard[i][j] = '0';
+                    this.actualBoard[i][j] = '.';
                 }
             }
         }
@@ -444,7 +448,7 @@ public class Puzzle {
     private void initialPrint(){
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
-                if (startBoard[i][j] != '0') {
+                if (startBoard[i][j] != '.') {
                     addTile(i,j,String.valueOf(startBoard[i][j]));
                 }
             }
@@ -452,7 +456,7 @@ public class Puzzle {
     }
 
 
-    public int maxMoveLeft(Tiles tile){
+    private int maxMoveLeft(Tiles tile){
         int max = 0;
         int posX = tile.getPosX();
         int posY = tile.getPosY();
@@ -507,7 +511,8 @@ public class Puzzle {
         return max;
     }
 
-    public int maxMoveDown(Tiles tile){
+
+    private int maxMoveDown(Tiles tile){
         int max = 0;
         int posY = tile.getPosY();
         int posX = tile.getPosX();
@@ -544,6 +549,7 @@ public class Puzzle {
         }
         return min;
     }
+
 
     public Tiles[] getNeighbors(Tiles tile){
         Tiles[] tiles = new Tiles[4];

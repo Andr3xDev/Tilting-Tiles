@@ -39,28 +39,28 @@ public class PuzzleTest {
 
     @Test
     public void shouldCreatePuzzle2(){
-        char[][] finish = new char[][]{{'r','r','r'},{'0','r','0'},{'0','0','0'}};
+        char[][] finish = new char[][]{{'r','r','r'},{'.','r','.'},{'.','.','.'}};
         Puzzle puzzle = new Puzzle(finish);
         assertEquals(puzzle.getHeight(),3);
     }
     @Test //! This test is not working
     public void shouldCreatePuzzle2E(){
-        char[][] finish = new char[][]{{'r',99,'r'},{'0','r','0'},{'0','0','0'}};
+        char[][] finish = new char[][]{{'r',99,'r'},{'.','r','.'},{'.','.','.'}};
         Puzzle puzzle = new Puzzle(finish);
         assertEquals(puzzle.getHeight(),3);
     }
 
     @Test
     public void shouldCreatePuzzle3(){
-        char[][] finish = new char[][]{{'r','r','r'},{'0','r','0'},{'0','0','0'}};
-        char[][] start = new char[][]{{'r','0','0'},{'0','b','0'},{'w','0','0'}};
+        char[][] finish = new char[][]{{'r','r','r'},{'.','r','.'},{'.','.','.'}};
+        char[][] start = new char[][]{{'r','.','.'},{'.','b','.'},{'w','.','.'}};
         Puzzle puzzle = new Puzzle(finish);
         assertEquals(puzzle.getHeight(),3);
     }
     @Test //! This test is not working
     public void shouldCreatePuzzle33(){
-        char[][] finish = new char[][]{{'r','r','r'},{'0','r','0'},{'0','0','0'}};
-        char[][] start = new char[][]{{'r','0','0'},{'0','b','0'},{'w','0','0'}};
+        char[][] finish = new char[][]{{'r','r','r'},{'.','r','.'},{'.','.','.'}};
+        char[][] start = new char[][]{{'r','.','.'},{'.','b','.'},{'w','.','.'}};
         Puzzle puzzle = new Puzzle(finish);
         assertEquals(puzzle.getHeight(),3);
     }
