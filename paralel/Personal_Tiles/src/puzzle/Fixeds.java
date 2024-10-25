@@ -2,7 +2,7 @@
 //
 //import shapes.Rectangle;
 //
-//public class Fixeds extends Tiles{
+//public class Fixed extends Tiles{
 //    private int posX;
 //    private int posY;
 //    private String name;

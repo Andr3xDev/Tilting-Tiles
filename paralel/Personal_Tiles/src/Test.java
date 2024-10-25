@@ -6,16 +6,16 @@ public class Test {
         //test1();
         //test2();
         //test3();
-        //!test4();
+        //test4();
         //test5();
         //test6();
-        test7();
+        //test7();
         //test8();
         //test9();
-        //test10();
-        //test11();
-        //test12();
-        //test13();
+        //!test10();
+        //!test11();
+        test12();
+        //!test13();
         //test14();
         //test15();
         //test16c();
@@ -47,19 +47,14 @@ public class Test {
         puzzle.actualArrangemment();
         puzzle.missPlacedTiles();
     }
-//
-//    public static void test4(){
-//        Puzzle puzzle = new Puzzle(5, 3);
-//        puzzle.addTile(1, 1, "red");
-//        puzzle.addTile(1, 0, "blue");
-//        puzzle.addTile(0, 1, "green");
-//        puzzle.addGlue(1, 1);
-//        Tiles tile = puzzle.board[0][1];
-//        System.out.println(tile.getGlued());
-//        System.out.println(Arrays.toString(tile.getTilesGlued()));
-//        puzzle.deleteGlue(1, 1);
-//        System.out.println(tile.getGlued());
-//    }
+
+    public static void test4(){
+        Puzzle puzzle = new Puzzle(5, 3);
+        puzzle.addTile(1, 1, "red");
+        puzzle.addTile(1, 0, "blue");
+        puzzle.addTile(0, 1, "green");
+        puzzle.addGlue(1, 1);
+    }
     public static void test5(){
         Puzzle puzzle = new Puzzle(4, 4);
         puzzle.addTile(1, 1, "red");
@@ -90,35 +85,35 @@ public class Test {
         puzzle.addTile(3, 3, "green");
         puzzle.actualArrangemment();
         puzzle.makeHole(2,3);
-        puzzle.tilt('L');
+        puzzle.tilt('D');
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }
-//    public static void test8(){
-//        Puzzle puzzle = new Puzzle(4, 4);
-//        puzzle.addTile(0, 0, "red");
-//        puzzle.addTile(2, 2, "blue");
-//        puzzle.addTile(1, 3, "white");
-//        puzzle.addTile(3, 3, "green");
-//        puzzle.actualArrangemment();
-//        //puzzle.makeHole(2,3);
-//        puzzle.tilt('L');
-//        System.out.println("----------------------");
-//        puzzle.actualArrangemment();
-//    }
-//    public static void test9(){
-//        char[][] ending = new char[][]{{'r','r'},{'.','r'},{'.','.'}};
-//        char[][] starting = new char[][]{{'r','.'},{'.','.',},{'.','r'}};
-//        Puzzle puzzle = new Puzzle(starting, ending);
-//        puzzle.actualArrangemment();
-//        System.out.println("----------------------");
-//        System.out.println(puzzle.getHeight());
-//        System.out.println("----------------------");
-//        System.out.println(Arrays.deepToString(puzzle.getEndingBoard()));
-//        puzzle.missPlacedTiles();
-//        //puzzle.tilt('U');
-//        puzzle.actualArrangemment();
-//    }
+    public static void test8(){
+        Puzzle puzzle = new Puzzle(4, 4);
+        puzzle.addTile(0, 0, "red");
+        puzzle.addTile(2, 2, "blue");
+        puzzle.addTile(1, 3, "white");
+        puzzle.addTile(3, 3, "green");
+        puzzle.actualArrangemment();
+        puzzle.makeHole(2,3);
+        puzzle.tilt('R');
+        System.out.println("----------------------");
+        puzzle.actualArrangemment();
+    }
+    public static void test9(){
+        char[][] ending = new char[][]{{'r','r'},{'.','r'},{'.','.'}};
+        char[][] starting = new char[][]{{'r','.'},{'.','.',},{'.','r'}};
+        Puzzle puzzle = new Puzzle(starting, ending);
+        puzzle.actualArrangemment();
+        System.out.println("----------------------");
+        System.out.println(puzzle.getHeight());
+        System.out.println("----------------------");
+        System.out.println(Arrays.deepToString(puzzle.getEndingBoard()));
+        puzzle.missPlacedTiles();
+        puzzle.tilt('U');
+        puzzle.actualArrangemment();
+    }
 //    public static void test10(){
 //        Puzzle puzzle = new Puzzle(3,3);
 //        puzzle.addTile(0,2,"red");
@@ -146,27 +141,27 @@ public class Test {
 //        //puzzle.addGlue(3,0);
 //        Tiles tile = puzzle.board[3][3];
 //        puzzle.makeHole(3,1);
-//        System.out.println(puzzle.maxMoveUp(tile));
+//        System.out.println(tile.maxMoveUp());
 //        System.out.println(tile.getGlued());
 //        System.out.println(Arrays.toString(tile.getTilesGlued()));
 //        //puzzle.tilt('D');
 //    }
-//    public static void test12(){
-//        Puzzle puzzle = new Puzzle(4,3);
-//        puzzle.addTile(0,2,"red");
-//        puzzle.addTile(2,2,"blue");
-//        puzzle.addTile(0,1,"red");
-//        puzzle.addTile(2,0,"orange");
-//        puzzle.addTile(2,3,"green");
-//        puzzle.makeHole(0,0);
-//        puzzle.actualArrangemment();
-//        puzzle.tilt('R');
-//        puzzle.tilt('L');
-//        puzzle.tilt('R');
-//        puzzle.tilt('L');
-//        System.out.println("----------------------");
-//        puzzle.actualArrangemment();
-//    }
+    public static void test12(){
+        Puzzle puzzle = new Puzzle(4,3);
+        puzzle.addTile(0,2,"red");
+        puzzle.addTile(2,2,"blue");
+        puzzle.addTile(0,1,"red");
+        puzzle.addTile(2,0,"orange");
+        puzzle.addTile(2,3,"green");
+        puzzle.makeHole(0,0);
+        puzzle.actualArrangemment();
+        puzzle.tilt('R');
+        puzzle.tilt('L');
+        puzzle.tilt('R');
+        puzzle.tilt('L');
+        System.out.println("----------------------");
+        puzzle.actualArrangemment();
+    }
 //    public static void test13() {
 //        Puzzle puzzle = new Puzzle(4, 4);
 //        puzzle.addTile(0, 3, "red");

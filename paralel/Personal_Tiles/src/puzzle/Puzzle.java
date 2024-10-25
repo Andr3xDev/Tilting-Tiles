@@ -19,7 +19,7 @@ public class Puzzle {
     private final int height;
     private final int width;
     public Tiles[][] board;
-//    public Glues[][] gluesBoard;
+    public Glues[][] gluesBoard;
     public Holes[][] holesBoard;
     private final Rectangle table;
     private int missingSpace;
@@ -39,6 +39,7 @@ public class Puzzle {
         this.width = width;
         this.board = new Tiles[height][width];
         this.holesBoard = new Holes[height][width];
+        this.gluesBoard = new Glues[height][width];
         this.table = new Rectangle();
         this.missingSpace = width*height;
         this.actualBoard = new char[height][width];
@@ -54,8 +55,10 @@ public class Puzzle {
         this.width = ending.length;
         this.height = ending[0].length;
         this.board = new Tiles[height][width];
+        this.holesBoard = new Holes[height][width];
+        this.gluesBoard = new Glues[height][width];
         this.table = new Rectangle();
-        this.missingSpace = width*height;
+        this.missingSpace = this.width*this.height;
         this.actualEnding = ending;
         this.actualBoard = new char[height][width];
         setActualBoard();
@@ -73,6 +76,8 @@ public class Puzzle {
         this.board = new Tiles[height][width];
         this.table = new Rectangle();
         this.missingSpace = start.length*start[0].length;
+        this.holesBoard = new Holes[height][width];
+        this.gluesBoard = new Glues[height][width];
         this.actualEnding = ending;
         this.startBoard = start;
         this.actualBoard = new char[height][width];
@@ -127,39 +132,13 @@ public class Puzzle {
      * @param row It's the row of the tile.
      * @param column It's the column of the tile.
      */
-//    public void addGlue(int row, int column) {
-//        Tiles tile = board[row][column];
-//        if (tile == null || tile.getGlued() || tile.getHole()) {
-//            System.out.println("There is no tile in this position or it have glue already");
-//        } else{
-//            tile.setGlued(true);
-//            if (column+1 >= this.height || board[row][column+1] == null){
-//                tile.tilesGlued[0] = null; //DOWN
-//            } else {
-//                Tiles tileO = board[row][column+1];
-//                tileO.tilesGlued[0] = tile; //DOWN
-//            }
-//            if (column-1 < 0 || board[row][column-1] == null){
-//                tile.tilesGlued[1] = null; //UP
-//            } else {
-//                Tiles tileO = board[row][column-1];
-//                tileO.tilesGlued[1] = tile; //UP
-//            }
-//            if (row+1 >= this.width || board[row+1][column] == null){
-//                tile.tilesGlued[2] = null; //RIGHT
-//            } else {
-//                Tiles tileO = board[row+1][column];
-//                tileO.tilesGlued[2] = tile; //RIGHT
-//            }
-//            if (row-1 < 0 || board[row-1][column] == null){
-//                tile.tilesGlued[3] = null; //LEFT
-//            } else {
-//                Tiles tileO = board[row-1][column];
-//                tileO.tilesGlued[3] = tile; //LEFT
-//            }
-//        }
-//        setActualBoard();
-//    }
+    public void addGlue(int row, int column) {
+        if(holesBoard[row][column] == null && board[row][column] != null) {
+            gluesBoard[row][column] = new Glues(row, column, this);
+        }else{
+            System.out.println("malparida piroba");
+        }
+    }
 
 //    public void deleteGlue(int row, int column) {
 //        Tiles tile = board[row][column];
@@ -182,6 +161,7 @@ public class Puzzle {
             holesBoard[row][column] = tile;
             this.missingSpace--;
         }
+        setActualBoard();
     }
     public void relocateTile(int[] from, int[] to) {
         int row = from[0];
