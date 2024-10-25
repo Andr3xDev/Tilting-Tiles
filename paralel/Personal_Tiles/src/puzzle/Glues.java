@@ -1,4 +1,5 @@
-//package puzzle;
-//
-//public class Glues {
-//}
+package puzzle;
+
+public class Glues {
+    
+}

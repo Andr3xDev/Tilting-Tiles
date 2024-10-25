@@ -45,114 +45,89 @@ public class Tiles {
         makeVisibleCreate();
     }
 
-    private void moveLeft() {
-        int width = this.board.getWidth();
-        int height = this.board.getHeight();
-        for (int i = 0; i < width; i++) {
-            for (int j = 0;j < height; j++) {
-                Tiles tile = this.board.getTile(j,i);
-                if (tile != null) {
-                    if (maxMoveLeft(tile) == -1){
-                        this.board.deleteTile(j,i);
-                    } else {
-                        int[] from = {tile.getPosY(), tile.getPosX()};
-                        int[] to = {tile.getPosY(), tile.getPosX()-maxMoveLeft(tile)};
-                        //relocateTile(from,to);
-                    }
-                }
-            }
+    public void moveLeft() {
+        int moveSteps = maxMoveLeft(this);
+        if (moveSteps == -1) {
+            this.board.deleteTile(posY, posX);
+        } else if (moveSteps > 0) {
+            int[] from = {getPosY(), getPosX()};
+            int[] to = {getPosY(), getPosX() - moveSteps};
+            board.relocateTile(from, to);
         }
     }
-    private void moveRight() {
-        int width = this.board.getWidth();
-        int height = this.board.getHeight();
-
-        for (int i = width-1; i >= 0 ; i--) {
-            for (int j = 0;j < height; j++) {
-                Tiles tile = this.board.getTile(j,i);
-                if (tile != null) {
-                    if (maxMoveRight(tile) == -1){
-                        this.board.deleteTile(j,i);
-                    } else {
-                        int[] from = {tile.getPosY(), tile.getPosX()};
-                        int[] to = {tile.getPosY(), tile.getPosX()+maxMoveRight(tile)};
-                        //relocateTile(from,to);
-                    }
-                }
-            }
+    public void moveRight() {
+        int moveSteps = maxMoveRight(this);
+        if (moveSteps == -1) {
+            this.board.deleteTile(posY, posX);
+        } else if (moveSteps > 0) {
+            int[] from = {getPosY(), getPosX()};
+            int[] to = {getPosY(), getPosX() + moveSteps};
+            board.relocateTile(from, to);
         }
     }
 
-    private void moveDown() {
-        int width = this.board.getWidth();
-        int height = this.board.getHeight();
-        for (int i = height - 1; i >= 0; i--) {
-            for (int j = 0; j < width; j++) {
-                Tiles tile = this.board.getTile(i,j);
-                if (tile != null) {
-                    int moveSteps = maxMoveDown(tile);
-                    if (moveSteps == -1) {
-                        this.board.deleteTile(i, j);
-                    } else if (moveSteps > 0) {
-                        int[] from = {tile.getPosY(), tile.getPosX()};
-                        int[] to = {tile.getPosY() + moveSteps, tile.getPosX()};
-                        //relocateTile(from, to);
-                    }
-                }
-            }
+    public void moveDown() {
+        int moveSteps = maxMoveDown(this);
+        if (moveSteps == -1) {
+            this.board.deleteTile(posY, posX);
+        } else if (moveSteps > 0) {
+            int[] from = {getPosY(), getPosX()};
+            int[] to = {getPosY() + moveSteps,getPosX()};
+            board.relocateTile(from, to);
         }
     }
 
-    private void moveUp() {
-        int width = this.board.getWidth();
-        int height = this.board.getHeight();
-        for (int i = 0; i < height; i++) {
-            for (int j = 0;j < width; j++) {
-                Tiles tile = this.board.getTile(i,j);
-                if (tile != null) {
-                    if (maxMoveUp(tile) == -1){
-                        this.board.deleteTile(i,j);
-                    } else if (maxMoveUp(tile) > 0) {
-                        int[] from = {tile.getPosY(), tile.getPosX()};
-                        int[] to = {tile.getPosY()-maxMoveUp(tile), tile.getPosX()};
-                        //relocateTile(from,to);
-                    }
-                }
-            }
+    public void moveUp() {
+        int moveSteps = maxMoveUp(this);
+        if (moveSteps == -1) {
+            this.board.deleteTile(posY, posX);
+        } else if (moveSteps > 0) {
+            int[] from = {getPosY(), getPosX()};
+            int[] to = {getPosY() - moveSteps,getPosX()};
+            board.relocateTile(from, to);
         }
     }
 
 
-    private int maxMoveLeft(Tiles tile){
+    public int maxMoveLeft(Tiles tile){
         int max = 0;
         for (int column = posX - 1; column >= 0; column--) {
             Tiles tileO = this.board.getTile(posY,column);
-            if (tileO == null){
+            Holes hole = this.board.getHole(posY,column);
+            if (tileO == null && hole == null){
                 max++;
+            } else if (hole != null) {
+                return -1;
             }
         }
         return max;
     }
 
 
-    public int maxMoveRight(Tiles tile){
+    private int maxMoveRight(Tiles tile){
         int max = 0;
         int width = this.board.getWidth();
         for (int column = posX + 1; column < width; column++) {
             Tiles tileO = this.board.getTile(posY,column);
-            if (tileO == null){
+            Holes hole = this.board.getHole(posY,column);
+            if (tileO == null && hole == null){
                 max++;
+            } else if (hole != null) {
+                return -1;
             }
         }
         return max;
     }
 
-    public int maxMoveUp(Tiles tile){
+    private int maxMoveUp(Tiles tile){
         int max = 0;
         for (int fila = posY - 1; fila >= 0; fila--){
             Tiles tileO = this.board.getTile(fila,posX);
-            if (tileO == null){
+            Holes hole = this.board.getHole(fila,posX);
+            if (tileO == null && hole == null){
                 max++;
+            } else if (hole != null) {
+                return -1;
             }
         }
         return max;
@@ -164,8 +139,11 @@ public class Tiles {
         int height = this.board.getHeight();
         for (int fila = posY + 1; fila < height; fila++){
             Tiles tileO = this.board.getTile(fila,posX);
-            if (tileO == null){
+            Holes hole = this.board.getHole(fila,posX);
+            if (tileO == null && hole == null){
                 max++;
+            } else if (hole != null) {
+                return -1;
             }
         }
         return max;
