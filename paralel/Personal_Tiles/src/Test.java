@@ -6,10 +6,10 @@ public class Test {
         //test1();
         //test2();
         //test3();
-        //test4();
-        test5();
+        //!test4();
+        //test5();
         //test6();
-        //test7();
+        test7();
         //test8();
         //test9();
         //test10();
@@ -68,32 +68,32 @@ public class Test {
         int[] from;
         to = new int[]{1,0};
         from = new int[]{1,1};
-        tile.relocateTile(to,from);
+        //tile.relocateTile(to,from);
         tile.relocateTile(from,to);
         puzzle.actualArrangemment();
     }
-//    public static void test6(){
-//        Puzzle puzzle = new Puzzle(4, 4);
-//        puzzle.addTile(1, 1, "red");
-//        puzzle.addTile(1, 2, "blue");
-//        puzzle.actualArrangemment();
-//        puzzle.makeHole(0,0);
-//        puzzle.actualArrangemment();
-//        puzzle.addTile(0,0,"green");
-//    }
-//    public static void test7(){
-//        Puzzle puzzle = new Puzzle(4, 4);
-//        puzzle.addTile(0, 0, "red");
-//        puzzle.addTile(2, 2, "blue");
-//        puzzle.addTile(1, 3, "white");
-//        puzzle.addTile(3, 0, "orange");
-//        puzzle.addTile(3, 3, "green");
-//        puzzle.actualArrangemment();
-//        //puzzle.makeHole(2,3);
-//        puzzle.tilt('D');
-//        System.out.println("----------------------");
-//        puzzle.actualArrangemment();
-//    }
+    public static void test6(){
+        Puzzle puzzle = new Puzzle(4, 4);
+        puzzle.addTile(1, 1, "red");
+        puzzle.addTile(1, 2, "blue");
+        puzzle.actualArrangemment();
+        puzzle.makeHole(0,0);
+        puzzle.actualArrangemment();
+        puzzle.addTile(0,0,"green");
+    }
+    public static void test7(){
+        Puzzle puzzle = new Puzzle(4, 4);
+        puzzle.addTile(0, 0, "red");
+        puzzle.addTile(2, 2, "blue");
+        puzzle.addTile(1, 3, "white");
+        puzzle.addTile(3, 0, "orange");
+        puzzle.addTile(3, 3, "green");
+        puzzle.actualArrangemment();
+        puzzle.makeHole(2,3);
+        puzzle.tilt('L');
+        System.out.println("----------------------");
+        puzzle.actualArrangemment();
+    }
 //    public static void test8(){
 //        Puzzle puzzle = new Puzzle(4, 4);
 //        puzzle.addTile(0, 0, "red");
