@@ -1,11 +1,13 @@
+package shapes;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
 
 /**
- * Canvas is a class to allow for simple graphical drawing on a canvas.
- * This is a modification of the general purpose Canvas, specially made for
+ * shapes.Canvas is a class to allow for simple graphical drawing on a canvas.
+ * This is a modification of the general purpose shapes.Canvas, specially made for
  * the BlueJ "shapes" example.
  *
  * @author: Bruce Quig
@@ -44,8 +46,8 @@ public class Canvas{
     private HashMap <Object,ShapeDescription> shapes;
 
     /**
-     * Create a Canvas.
-     * @param title  title to appear in Canvas Frame
+     * Create a shapes.Canvas.
+     * @param title  title to appear in shapes.Canvas Frame
      * @param width  the desired width for the canvas
      * @param height  the desired height for the canvas
      * @param bgClour  the desired background colour of the canvas
@@ -110,8 +112,8 @@ public class Canvas{
     }
 
     /**
-     * Set the foreground colour of the Canvas.
-     * @param  newColour   the new colour for the foreground of the Canvas
+     * Set the foreground colour of the shapes.Canvas.
+     * @param  newColour   the new colour for the foreground of the shapes.Canvas
      */
     public void setForegroundColor(String colorString){
         if(colorString.equals("red"))
@@ -147,7 +149,7 @@ public class Canvas{
     }
 
     /**
-     * Redraw ell shapes currently on the Canvas.
+     * Redraw ell shapes currently on the shapes.Canvas.
      */
     private void redraw(){
         erase();
@@ -171,7 +173,7 @@ public class Canvas{
 
     /************************************************************************
      * Inner class CanvasPane - the actual canvas component contained in the
-     * Canvas frame. This is essentially a JPanel with added capability to
+     * shapes.Canvas frame. This is essentially a JPanel with added capability to
      * refresh the image drawn on it.
      */
     private class CanvasPane extends JPanel{
@@ -182,7 +184,7 @@ public class Canvas{
 
     /************************************************************************
      * Inner class CanvasPane - the actual canvas component contained in the
-     * Canvas frame. This is essentially a JPanel with added capability to
+     * shapes.Canvas frame. This is essentially a JPanel with added capability to
      * refresh the image drawn on it.
      */
     private class ShapeDescription{
