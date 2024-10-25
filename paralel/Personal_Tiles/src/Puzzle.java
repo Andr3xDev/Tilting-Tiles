@@ -264,7 +264,7 @@ public class Puzzle {
         for (int i = this.width-1; i >= 0 ; i--) {
             for (int j = 0;j < this.height; j++) {
                 Tiles tile = board[j][i];
-                if (tile != null && !tile.getHole() && !tile.getGlued()) {
+                if (tile != null && !tile.getHole()) {
                     if (maxMoveRight(tile) == -1){
                         deleteTile(j,i);
                     } else {
@@ -272,10 +272,6 @@ public class Puzzle {
                         int[] to = {tile.getPosY(), tile.getPosX()+maxMoveRight(tile)};
                         relocateTile(from,to);
                     }
-                } else if (tile != null && !tile.getHole() && !tile.getGlued()) {
-                    int[] from = {tile.getPosY(), tile.getPosX()};
-                    int[] to = {tile.getPosY(), tile.getPosX()+maxMoveGlued(tile,'R')};
-                    relocateTile(from,to);
                 }
             }
         }
@@ -585,8 +581,11 @@ public class Puzzle {
         return actualBoard;
     }
 
-
     public char[][] getEndingBoard() {
         return actualEnding;
+    }
+
+    public void setBoard(char[][] original){
+        this.actualBoard=original;
     }
 }

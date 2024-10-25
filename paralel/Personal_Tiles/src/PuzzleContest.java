@@ -1,89 +1,74 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PuzzleContest{
+public class PuzzleContest {
     //* Attributes
-    private ArrayList<Character> moves;
-    private ArrayList<ArrayList> solutions;
+    private ArrayList<Character> finalMove;
+
     //* Methods
     public boolean solve(char[][] start, char[][] ending) {
-        this.moves = new ArrayList<>();
-        solutions = new ArrayList<>();
-        Puzzle puzzle = new Puzzle(start, ending);
-        System.out.println(puzzle.getEndingBoard());
-        solutions.add(solutions(puzzle, new ArrayList<String>(), new ArrayList<Character>()));
-        System.out.println(this.solutions);
-        return !this.moves.isEmpty();
+        this.finalMove = new ArrayList<>();
+        ArrayList<String> memory = new ArrayList<>();
+        ArrayList<Character> moves = new ArrayList<>();
+        solutions(start, ending, memory, moves);
+        System.out.println("Movimientos mínimos: " + this.finalMove);
+        return !this.finalMove.isEmpty();
     }
-
-    public void simulate(char[][] start, char[][] ending) {
-        Puzzle puzzle = new Puzzle(start, ending);
-        ArrayList<Character> solution = solutions(puzzle, new ArrayList<String>(), new ArrayList<Character>());
-        if (solution != null) {
-            for (Object character : solution) {
-                System.out.println(character);
-            }
-        } else {
-            System.out.println("No solution found");
-        }
-    }
-
-
 
     //* Private Methods
+    private void solutions(char[][] start, char[][] ending, ArrayList<String> memory, ArrayList<Character> moves) {
+        Puzzle puzzle = new Puzzle(start, ending);
 
-    private ArrayList<Character> solutions(Puzzle puzzle, ArrayList<String> memory, ArrayList<Character> moves) {
-        if (Arrays.deepToString(puzzle.getActualBoard()).equals(Arrays.deepToString(puzzle.getEndingBoard()))) {
-            System.out.println(Arrays.deepToString(puzzle.getActualBoard()));
-            return moves;
+        if (sameBoard(start, ending)) {
+            if (this.finalMove.isEmpty() || moves.size() < this.finalMove.size()) {
+                System.out.println(moves);
+                this.finalMove = new ArrayList<>(moves);
+            }
+            return;
         }
 
-        if (memory.contains(Arrays.deepToString(puzzle.getActualBoard()))) {
-            return null;
+        String currentBoardState = Arrays.deepToString(puzzle.getActualBoard());
+        if (memory.contains(currentBoardState)) {
+            return;
         }
 
-        memory.add(Arrays.deepToString(puzzle.getActualBoard()));
+        memory.add(currentBoardState);
 
-        ArrayList<Character> solutionR = solutions(rotate(puzzle, 'R'), new ArrayList<>(memory), addMove(new ArrayList<>(moves), 'R'));
-        if (solutionR != null && solutionR.size() > this.moves.size()) {
-            this.moves = solutionR;
-        }
+        char[][] originalBoard = puzzle.getActualBoard();
 
-        ArrayList<Character> solutionL = solutions(rotate(puzzle, 'L'), new ArrayList<>(memory), addMove(new ArrayList<>(moves), 'L'));
-        if (solutionL != null && solutionL.size() > this.moves.size()) {
-            this.moves = solutionL;
-        }
+        puzzle.tilt('U');
+        moves.add('U');
+        solutions(puzzle.getActualBoard(), ending, memory, moves);
+        moves.remove(moves.size() - 1);
+        puzzle.setBoard(originalBoard);
 
-        ArrayList<Character> solutionU = solutions(rotate(puzzle, 'U'), new ArrayList<>(memory), addMove(new ArrayList<>(moves), 'U'));
-        if (solutionU != null && solutionU.size() > this.moves.size()) {
-            this.moves = solutionU;
-        }
+        puzzle.tilt('D');
+        moves.add('D');
+        solutions(puzzle.getActualBoard(), ending, memory, moves);
+        moves.remove(moves.size() - 1);
+        puzzle.setBoard(originalBoard);
 
-        ArrayList<Character> solutionD = solutions(rotate(puzzle, 'D'), new ArrayList<>(memory), addMove(new ArrayList<>(moves), 'D'));
-        if (solutionD != null && solutionD.size() > this.moves.size()) {
-            this.moves = solutionD;
-        }
+        puzzle.tilt('L');
+        moves.add('L');
+        solutions(puzzle.getActualBoard(), ending, memory, moves);
+        moves.remove(moves.size() - 1);
+        puzzle.setBoard(originalBoard);
 
-        if (!this.moves.isEmpty()) {
-            return this.moves;
-        } else {
-            return null;
-        }
+        puzzle.tilt('R');
+        moves.add('R');
+        solutions(puzzle.getActualBoard(), ending, memory, moves);
+        moves.remove(moves.size() - 1);
+        puzzle.setBoard(originalBoard);
     }
 
-    private Puzzle rotate(Puzzle puzzle, char direction) {
-        puzzle.tilt(direction);
-        return puzzle;
-    }
-
-    private ArrayList<String> addMemory(Puzzle puzzle, ArrayList<String> memory, char direction) {
-        puzzle.tilt(direction);
-        memory.add(Arrays.deepToString(puzzle.getActualBoard()));
-        return memory;
-    }
-
-    private ArrayList<Character> addMove(ArrayList<Character> moves, char direction) {
-        moves.add(direction);
-        return moves;
+    private boolean sameBoard(char[][] board1, char[][] board2) {
+        for (int i = 0; i < board1.length; i++) {
+            for (int j = 0; j < board1[0].length; j++) {
+                if (board1[i][j] != board2[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

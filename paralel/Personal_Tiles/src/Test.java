@@ -16,9 +16,9 @@ public class Test {
         //test12();
         //test13();
         //test14();
-        //test15();
-        //test16();
-        test17();
+        test15();
+        //test16c();
+        //test17();
     }
 
     public static void test1(){
@@ -102,7 +102,7 @@ public class Test {
         puzzle.addTile(3, 3, "green");
         puzzle.actualArrangemment();
         //puzzle.makeHole(2,3);
-        puzzle.tilt('D');
+        puzzle.tilt('L');
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }
@@ -168,17 +168,17 @@ public class Test {
         puzzle.actualArrangemment();
     }
     public static void test13() {
-        Puzzle puzzle = new Puzzle(6, 3);
-        puzzle.addTile(1, 2, "red");
-        puzzle.addTile(1, 1, "blue");
-        puzzle.addTile(1, 5, "blue");
-        puzzle.addTile(1, 0, "purple");
-        puzzle.addTile(0, 1, "green");
-        puzzle.addTile(2, 1, "white");
-        puzzle.addTile(2, 4, "red");
-        puzzle.addTile(0, 0, "pink");
-        puzzle.addGlue(1, 1);
-        Tiles tile = puzzle.board[1][2];
+        Puzzle puzzle = new Puzzle(4, 4);
+        puzzle.addTile(0, 3, "red");
+        puzzle.addTile(0, 2, "blue");
+        puzzle.addTile(1, 0, "white");
+        puzzle.addTile(0, 0, "purple");
+        //puzzle.addTile(0, 1, "green");
+        //puzzle.addTile(2, 1, "white");
+        //puzzle.addTile(2, 4, "red");
+        //puzzle.addTile(0, 0, "pink");
+        puzzle.addGlue(0, 0);
+        Tiles tile = puzzle.board[0][0];
         System.out.println(puzzle.maxMoveRight(tile));
         //System.out.println(tile.getGlued());
         System.out.println(Arrays.toString(tile.getTilesGlued()));
@@ -187,12 +187,10 @@ public class Test {
         //puzzle.tilt('R');
     }
     public static void test14(){
-        PuzzleContest puzzle = new PuzzleContest();
-        boolean a = puzzle.solve(new char[][]{{'.','r','.','.'},{'r','g','y','b'},{'.','b','.','.'},{'.','y','r','.'}},
-                new char[][]{{'y','r','b','r'},{'.','.','.','.'},{'.','.','.','g'},{'.','.','.','b'}});
-        //boolean b = puzzle.solve(new char[][]{{'.','.','.','.','b','.','.'}},
-        //        new char[][]{{'.','.','b','.','.','.','.'}});
-        System.out.println(a);
+        PuzzleContest puzzle2 = new PuzzleContest();
+        boolean b = puzzle2.solve(new char[][]{{'.','.','.','.','b','.','.'}},
+                new char[][]{{'.','.','b','.','.','.','.'}});
+        System.out.println(b);
     }
     public static void test15(){
         PuzzleContest puzzle = new PuzzleContest();
@@ -202,9 +200,25 @@ public class Test {
     }
     public static void test16(){
         PuzzleContest puzzle = new PuzzleContest();
-        puzzle.simulate(new char[][]{{'y','r','.'},{'.','.','b'},{'r','y','.'},{'b','.','.'}},
-                new char[][]{{'.','.','.'},{'.','.','b'},{'.','r','y'},{'b','y','b'}});
+        puzzle.solve(new char[][]{{'.','r','b'},{'.','.','b'},{'.','y','.'},{'b','.','.'}},
+                new char[][]{{'.','.','.'},{'.','.','.'},{'.','r','b'},{'b','y','b'}});
     }
+    public static void test16b(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.solve(new char[][]{{'.','.','b'},{'.','.','.'},{'.','.','.'},{'.','.','.'}},
+                new char[][]{{'.','.','.'},{'.','.','.'},{'.','.','.'},{'b','.','.'}});
+    }
+    public static void test16c(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.solve(new char[][]{{'b','r','.','.'},{'r','g','y','b'},{'y','b','.','.'},{'.','.','.','y'}},
+                new char[][]{{'.','.','.','.'},{'y','b','.','.'},{'r','g','.','.'},{'y','b','b','r'}});
+    }
+    public static void test16d(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.solve(new char[][]{{'.','r','.','.'},{'r','g','y','b'},{'.','b','.','.'},{'.','y','r','.'}},
+                new char[][]{{'y','r','b','r'},{'.','.','y','r'},{'.','.','.','g'},{'.','.','.','b'}});
+    }
+
     public static void test17(){
         Puzzle puzzle = new Puzzle(4, 4);
         puzzle.addTile(0, 3, "red");
