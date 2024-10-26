@@ -2,17 +2,21 @@ package puzzle;
 import shapes.Rectangle;
 
 public class Rough extends Tiles{
+    private Rectangle tile;
+    private int row;
+    private int column;
 
     public Rough(int posX, int posY, String color, Puzzle board) {
         super(posX, posY, color, board);
-        Rectangle tile = new Rectangle();
+        tile = new Rectangle();
         makeVisibleCreate();
     }
+    @Override
     public void makeVisibleCreate() {
         tile.changeColor(this.getColor());
         tile.changeSize(20, 20);
-        tile.moveHorizontal(posX * 23);
-        tile.moveVertical(posY * 23);
+        tile.moveHorizontal(column * 23);
+        tile.moveVertical(row * 23);
         tile.makeVisible();
     }
     public void makeVisible() {
@@ -23,22 +27,22 @@ public class Rough extends Tiles{
     }
 
     @Override
-    protected void moveLeft() {
-        System.out.println("Nonas");
+    protected void moveLeft() throws puzzleExceptions {
+        throw new puzzleExceptions(puzzleExceptions.ROUGH_EXCEPTION);
     }
 
     @Override
-    protected void moveRight() {
-        System.out.println("Nonas");
+    protected void moveRight() throws puzzleExceptions {
+        throw new puzzleExceptions(puzzleExceptions.ROUGH_EXCEPTION);
     }
 
     @Override
-    protected void moveDown() {
-        System.out.println("Nonas");
+    protected void moveDown() throws puzzleExceptions {
+        throw new puzzleExceptions(puzzleExceptions.ROUGH_EXCEPTION);
     }
 
     @Override
-    protected void moveUp() {
-        System.out.println("Nonas");
+    protected void moveUp() throws puzzleExceptions {
+        throw new puzzleExceptions(puzzleExceptions.ROUGH_EXCEPTION);
     }
 }

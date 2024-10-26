@@ -94,9 +94,9 @@ public class Puzzle {
      * @param column Set the column of the tile.
      * @param color Set the color and name of the tile.
      */
-    public void addTile(int row, int column, String color) {
+    public void addTile(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Tiles tile = new Tiles(column,row,color,this);
             board[row][column] = tile;
@@ -104,9 +104,9 @@ public class Puzzle {
         }
         setActualBoard();
     }
-    public void addFreelance(int row, int column, String color) {
+    public void addFreelance(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Freelance tile = new Freelance(column,row,color,this);
             board[row][column] = tile;
@@ -114,9 +114,9 @@ public class Puzzle {
         }
         setActualBoard();
     }
-    public void addRough(int row, int column, String color) {
+    public void addRough(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Rough tile = new Rough(column,row,color,this);
             board[row][column] = tile;
@@ -124,11 +124,9 @@ public class Puzzle {
         }
         setActualBoard();
     }
-    public void addFlying(int row, int column, String color) {
+    public void addFlying(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null ){
-            System.out.println(row);
-            System.out.println(column);
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Flying tile = new Flying(column,row,color,this);
             board[row][column] = tile;
@@ -136,9 +134,9 @@ public class Puzzle {
         }
         setActualBoard();
     }
-    public void addFixed(int row, int column, String color) {
+    public void addFixed(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Fixed tile = new Fixed(column,row,color,this);
             board[row][column] = tile;
@@ -174,11 +172,11 @@ public class Puzzle {
      * @param row It's the row of the tile.
      * @param column It's the column of the tile.
      */
-    public void addGlue(int row, int column) {
+    public void addGlue(int row, int column) throws puzzleExceptions{
         if(holesBoard[row][column] == null && board[row][column] != null) {
             gluesBoard[row][column] = new Glues(row, column, this);
         }else{
-            System.out.println("malparida piroba");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         }
     }
 
@@ -195,9 +193,9 @@ public class Puzzle {
 //        }
 //    }
 
-    public void makeHole(int row, int column) {
+    public void makeHole(int row, int column) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Holes tile = new Holes(column, row,this);
             holesBoard[row][column] = tile;
@@ -231,7 +229,11 @@ public class Puzzle {
             for (int j = 0; j < this.height; j++) {
                 Tiles tile = board[j][i];
                 if (tile != null) {
-                    tile.moveRight();
+                    try {
+                        tile.moveRight();
+                    } catch (puzzleExceptions e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }
@@ -241,8 +243,11 @@ public class Puzzle {
             for (int j = 0; j < this.height; j++) {
                 Tiles tile = board[j][i];
                 if (tile != null) {
-                    tile.moveLeft();
-                    }
+                    try {
+                        tile.moveLeft();
+                    } catch (puzzleExceptions e) {
+                        System.out.println(e.getMessage());
+                    }                    }
                 }
             }
         }
@@ -251,7 +256,11 @@ public class Puzzle {
             for (int j = 0; j < this.width; j++) {
                 Tiles tile = getTile(i,j);
                 if (tile != null){
-                    tile.moveDown();
+                    try {
+                        tile.moveDown();
+                    } catch (puzzleExceptions e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }
@@ -261,7 +270,11 @@ public class Puzzle {
             for (int j = 0; j < width; j++) {
                 Tiles tile = board[i][j];
                 if (tile != null) {
-                    tile.moveUp();
+                    try {
+                        tile.moveUp();
+                    } catch (puzzleExceptions e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }

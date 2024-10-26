@@ -45,46 +45,62 @@ public class Tiles {
         makeVisibleCreate();
     }
 
-    protected void moveLeft() {
+    protected void moveLeft() throws puzzleExceptions {
         int moveSteps = maxMoveLeft();
         if (moveSteps == -1) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() - moveSteps};
-            relocateTile(from, to);
+            try {
+                relocateTile(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
-    protected void moveRight() {
+    protected void moveRight() throws puzzleExceptions {
         int moveSteps = maxMoveRight();
         if (moveSteps == -1) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() + moveSteps};
-            relocateTile(from, to);
+            try {
+                relocateTile(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
-    protected void moveDown() {
+    protected void moveDown() throws puzzleExceptions {
         int moveSteps = maxMoveDown();
         if (moveSteps == -1) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() + moveSteps,getPosX()};
-            relocateTile(from, to);
+            try {
+                relocateTile(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
-    protected void moveUp() {
+    protected void moveUp() throws puzzleExceptions {
         int moveSteps = maxMoveUp();
         if (moveSteps == -1) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() - moveSteps,getPosX()};
-            relocateTile(from, to);
+            try {
+                relocateTile(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -149,20 +165,20 @@ public class Tiles {
         return max;
     }
 
-    public void relocateTile(int[] from, int[] to) {
+    public void relocateTile(int[] from, int[] to) throws puzzleExceptions{
         int row = from[0];
         int column = from[1];
         int newRow = to[0];
         int newColumn = to[1];
         if (row >= this.board.getHeight() || column >= this.board.getWidth() || row < 0 || column < 0 ){
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         }
         if (newRow >= this.board.getHeight() || newColumn >= this.board.getWidth() || newRow < 0 || newColumn < 0 ){
-            System.out.println("Row or column objective not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_MOVE);
         }
         Tiles tile = this.board.getTile(row,column);
         if (tile == null) {
-            System.out.println("Tile or position no valid to move");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_TILE);
         } else{
             tile.setPosX(newColumn);
             tile.setPosY(newRow);
@@ -176,16 +192,32 @@ public class Tiles {
         Tiles tile = this.board.getTile(row, column);
         if (tile instanceof Flying){
             board.deleteTile(row,column);
-            board.addFlying(newRow,newColumn,name);
+            try {
+                board.addFlying(newRow,newColumn,name);
+            } catch (puzzleExceptions e) {
+                throw new RuntimeException(e);
+            }
         } else if (tile instanceof Rough) {
             board.deleteTile(row,column);
-            board.addRough(newRow,newColumn,name);
+            try {
+                board.addRough(newRow,newColumn,name);
+            } catch (puzzleExceptions e) {
+                throw new RuntimeException(e);
+            }
         }else if (tile instanceof Freelance) {
             board.deleteTile(row,column);
-            board.addFreelance(newRow,newColumn,name);
+            try {
+                board.addFreelance(newRow,newColumn,name);
+            } catch (puzzleExceptions e) {
+                throw new RuntimeException(e);
+            }
         } else {
             board.deleteTile(row,column);
-            board.addTile(newRow,newColumn,name);
+            try {
+                board.addTile(newRow,newColumn,name);
+            } catch (puzzleExceptions e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

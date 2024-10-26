@@ -2,7 +2,8 @@ package puzzle;
 import shapes.Rectangle;
 
 public class Fixed extends Tiles{
-    private boolean visible;
+    private int row;
+    private int column;
 
 
     public Fixed(int posX, int posY, String color, Puzzle board) {
@@ -12,32 +13,32 @@ public class Fixed extends Tiles{
     }
 
 
+    @Override
     public void makeVisibleCreate() {
         tile.changeColor(this.getColor());
         tile.changeSize(20, 20);
-        tile.moveHorizontal(posX * 23);
-        tile.moveVertical(posY * 23);
+        tile.moveHorizontal(column * 23);
+        tile.moveVertical(row * 23);
         tile.makeVisible();
     }
+    @Override
+    public void relocateTile(int[] from, int[] to) throws puzzleExceptions{
+        throw new puzzleExceptions(puzzleExceptions.FIXED_EXCEPTION);    }
 
-    public void relocateTile(int[] from, int[] to) {
-        System.out.println("You can't move a fixed tile");
-    }
-
-    private void relocate(int[] from, int[] to) {
+    private void relocate(int[] from, int[] to) throws puzzleExceptions{
         int row = from[0];
         int column = from[1];
         int newRow = to[0];
         int newColumn = to[1];
         if (row >= this.board.getHeight() || column >= this.board.getWidth() || row < 0 || column < 0 ){
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         }
         if (newRow >= this.board.getHeight() || newColumn >= this.board.getWidth() || newRow < 0 || newColumn < 0 ){
-            System.out.println("Row or column objective not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_MOVE);
         }
         Tiles tile = this.board.getTile(row,column);
         if (tile == null) {
-            System.out.println("Tile or position no valid to move");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_TILE);
         } else{
             tile.setPosX(newColumn);
             tile.setPosY(newRow);
@@ -56,7 +57,11 @@ public class Fixed extends Tiles{
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() - moveSteps};
-            this.relocate(from, to);
+            try {
+                relocate(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -68,7 +73,11 @@ public class Fixed extends Tiles{
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() + moveSteps};
-            this.relocate(from, to);
+            try {
+                relocate(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -80,7 +89,11 @@ public class Fixed extends Tiles{
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() + moveSteps,getPosX()};
-            this.relocate(from, to);
+            try {
+                relocate(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -92,7 +105,11 @@ public class Fixed extends Tiles{
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() - moveSteps,getPosX()};
-            this.relocate(from, to);
+            try {
+                relocate(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
