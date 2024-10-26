@@ -57,14 +57,15 @@ public class Test {
     }
     public static void test5(){
         Puzzle puzzle = new Puzzle(4, 4);
-        puzzle.addTile(1, 1, "red");
+        puzzle.addFlying(1, 1, "red");
         Tiles tile = puzzle.getTile(1,1);
         int[] to;
         int[] from;
-        to = new int[]{1,0};
+        to = new int[]{0,0};
         from = new int[]{1,1};
-        //tile.relocateTile(to,from);
         tile.relocateTile(from,to);
+        puzzle.tilt('D');
+        tile.makeInvisible();
         puzzle.actualArrangemment();
     }
     public static void test6(){
@@ -148,9 +149,9 @@ public class Test {
 //    }
     public static void test12(){
         Puzzle puzzle = new Puzzle(4,3);
-        puzzle.addTile(0,2,"red");
+        puzzle.addFlying(0,2,"red");
         puzzle.addTile(2,2,"blue");
-        puzzle.addTile(0,1,"red");
+        puzzle.addFlying(0,1,"red");
         puzzle.addTile(2,0,"orange");
         puzzle.addTile(2,3,"green");
         puzzle.makeHole(0,0);
@@ -159,6 +160,7 @@ public class Test {
         puzzle.tilt('L');
         puzzle.tilt('R');
         puzzle.tilt('L');
+        puzzle.tilt('R');
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }

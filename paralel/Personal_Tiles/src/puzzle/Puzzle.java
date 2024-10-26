@@ -104,6 +104,48 @@ public class Puzzle {
         }
         setActualBoard();
     }
+    public void addFreelance(int row, int column, String color) {
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
+            System.out.println("Row or column not valid");
+        } else {
+            Freelance tile = new Freelance(column,row,color,this);
+            board[row][column] = tile;
+            this.missingSpace--;
+        }
+        setActualBoard();
+    }
+    public void addRough(int row, int column, String color) {
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
+            System.out.println("Row or column not valid");
+        } else {
+            Rough tile = new Rough(column,row,color,this);
+            board[row][column] = tile;
+            this.missingSpace--;
+        }
+        setActualBoard();
+    }
+    public void addFlying(int row, int column, String color) {
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null ){
+            System.out.println(row);
+            System.out.println(column);
+            System.out.println("Row or column not valid");
+        } else {
+            Flying tile = new Flying(column,row,color,this);
+            board[row][column] = tile;
+            this.missingSpace--;
+        }
+        setActualBoard();
+    }
+    public void addFixed(int row, int column, String color) {
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
+            System.out.println("Row or column not valid");
+        } else {
+            Fixed tile = new Fixed(column,row,color,this);
+            board[row][column] = tile;
+            this.missingSpace--;
+        }
+        setActualBoard();
+    }
 
     /**
      * Function to delete tiles from the board, it checks if the position is valid and if there is a tile.
@@ -114,7 +156,7 @@ public class Puzzle {
         if (row >= this.height || column >= this.width || row < 0 || column < 0 ){
             System.out.println("Row or column not valid");
         } else {
-            Tiles tile = board[row][column];
+            Tiles tile = getTile(row,column);
             if (tile == null) {
                 System.out.println("There is not valid tile in this position");
             }else {
@@ -163,34 +205,6 @@ public class Puzzle {
         }
         setActualBoard();
     }
-    public void relocateTile(int[] from, int[] to) {
-        int row = from[0];
-        int column = from[1];
-        int newRow = to[0];
-        int newColumn = to[1];
-        if (row >= this.height || column >= this.width || row < 0 || column < 0 ){
-            System.out.println("Row or column not valid");
-            System.out.println(row);
-            System.out.println(column);
-        }
-        if (newRow >= this.height || newColumn >= this.width || newRow < 0 || newColumn < 0 ){
-            System.out.println("Row or column objective not valid");
-            System.out.println(newRow);
-            System.out.println(newColumn);
-        }
-        Tiles tile = board[row][column];
-        if (tile == null) {
-            System.out.println("Tile or position no valid to move");
-        } else{
-            tile.setPosX(newColumn);
-            tile.setPosY(newRow);
-            String name = tile.getColor();
-            deleteTile(row,column);
-            addTile(newRow,newColumn,name);
-        }
-        setActualBoard();
-    }
-
     /**
      * Function to tilt the board in a direction. It will move all the tiles to the direction selected.
      * If a hole it's in the way, the tiles will fall/eliminate.
@@ -235,7 +249,7 @@ public class Puzzle {
     private void moveDown(){
         for (int i = this.height - 1; i >= 0; i--) {
             for (int j = 0; j < this.width; j++) {
-                Tiles tile = board[i][j];
+                Tiles tile = getTile(i,j);
                 if (tile != null){
                     tile.moveDown();
                 }
@@ -338,7 +352,7 @@ public class Puzzle {
     /**
      * Function to set the actual arrangement of the board. it represents the internal arrangement of the board.
      */
-    void setActualBoard() {
+    public void setActualBoard() {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
                 if (board[i][j] != null) {
@@ -397,26 +411,6 @@ public class Puzzle {
 //    }
 
 
-    public Tiles[] getNeighbors(Tiles tile){
-        Tiles[] tiles = new Tiles[4];
-        int posX = tile.getPosX();
-        int posY = tile.getPosY();
-        if (posX+1 < this.width && board[posY][posX+1] != null){
-            tiles[0] = board[posY][posX+1]; //RIGHT
-        }
-        if (posX-1 >= 0 && board[posY][posX-1] != null){
-            tiles[1] = board[posY][posX-1]; //LEFT
-        }
-        if (posY+1 < this.height && board[posY+1][posX] != null){
-            tiles[2] = board[posY+1][posX]; //DOWN
-        }
-        if (posY-1 >= 0 && board[posY-1][posX] != null){
-            tiles[3] = board[posY-1][posX]; //UP
-        }
-        return tiles;
-    }
-
-
     //* ------ Getters and Setters ------
 
     public int getHeight() {
@@ -448,5 +442,13 @@ public class Puzzle {
     }
     public Holes getHole(int row, int column){
         return holesBoard[row][column];
+    }
+
+    public void setMissingSpace(int space) {
+        if (space == 1){
+            this.missingSpace++;
+        } else {
+            this.missingSpace--;
+        }
     }
 }

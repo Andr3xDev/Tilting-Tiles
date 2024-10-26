@@ -23,8 +23,8 @@ public class Tiles {
     protected int posY;
     private String name;
     private String color;
-    private final Rectangle tile;
-    private final Puzzle board;
+    protected Rectangle tile ;
+    protected final Puzzle board;
     private boolean visible;
 
     /**
@@ -45,51 +45,51 @@ public class Tiles {
         makeVisibleCreate();
     }
 
-    public void moveLeft() {
-        int moveSteps = maxMoveLeft(this);
+    protected void moveLeft() {
+        int moveSteps = maxMoveLeft();
         if (moveSteps == -1) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() - moveSteps};
-            board.relocateTile(from, to);
+            relocateTile(from, to);
         }
     }
-    public void moveRight() {
-        int moveSteps = maxMoveRight(this);
+    protected void moveRight() {
+        int moveSteps = maxMoveRight();
         if (moveSteps == -1) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() + moveSteps};
-            board.relocateTile(from, to);
+            relocateTile(from, to);
         }
     }
 
-    public void moveDown() {
-        int moveSteps = maxMoveDown(this);
+    protected void moveDown() {
+        int moveSteps = maxMoveDown();
         if (moveSteps == -1) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() + moveSteps,getPosX()};
-            board.relocateTile(from, to);
+            relocateTile(from, to);
         }
     }
 
-    public void moveUp() {
-        int moveSteps = maxMoveUp(this);
+    protected void moveUp() {
+        int moveSteps = maxMoveUp();
         if (moveSteps == -1) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() - moveSteps,getPosX()};
-            board.relocateTile(from, to);
+            relocateTile(from, to);
         }
     }
 
 
-    public int maxMoveLeft(Tiles tile){
+    protected int maxMoveLeft(){
         int max = 0;
         for (int column = posX - 1; column >= 0; column--) {
             Tiles tileO = this.board.getTile(posY,column);
@@ -104,7 +104,7 @@ public class Tiles {
     }
 
 
-    private int maxMoveRight(Tiles tile){
+    protected int maxMoveRight(){
         int max = 0;
         int width = this.board.getWidth();
         for (int column = posX + 1; column < width; column++) {
@@ -119,7 +119,7 @@ public class Tiles {
         return max;
     }
 
-    private int maxMoveUp(Tiles tile){
+    protected int maxMoveUp(){
         int max = 0;
         for (int fila = posY - 1; fila >= 0; fila--){
             Tiles tileO = this.board.getTile(fila,posX);
@@ -134,7 +134,7 @@ public class Tiles {
     }
 
 
-    private int maxMoveDown(Tiles tile){
+    protected int maxMoveDown(){
         int max = 0;
         int height = this.board.getHeight();
         for (int fila = posY + 1; fila < height; fila++){
@@ -167,12 +167,27 @@ public class Tiles {
             tile.setPosX(newColumn);
             tile.setPosY(newRow);
             String name = tile.getColor();
-            board.deleteTile(row,column);
-            board.addTile(newRow,newColumn,name);
+            decideTile(row,column,newRow,newColumn,name);
         }
         board.setActualBoard();
     }
 
+    private void decideTile(int row,int column,int newRow,int newColumn,String name){
+        Tiles tile = this.board.getTile(row, column);
+        if (tile instanceof Flying){
+            board.deleteTile(row,column);
+            board.addFlying(newRow,newColumn,name);
+        } else if (tile instanceof Rough) {
+            board.deleteTile(row,column);
+            board.addRough(newRow,newColumn,name);
+        }else if (tile instanceof Freelance) {
+            board.deleteTile(row,column);
+            board.addFreelance(newRow,newColumn,name);
+        } else {
+            board.deleteTile(row,column);
+            board.addTile(newRow,newColumn,name);
+        }
+    }
 
     /**
      * Function to make visible the tiles. It's a help function to make invisible the board.
