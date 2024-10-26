@@ -7,14 +7,14 @@ public class Test {
         //test2();
         //test3();
         //test4();
-        //test5();
+        test5();
         //test6();
         //test7();
         //test8();
         //test9();
         //!test10();
         //!test11();
-        test12();
+        //test12();
         //!test13();
         //test14();
         //test15();
@@ -22,12 +22,12 @@ public class Test {
         //test17();
     }
 
-    public static void test1(){
+    public static void test1() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
         puzzle.addTile(0, 0, "red");
         puzzle.addTile(3, 3, "blue");
     }
-    public static void test2(){
+    public static void test2() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(5, 5);
         puzzle.addTile(0, 2, "red");
         puzzle.addTile(1, 2, "blue");
@@ -37,7 +37,7 @@ public class Test {
         puzzle.actualArrangemment();
         puzzle.missPlacedTiles();
     }
-    public static void test3(){
+    public static void test3() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(3, 3);
         puzzle.addTile(0, 2, "red");
         puzzle.addTile(1, 2, "blue");
@@ -48,27 +48,28 @@ public class Test {
         puzzle.missPlacedTiles();
     }
 
-    public static void test4(){
+    public static void test4() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(5, 3);
         puzzle.addTile(1, 1, "red");
         puzzle.addTile(1, 0, "blue");
         puzzle.addTile(0, 1, "green");
         puzzle.addGlue(1, 1);
+
     }
-    public static void test5(){
+    public static void test5() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
-        puzzle.addFlying(1, 1, "red");
+        puzzle.addFlying(1,1,"red");
         Tiles tile = puzzle.getTile(1,1);
         int[] to;
         int[] from;
         to = new int[]{0,0};
-        from = new int[]{1,1};
-        tile.relocateTile(from,to);
+        from = new int[]{20,20};
+        tile.relocateTile(from, to);
         puzzle.tilt('D');
         tile.makeInvisible();
         puzzle.actualArrangemment();
     }
-    public static void test6(){
+    public static void test6() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
         puzzle.addTile(1, 1, "red");
         puzzle.addTile(1, 2, "blue");
@@ -77,7 +78,7 @@ public class Test {
         puzzle.actualArrangemment();
         puzzle.addTile(0,0,"green");
     }
-    public static void test7(){
+    public static void test7() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
         puzzle.addTile(0, 0, "red");
         puzzle.addTile(2, 2, "blue");
@@ -90,7 +91,7 @@ public class Test {
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }
-    public static void test8(){
+    public static void test8() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
         puzzle.addTile(0, 0, "red");
         puzzle.addTile(2, 2, "blue");
@@ -102,7 +103,7 @@ public class Test {
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }
-    public static void test9(){
+    public static void test9() {
         char[][] ending = new char[][]{{'r','r'},{'.','r'},{'.','.'}};
         char[][] starting = new char[][]{{'r','.'},{'.','.',},{'.','r'}};
         Puzzle puzzle = new Puzzle(starting, ending);
@@ -147,15 +148,14 @@ public class Test {
 //        System.out.println(Arrays.toString(tile.getTilesGlued()));
 //        //puzzle.tilt('D');
 //    }
-    public static void test12(){
+    public static void test12() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4,3);
-        puzzle.addFlying(0,2,"red");
+        puzzle.addFixed(0,2,"red");
         puzzle.addTile(2,2,"blue");
         puzzle.addFlying(0,1,"red");
         puzzle.addTile(2,0,"orange");
         puzzle.addTile(2,3,"green");
         puzzle.makeHole(0,0);
-        puzzle.actualArrangemment();
         puzzle.tilt('R');
         puzzle.tilt('L');
         puzzle.tilt('R');

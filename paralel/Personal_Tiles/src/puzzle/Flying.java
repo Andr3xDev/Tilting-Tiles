@@ -3,20 +3,21 @@ package puzzle;
 import shapes.Rectangle;
 
 public class Flying extends Tiles{
-
+    private int row;
+    private int column;
     public Flying(int posX, int posY, String color, Puzzle board) {
         super(posX, posY, color, board);
-        this.posX = posX;
-        this.posY = posY;
         Rectangle tile = new Rectangle();
+        this.row = posY;
+        this.column = posX;
         makeVisibleCreate();
     }
-
+    @Override
     public void makeVisibleCreate() {
         tile.changeColor(this.getColor());
         tile.changeSize(20, 20);
-        tile.moveHorizontal(posX * 23);
-        tile.moveVertical(posY * 23);
+        tile.moveHorizontal(column * 23);
+        tile.moveVertical(row * 23);
         tile.makeVisible();
     }
 
@@ -26,7 +27,11 @@ public class Flying extends Tiles{
         if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() - moveSteps};
-            relocateTile(from, to);
+            try {
+                relocateTile(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -36,7 +41,11 @@ public class Flying extends Tiles{
         if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() + moveSteps};
-            relocateTile(from, to);
+            try {
+                relocateTile(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -46,7 +55,11 @@ public class Flying extends Tiles{
         if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() + moveSteps,getPosX()};
-            relocateTile(from, to);
+            try {
+                relocateTile(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -56,7 +69,11 @@ public class Flying extends Tiles{
         if (moveSteps > 0) {
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() - moveSteps,getPosX()};
-            relocateTile(from, to);
+            try {
+                relocateTile(from, to);
+            } catch (puzzleExceptions e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -103,7 +120,7 @@ public class Flying extends Tiles{
         int max = 0;
         for (int column = posX - 1; column >= 0; column--) {
             Tiles tileO = this.board.getTile(posY,column);
-            if (tileO == null){
+            if (tileO == null ){
                 max++;
             }
         }
@@ -118,5 +135,4 @@ public class Flying extends Tiles{
     public void makeInvisible() {
         this.tile.makeInvisible();
     }
-
 }
