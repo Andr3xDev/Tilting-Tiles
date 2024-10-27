@@ -1,4 +1,4 @@
-package puzzle;// import java.lang.Math;
+package puzzle;
 import shapes.*;
 
 /**
@@ -10,9 +10,8 @@ import shapes.*;
  * @author Andrés Felipe Chavarro Plazas
  * @author David Santiago Espinosa Rojas
  * @since 27-08-2024
- * @version Version 0.8
+ * @version Version 09
  */
-
 public class Puzzle {
 
     //* ------ Variables ------
@@ -27,8 +26,8 @@ public class Puzzle {
     private char[][] startBoard;
     private char[][] actualBoard;
 
-    //* ------ Constructors ------
 
+    //* ------ Constructors ------
     /**
      * Constructor to create a board without initial or final objectives.
      * @param height to set the height of the board.
@@ -86,6 +85,7 @@ public class Puzzle {
         setActualBoard();
     }
 
+
     //* ------ Methods ------
 
     /**
@@ -93,6 +93,7 @@ public class Puzzle {
      * @param row Set the row of the tile.
      * @param column Set the column of the tile.
      * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
      */
     public void addTile(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
@@ -104,6 +105,14 @@ public class Puzzle {
         }
         setActualBoard();
     }
+
+    /**
+     * Function to add tiles to the board, but it's a freelance tile. It checks if the position is valid and if it is empty.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
     public void addFreelance(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
@@ -114,6 +123,14 @@ public class Puzzle {
         }
         setActualBoard();
     }
+
+    /**
+     * Function to add tiles to the board, but it's a rough tile. It can't be tilted.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
     public void addRough(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
@@ -124,6 +141,14 @@ public class Puzzle {
         }
         setActualBoard();
     }
+
+    /**
+     * Function to add tiles to the board, but it's a flying tile. It ignores the holes of the table.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
     public void addFlying(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null ){
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
@@ -134,6 +159,14 @@ public class Puzzle {
         }
         setActualBoard();
     }
+
+    /**
+     * Function to add tiles to the board, but it's a fixed tile. It can't be moved or deleted.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
     public void addFixed(int row, int column, String color) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
@@ -149,14 +182,15 @@ public class Puzzle {
      * Function to delete tiles from the board, it checks if the position is valid and if there is a tile.
      * @param row It's the row of the tile objective.
      * @param column It's the column of the tile objective.
+     * @throws puzzleExceptions It throws an exception if the position is invalid or if there is no tile.
      */
-    public void deleteTile(int row, int column) {
+    public void deleteTile(int row, int column) throws puzzleExceptions {
         if (row >= this.height || column >= this.width || row < 0 || column < 0 ){
-            System.out.println("Row or column not valid");
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Tiles tile = getTile(row,column);
             if (tile == null) {
-                System.out.println("There is not valid tile in this position");
+                throw new puzzleExceptions(puzzleExceptions.INVALID_DELETE);
             }else {
                 tile.makeInvisible();
                 board[row][column] = null;
@@ -193,6 +227,12 @@ public class Puzzle {
 //        }
 //    }
 
+    /**
+     * Function to make a hole in the board. It makes the tiles fall from the board.
+     * @param row It's the row of the hole.
+     * @param column It's the column of the hole.
+     * @throws puzzleExceptions It throws an exception if the position is invalid or if there is a tile.
+     */
     public void makeHole(int row, int column) throws puzzleExceptions{
         if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
@@ -203,6 +243,7 @@ public class Puzzle {
         }
         setActualBoard();
     }
+
     /**
      * Function to tilt the board in a direction. It will move all the tiles to the direction selected.
      * If a hole it's in the way, the tiles will fall/eliminate.
@@ -224,6 +265,10 @@ public class Puzzle {
                 break;
         }
     }
+
+    /**
+     * Function to move all the tiles to the right.
+     */
     private void moveRight() {
         for (int i = this.width - 1; i >= 0; i--) {
             for (int j = 0; j < this.height; j++) {
@@ -238,6 +283,10 @@ public class Puzzle {
             }
         }
     }
+
+    /**
+     * Function to move all the tiles to the left.
+     */
     private void moveLeft(){
         for (int i = 0; i < this.width; i++) {
             for (int j = 0; j < this.height; j++) {
@@ -247,10 +296,15 @@ public class Puzzle {
                         tile.moveLeft();
                     } catch (puzzleExceptions e) {
                         System.out.println(e.getMessage());
-                    }                    }
+                    }
                 }
             }
         }
+    }
+
+    /**
+     * Function to move all the tiles down.
+     */
     private void moveDown(){
         for (int i = this.height - 1; i >= 0; i--) {
             for (int j = 0; j < this.width; j++) {
@@ -265,6 +319,10 @@ public class Puzzle {
             }
         }
     }
+
+    /**
+     * Function to move all the tiles up.
+     */
     private void moveUp(){
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -279,27 +337,26 @@ public class Puzzle {
             }
         }
     }
+
     /**
      * Function to compare the actual arrangement of the board with the final arrangement if it exists.
      * If the final arrangement is not set, it will print a message.
      * Otherwise, it will compare the two arrangements and determinate equality.
      */
-    public boolean isGoal() {
-        if (actualEnding == null) {
-            System.out.println("There is no goal to compare");
-        } else {
+    public boolean isGoal() throws puzzleExceptions {
+        try {
             for (int i = 0; i < this.height; i++) {
                 for (int j = 0; j < this.width; j++) {
                     if (actualBoard[i][j] != actualEnding[i][j]) {
-                        //System.out.println("The board is not in the goal");
                         return false;
                     }
                 }
             }
-            System.out.println("The board is in the goal");
             finish();
+            return true;
+        } catch (NullPointerException e){
+            throw new puzzleExceptions(puzzleExceptions.NO_GOAL);
         }
-        return true;
     }
 
 
@@ -395,7 +452,11 @@ public class Puzzle {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
                 if (startBoard[i][j] != '.') {
-                    addTile(i,j,String.valueOf(startBoard[i][j]));
+                    try{
+                        addTile(i,j,String.valueOf(startBoard[i][j]));
+                    } catch (puzzleExceptions e){
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }

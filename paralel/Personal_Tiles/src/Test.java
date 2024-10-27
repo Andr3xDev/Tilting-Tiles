@@ -2,7 +2,7 @@ import puzzle.*;
 import java.util.Arrays;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws puzzleExceptions {
         //test1();
         //test2();
         //test3();
@@ -58,20 +58,27 @@ public class Test {
     }
     public static void test5() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
-        puzzle.addFlying(1,1,"red");
+        puzzle.addFixed(1,1,"red");
         Tiles tile = puzzle.getTile(1,1);
         int[] to;
         int[] from;
-        to = new int[]{0,0};
-        from = new int[]{20,20};
-        tile.relocateTile(from, to);
-        puzzle.tilt('D');
+        to = new int[]{3,3};
+        from = new int[]{1,1};
+        //tile.relocateTile(from, to);
+        puzzle.tilt('U');
+        try {
+            puzzle.deleteTile(3,3);
+            tile.relocateTile(from, to);
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
+        puzzle.tilt('U');
         tile.makeInvisible();
         puzzle.actualArrangemment();
     }
     public static void test6() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
-        puzzle.addTile(1, 1, "red");
+        puzzle.addTile(0, 1, "red");
         puzzle.addTile(1, 2, "blue");
         puzzle.actualArrangemment();
         puzzle.makeHole(0,0);
@@ -150,17 +157,14 @@ public class Test {
 //    }
     public static void test12() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4,3);
-        puzzle.addFixed(0,2,"red");
-        puzzle.addTile(2,2,"blue");
+        puzzle.addFixed(0,2,"blue");
         puzzle.addFlying(0,1,"red");
-        puzzle.addTile(2,0,"orange");
-        puzzle.addTile(2,3,"green");
+        //puzzle.addTile(2,0,"orange");
+        //puzzle.addTile(2,3,"green");
         puzzle.makeHole(0,0);
+        puzzle.actualArrangemment();
         puzzle.tilt('R');
         puzzle.tilt('L');
-        puzzle.tilt('R');
-        puzzle.tilt('L');
-        puzzle.tilt('R');
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }

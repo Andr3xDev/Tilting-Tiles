@@ -1,10 +1,6 @@
 package puzzle;
 
-import shapes.*;
 import shapes.Rectangle;
-
-import java.awt.*;
-
 
 /**
  * Class to represent the tiles of the board. It has the attributes to represent the tiles in the GUI board.
@@ -14,10 +10,10 @@ import java.awt.*;
  * @author Andrés Felipe Chavarro Plazas
  * @author David Santiago Espinosa R+ojas
  * @since 27-08-2024
- * @version 0.7
+ * @version 1.0
  */
-
 public class Tiles {
+
     //* attributes of the class
     protected int posX;
     protected int posY;
@@ -27,6 +23,8 @@ public class Tiles {
     protected final Puzzle board;
     private boolean visible;
 
+
+    //* Constructors
     /**
      * Constructor for puzzle.Tiles of class Board. Most part of the attributes are initialized by default.
      * name is initialized by the first letter of the color.
@@ -45,6 +43,12 @@ public class Tiles {
         makeVisibleCreate();
     }
 
+    //* Methods
+
+    /**
+     * Method to move the tile to the left. It's a help function to move the tiles in the board.
+     * @throws puzzleExceptions If the tile can't move to the left.
+     */
     protected void moveLeft() throws puzzleExceptions {
         int moveSteps = maxMoveLeft();
         if (moveSteps == -1) {
@@ -59,6 +63,11 @@ public class Tiles {
             }
         }
     }
+
+    /**
+     * Method to move the tile to the right. It's a help function to move the tiles in the board.
+     * @throws puzzleExceptions If the tile can't move to the right.
+     */
     protected void moveRight() throws puzzleExceptions {
         int moveSteps = maxMoveRight();
         if (moveSteps == -1) {
@@ -74,6 +83,10 @@ public class Tiles {
         }
     }
 
+    /**
+     * Method to move the tile down. It's a help function to move the tiles in the board.
+     * @throws puzzleExceptions If the tile can't move down.
+     */
     protected void moveDown() throws puzzleExceptions {
         int moveSteps = maxMoveDown();
         if (moveSteps == -1) {
@@ -89,6 +102,10 @@ public class Tiles {
         }
     }
 
+    /**
+     * Method to move the tile up. It's a help function to move the tiles in the board.
+     * @throws puzzleExceptions If the tile can't move up.
+     */
     protected void moveUp() throws puzzleExceptions {
         int moveSteps = maxMoveUp();
         if (moveSteps == -1) {
@@ -104,7 +121,10 @@ public class Tiles {
         }
     }
 
-
+    /**
+     * Method to calculate the maximum steps that the tile can move to the left.
+     * @return The maximum steps that the tile can move to the left.
+     */
     protected int maxMoveLeft(){
         int max = 0;
         for (int column = posX - 1; column >= 0; column--) {
@@ -119,7 +139,10 @@ public class Tiles {
         return max;
     }
 
-
+    /**
+     * Method to calculate the maximum steps that the tile can move to the right.
+     * @return The maximum steps that the tile can move to the right.
+     */
     protected int maxMoveRight(){
         int max = 0;
         int width = this.board.getWidth();
@@ -135,6 +158,10 @@ public class Tiles {
         return max;
     }
 
+    /**
+     * Method to calculate the maximum steps that the tile can move up.
+     * @return The maximum steps that the tile can move up.
+     */
     protected int maxMoveUp(){
         int max = 0;
         for (int fila = posY - 1; fila >= 0; fila--){
@@ -149,14 +176,19 @@ public class Tiles {
         return max;
     }
 
-
+    /**
+     * Method to calculate the maximum steps that the tile can move down.
+     * @return The maximum steps that the tile can move down.
+     */
     protected int maxMoveDown(){
         int max = 0;
         int height = this.board.getHeight();
         for (int fila = posY + 1; fila < height; fila++){
             Tiles tileO = this.board.getTile(fila,posX);
             Holes hole = this.board.getHole(fila,posX);
-            if (tileO == null && hole == null){
+            if (tileO instanceof Flying && hole != null){
+                max--;
+            } else if (tileO == null && hole == null){
                 max++;
             } else if (hole != null) {
                 return -1;
@@ -165,6 +197,12 @@ public class Tiles {
         return max;
     }
 
+    /**
+     * Method to relocate the tile in the board.
+     * @param from Position of the tile to move.
+     * @param to Position to move the tile.
+     * @throws puzzleExceptions If the tile can't move to the position.
+     */
     public void relocateTile(int[] from, int[] to) throws puzzleExceptions{
         int row = from[0];
         int column = from[1];
@@ -188,7 +226,16 @@ public class Tiles {
         board.setActualBoard();
     }
 
-    private void decideTile(int row,int column,int newRow,int newColumn,String name){
+    /**
+     * Method to decide the type of tile to add in the board.
+     * @param row Row position of the tile to move.
+     * @param column Column position of the tile to move.
+     * @param newRow Row position to move the tile.
+     * @param newColumn Column position to move the tile.
+     * @param name Name of the tile to move.
+     * @throws puzzleExceptions If the tile can't move to the position.
+     */
+    private void decideTile(int row,int column,int newRow,int newColumn,String name) throws puzzleExceptions {
         Tiles tile = this.board.getTile(row, column);
         if (tile instanceof Flying){
             board.deleteTile(row,column);
@@ -232,6 +279,9 @@ public class Tiles {
         tile.makeVisible();
     }
 
+    /**
+     * Function to make visible the tiles
+     */
     public void makeVisible() {
         tile.makeVisible();
         this.visible = true;
