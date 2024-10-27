@@ -11,15 +11,7 @@
   <p align="center">
     project_description
     <br />
-    <br />
-    <a href="https://github.com/Andr3xDev/Tilting-Tiles">View Demo</a>
-    ·
-    <a href="https://github.com/Andr3xDev/Tilting-Tiles/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="https://github.com/Andr3xDev/Tilting-Tiles/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
-</div>
-
+  
 
 
 <!-- TABLE OF CONTENTS -->
@@ -32,14 +24,6 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -61,6 +45,7 @@
 
 [![Java]][java]
 
+</br>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -70,8 +55,7 @@ To get a local copy up and running follow these simple example steps.
 
 
 ### Prerequisites
-Just have a PC
-**(Pendiente a avanzar cn el proyecto)**
+Just have a PC :3.
 
 ### Installation
 
@@ -79,16 +63,10 @@ Just have a PC
    ```sh
    git clone https://github.com/Andr3xDev/Tilting-Tiles
    ```
-**(Pendiente a avanzar cn el proyecto)**
+   
+2. Nothing else :3.
 
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-**(Pendiente a avanzar cn el proyecto)**
-
-
-
+</br>
 <!-- ROADMAP -->
 ## Roadmap
 Some features that we are developing step by step.
@@ -105,9 +83,9 @@ Sprints 1:
   - [x] Add & delete glue functions.
   - [x] Consult information of the puzzle.
   - [x] Basic tilt
-- [ ] Mini-cicle 4.
+- [x] Mini-cicle 4.
   - [x] Document.
-  - [ ] Tilt whit glue
+  - [x] Tilt whit glue
   - [x] Make the board visible and invisible.
   - [x] Finish and comparatios functions.
 
@@ -116,31 +94,39 @@ Sprints 2:
   - [x] Make the class diagram and secuence.
   - [x] Create basics new methods.
   - [x] Add holes.
-- [ ] Mini-cicle 2.
-  - [ ] Switch boards.
-  - [ ] Smart tilt.
-  - [ ] Functionall holes
+- [x] Mini-cicle 2.
+  - [x] Switch boards.
+  - [x] Smart tilt.
+  - [x] Functionall holes
 - [x] Mini-cicle 3.
   - [x] Consult tiles which can't move. (Missing glued tiles)
   - [x] Consult tiles left.
-- [ ] Mini-cicle 3.
-  - [ ] Perfec details.
-  - [ ] Docuemnt.
+  - [x] Document
 
 Sprints 3:
-- [ ] Mini-cicle 1.
-  - [ ] Update the class diagram and secuence.
-  - [ ] Create user class with methods
+- [x] Mini-cicle 1.
+  - [x] Update the class diagram and secuence.
+  - [x] Create user class with methods
 - [ ] Mini-cicle 2.
-  - [ ] Solve the problem.
+  - [x] Solve the problem.
   - [ ] Make the solve visible.
-  - [ ] Document.
+  - [x] Document.
 
 Sprints 4:
-(Pendient)
-
-Sprints 5:
-(Pendient)
+- [ ] Mini-cicle 1.
+  - [x] Refactor of all code structure.  
+  - [x] Add type of tiles.
+  - [ ] Functionals type of tiles.
+- [ ] Mini-cicle 2.
+  - [ ] Refactor all glue.
+  - [x] Refactor all holes.
+- [ ] Mini-cicle 3.
+  - [ ] Add types of glue.
+  - [ ] Functionals type of glues.
+- [ ] Mini-cicle 4.
+  - [ ] Document.
+  - [ ] Actualizate ASTAH.
+  
 
 
 <!-- LICENSE -->
