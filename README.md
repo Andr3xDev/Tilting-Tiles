@@ -9,10 +9,10 @@
 <h3 align="center">Tilting Tiles</h3>
 
   <p align="center">
-    project_description
+    Proyect of POOB 2024-2
     <br />
-  
-
+  </p>
+</div>
 
 <!-- TABLE OF CONTENTS -->
 <details>
