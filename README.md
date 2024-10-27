@@ -35,10 +35,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-**(Pendiente a avanzar cn el proyecto)**
+This project is focused on the use of the OOP paradigm. Using this, it was possible to create a graphic representation of problem F of the International Marathon (ICPC) 2023: TILTING TILES. This representation seeks to solve and simulate the problem. But in addition, we implemented types of tiles, a glue and their respective types and holes in the board. All the elements together will help us understand and control OOP perfectly.
+This proyec came from the subjet "Programacion Orientada A Objetos" (POOB) of the Escuela Colombiana de Ingeniería Julio Garavito (ECI).
 
+> [!TIP]
+> If you want precise information about the different elements and their types, look at the documentation.
 
-
+</br>
 
 ### Built With
 <br />
@@ -67,6 +70,7 @@ Just have a PC :3.
 2. Nothing else :3.
 
 </br>
+
 <!-- ROADMAP -->
 ## Roadmap
 Some features that we are developing step by step.
