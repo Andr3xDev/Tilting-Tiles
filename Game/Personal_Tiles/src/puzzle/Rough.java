@@ -7,9 +7,8 @@ import shapes.Rectangle;
 public class Rough extends Tiles{
 
     //* Attributes
-    private final Rectangle tile;
-    private int row;
-    private int column;
+    private final int row;
+    private final int column;
 
     //* Constructor
     /**
@@ -21,7 +20,9 @@ public class Rough extends Tiles{
      */
     public Rough(int posX, int posY, String color, Puzzle board) {
         super(posX, posY, color, board);
-        tile = new Rectangle();
+        Rectangle tile = new Rectangle();
+        this.row = posY;
+        this.column = posX;
         makeVisibleCreate();
     }
 

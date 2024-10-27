@@ -7,7 +7,7 @@ public class Test {
         //test2();
         //test3();
         //test4();
-        test5();
+        //test5();
         //test6();
         //test7();
         //test8();
@@ -18,7 +18,7 @@ public class Test {
         //!test13();
         //test14();
         //test15();
-        //test16c();
+        test16c();
         //test17();
     }
 
@@ -187,38 +187,39 @@ public class Test {
 //        System.out.println(Arrays.toString(puzzle.getNeighbors(puzzle.board[1][1])));
 //        //puzzle.tilt('R');
 //    }
-//    public static void test14(){
-//        PuzzleContest puzzle2 = new PuzzleContest();
-//        boolean b = puzzle2.solve(new char[][]{{'.','.','.','.','b','.','.'}},
-//                new char[][]{{'.','.','b','.','.','.','.'}});
-//        System.out.println(b);
-//    }
-//    public static void test15(){
-//        PuzzleContest puzzle = new PuzzleContest();
-//        boolean a = puzzle.solve(new char[][]{{'r','r','.','.'},{'r','q','y','b'},{'.','.','.','.'},{'.','.','.','.'}},
-//                new char[][]{{'.','.','.','.'},{'.','.','.','.'},{'.','.','r','r'},{'r','q','y','b'}});
-//        System.out.println(a);
-//    }
-//    public static void test16(){
-//        PuzzleContest puzzle = new PuzzleContest();
-//        puzzle.solve(new char[][]{{'.','r','b'},{'.','.','b'},{'.','y','.'},{'b','.','.'}},
-//                new char[][]{{'.','.','.'},{'.','.','.'},{'.','r','b'},{'b','y','b'}});
-//    }
-//    public static void test16b(){
-//        PuzzleContest puzzle = new PuzzleContest();
-//        puzzle.solve(new char[][]{{'.','.','b'},{'.','.','.'},{'.','.','.'},{'.','.','.'}},
-//                new char[][]{{'.','.','.'},{'.','.','.'},{'.','.','.'},{'b','.','.'}});
-//    }
-//    public static void test16c(){
-//        PuzzleContest puzzle = new PuzzleContest();
-//        puzzle.solve(new char[][]{{'b','r','.','.'},{'r','g','y','b'},{'y','b','.','.'},{'.','.','.','y'}},
-//                new char[][]{{'.','.','.','.'},{'y','b','.','.'},{'r','g','.','.'},{'y','b','b','r'}});
-//    }
-//    public static void test16d(){
-//        PuzzleContest puzzle = new PuzzleContest();
-//        puzzle.solve(new char[][]{{'.','r','.','.'},{'r','g','y','b'},{'.','b','.','.'},{'.','y','r','.'}},
-//                new char[][]{{'y','r','b','r'},{'.','.','y','r'},{'.','.','.','g'},{'.','.','.','b'}});
-//    }
+    public static void test14(){
+        PuzzleContest puzzle2 = new PuzzleContest();
+        char[][] start = {{'.','.','.','.','b','.','.'}};
+        char[][] end = {{'.','.','b','.','.','.','.'}};
+        puzzle2.solve(start, end);
+        //System.out.println(b);
+    }
+    public static void test15(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.solve(new char[][]{{'r','r','.','.'},{'r','q','y','b'},{'.','.','.','.'},{'.','.','.','.'}},
+                new char[][]{{'.','.','.','.'},{'.','.','.','.'},{'.','.','r','r'},{'r','q','y','b'}});
+        //System.out.println(a);
+    }
+    public static void test16(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.solve(new char[][]{{'.','r','b'},{'.','.','b'},{'.','y','.'},{'b','.','.'}},
+                new char[][]{{'.','.','.'},{'.','.','.'},{'.','r','b'},{'b','y','b'}});
+    }
+    public static void test16b(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.solve(new char[][]{{'.','.','b'},{'.','.','.'},{'.','.','.'},{'.','.','.'}},
+                new char[][]{{'.','.','.'},{'.','.','.'},{'.','.','.'},{'b','.','.'}});
+    }
+    public static void test16c(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.solve(new char[][]{{'b','r','.','.'},{'r','g','y','b'},{'y','b','.','.'},{'.','.','.','y'}},
+                new char[][]{{'.','.','.','.'},{'y','b','.','.'},{'r','g','.','.'},{'y','b','b','r'}});
+    }
+    public static void test16d(){
+        PuzzleContest puzzle = new PuzzleContest();
+        puzzle.solve(new char[][]{{'.','r','.','.'},{'r','g','y','b'},{'.','b','.','.'},{'.','y','r','.'}},
+                new char[][]{{'y','r','b','r'},{'.','.','y','r'},{'.','.','.','g'},{'.','.','.','b'}});
+    }
 //
 //    public static void test17(){
 //        Puzzle puzzle = new Puzzle(4, 4);
