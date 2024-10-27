@@ -54,54 +54,36 @@ public class PuzzleContest {
     private void solutions(char[][] start, char[][] ending, ArrayList<String> memory, ArrayList<Character> moves) {
         Puzzle puzzle = new Puzzle(start, ending);
 
+        // Comprobamos si ya se alcanzó el estado objetivo
         if (sameBoard(start, ending)) {
             if (this.finalMove.isEmpty() || moves.size() < this.finalMove.size()) {
-                System.out.println(moves);
                 this.finalMove = new ArrayList<>(moves);
             }
             return;
         }
 
+        // Representación del estado actual del tablero como cadena para evitar ciclos
         String currentBoardState = Arrays.deepToString(puzzle.getActualBoard());
         if (memory.contains(currentBoardState)) {
             return;
         }
 
-        memory.add(currentBoardState);
+        memory.add(currentBoardState);  // Añadir el estado actual a la memoria
+        char[][] originalBoard = cloneBoard(puzzle.getActualBoard());  // Clonar el estado original del tablero
 
-        char[][] originalBoard = puzzle.getActualBoard();
+        // Intentar cada dirección de movimiento
+        char[] directions = {'U', 'D', 'L', 'R'};
+        for (char direction : directions) {
+            puzzle.tilt(direction);
+            moves.add(direction);
+            solutions(puzzle.getActualBoard(), ending, memory, moves);
+            moves.remove(moves.size() - 1);  // Retrocedemos el movimiento
+            puzzle.setBoard(originalBoard);  // Restaurar el tablero original
+        }
 
-        puzzle.tilt('U');
-        moves.add('U');
-        solutions(puzzle.getActualBoard(), ending, memory, moves);
-        moves.remove(moves.size() - 1);
-        puzzle.setBoard(originalBoard);
-
-        puzzle.tilt('D');
-        moves.add('D');
-        solutions(puzzle.getActualBoard(), ending, memory, moves);
-        moves.remove(moves.size() - 1);
-        puzzle.setBoard(originalBoard);
-
-        puzzle.tilt('L');
-        moves.add('L');
-        solutions(puzzle.getActualBoard(), ending, memory, moves);
-        moves.remove(moves.size() - 1);
-        puzzle.setBoard(originalBoard);
-
-        puzzle.tilt('R');
-        moves.add('R');
-        solutions(puzzle.getActualBoard(), ending, memory, moves);
-        moves.remove(moves.size() - 1);
-        puzzle.setBoard(originalBoard);
+        memory.remove(memory.size() - 1);  // Eliminar el estado actual para otros caminos
     }
 
-    /**
-     * This method compares two boards.
-     * @param board1 one of the boards to compare.
-     * @param board2 the other board to compare.
-     * @return true if the boards are the same, false otherwise.
-     */
     private boolean sameBoard(char[][] board1, char[][] board2) {
         for (int i = 0; i < board1.length; i++) {
             for (int j = 0; j < board1[0].length; j++) {
@@ -111,5 +93,14 @@ public class PuzzleContest {
             }
         }
         return true;
+    }
+
+    // Clonar un tablero 2D
+    private char[][] cloneBoard(char[][] board) {
+        char[][] clonedBoard = new char[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            clonedBoard[i] = board[i].clone();
+        }
+        return clonedBoard;
     }
 }

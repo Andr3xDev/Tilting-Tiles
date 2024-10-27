@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="30b12518-a6b6-4ae7-93fd-338816b8cad9" name="Changes" comment="Add &amp; updated documentation and test" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../.." value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "state": "OPEN",
+      "assignee": "Andr3xDev",
+      "label": "bug"
+    }
+  ],
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Andr3xDev",
+    "label": "bug"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:Andr3xDev/Tilting-Tiles.git",
+    "accountId": "3f78798a-2d06-4e84-a162-f0de263d272c"
+  }
+}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2nzasbCReHmDBGtuCH63nwoY6eX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Test.executor": "Run",
+    "JUnit.PuzzleTest.executor": "Run",
+    "JUnit.PuzzleTest.shouldCreatePuzzle1.executor": "Run",
+    "JUnit.PuzzleTest.shouldCreatePuzzle2E.executor": "Run",
+    "JUnit.PuzzleTest.shouldDeleteTile.executor": "Run",
+    "JUnit.PuzzleTest.shouldInsertTile.executor": "Run",
+    "JUnit.PuzzleTest.shouldIsGoal.executor": "Run",
+    "JUnit.PuzzleTest.shouldIsNotGoal.executor": "Run",
+    "JUnit.PuzzleTest.shouldIsNotGoalExist.executor": "Run",
+    "JUnit.PuzzleTest.shouldMakeHole.executor": "Run",
+    "JUnit.PuzzleTest.shouldMisplacedTiles.executor": "Run",
+    "JUnit.PuzzleTest.shouldNotCreatePuzzle1.executor": "Run",
+    "JUnit.PuzzleTest.shouldNotDeleteTile.executor": "Run",
+    "JUnit.PuzzleTest.shouldNotInsertTile.executor": "Run",
+    "JUnit.PuzzleTest.shouldNotMakeHole.executor": "Run",
+    "JUnit.PuzzleTest.shouldNotMisplacedTiles.executor": "Run",
+    "JUnit.PuzzleTest.shouldNotRelocateTile.executor": "Run",
+    "JUnit.PuzzleTest.shouldTiltPuzzle.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "refactor",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Andre/Desktop/poob/Tilting-Tiles/Game/Personal_Tiles",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="PuzzleTest.shouldIsGoal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Personal_Tiles" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PuzzleTest" />
+      <option name="METHOD_NAME" value="shouldIsGoal" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PuzzleTest.shouldIsNotGoal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Personal_Tiles" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PuzzleTest" />
+      <option name="METHOD_NAME" value="shouldIsNotGoal" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PuzzleTest.shouldIsNotGoalExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Personal_Tiles" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PuzzleTest" />
+      <option name="METHOD_NAME" value="shouldIsNotGoalExist" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PuzzleTest.shouldNotMisplacedTiles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Personal_Tiles" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PuzzleTest" />
+      <option name="METHOD_NAME" value="shouldNotMisplacedTiles" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PuzzleTest.shouldTiltPuzzle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Personal_Tiles" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PuzzleTest" />
+      <option name="METHOD_NAME" value="shouldTiltPuzzle" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.PuzzleTest.shouldIsNotGoalExist" />
+        <item itemvalue="JUnit.PuzzleTest.shouldIsNotGoal" />
+        <item itemvalue="JUnit.PuzzleTest.shouldIsGoal" />
+        <item itemvalue="JUnit.PuzzleTest.shouldTiltPuzzle" />
+        <item itemvalue="JUnit.PuzzleTest.shouldNotMisplacedTiles" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="30b12518-a6b6-4ae7-93fd-338816b8cad9" name="Changes" comment="" />
+      <created>1729978569964</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729978569964</updated>
+      <workItem from="1729978570728" duration="22712000" />
+    </task>
+    <task id="LOCAL-00001" summary="Add &amp; updated documentation and test">
+      <option name="closed" value="true" />
+      <created>1730003148869</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1730003148869</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add &amp; updated documentation and test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add &amp; updated documentation and test" />
+  </component>
+</project>

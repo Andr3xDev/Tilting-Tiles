@@ -251,6 +251,71 @@ public class PuzzleTest {
 //        //assertFalse(puzzle.canNotMove());
 //    }
 
+    //* Fixed tiles
+    @Test
+    public void shouldWorkFixedTile() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addFixed(1, 1, "red");
+        puzzle.tilt('U');
+    }
+    @Test
+    public void shouldNotWorkFixedTile() throws puzzleExceptions {
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addFixed(10, 1, "red");
+            puzzle.deleteTile(10, 1);
+            puzzle.getTile(1,1).relocateTile(new int[]{1,1}, new int[]{0,0});
+        });
+    }
+
+    //* Rough tiles
+    @Test
+    public void shouldWorkRoughTile() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addRough(1, 1, "red");
+        Tiles tile = puzzle.getTile(1, 1);
+        tile.relocateTile(new int[]{1,1}, new int[]{0,0});
+        puzzle.deleteTile(0, 0);
+    }
+    @Test
+    public void shouldNotWorkRoughTile() throws puzzleExceptions {
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addRough(1, 1, "red");
+            puzzle.tilt('U');
+        });
+    }
+
+    //* Freelance tiles
+    @Test
+    public void shouldWorkFreelanceTile() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addFreelance(1, 1, "red");
+    }
+    @Test
+    public void shouldNotWorkFreelanceTile() throws puzzleExceptions {
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addFreelance(10, 1, "red");
+        });
+    }
+
+    //* Flying tiles
+    @Test
+    public void shouldWorkFlyingTile() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addFlying(0, 0, "red");
+        puzzle.makeHole(0, 2);
+        puzzle.tilt('R');
+    }
+    @Test
+    public void shouldNotWorkFlyingTile() throws puzzleExceptions {
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addFlying(10, 1, "red");
+        });
+    }
+
     /**
      * Tears down the test fixture.
      * Called after every test case method.
