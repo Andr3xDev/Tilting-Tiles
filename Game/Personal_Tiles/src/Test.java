@@ -12,13 +12,13 @@ public class Test {
         //test7();
         //test8();
         //test9();
-        //!test10();
-        //!test11();
+        test10();
+        //test11();
         //test12();
         //!test13();
         //test14();
         //test15();
-        test16c();
+        //test16c();
         //test17();
     }
 
@@ -123,38 +123,44 @@ public class Test {
         puzzle.tilt('U');
         puzzle.actualArrangemment();
     }
-//    public static void test10(){
-//        Puzzle puzzle = new Puzzle(3,3);
-//        puzzle.addTile(0,2,"red");
-//        puzzle.addTile(0,1,"blue");
-//        puzzle.addTile(1,1,"green");
-//        puzzle.addGlue(0,1);
-//        Tiles tile = puzzle.board[0][1];
-//        System.out.println(tile.getGlued());
-//        //System.out.println(Arrays.toString(tile.getTilesGlued()));
-//        puzzle.deleteGlue(0,1);
-//        System.out.println(tile.getGlued());
-//        //System.out.println(Arrays.toString(tile.getTilesGlued()));
-//        //puzzle.tilt('D');
-//    }
-//    public static void test11(){
-//        Puzzle puzzle = new Puzzle(4,4);
-//        puzzle.addTile(0,0,"red");
-//        puzzle.addTile(1,0,"blue");
-//        puzzle.addTile(2,0,"purple");
-//        puzzle.addTile(3,0,"green");
-//        puzzle.addTile(2,2,"green");
-//        puzzle.addTile(1,2,"green");
-//        puzzle.addTile(3,3,"blue");
-//        puzzle.addTile(2,3,"blue");
-//        //puzzle.addGlue(3,0);
-//        Tiles tile = puzzle.board[3][3];
-//        puzzle.makeHole(3,1);
-//        System.out.println(tile.maxMoveUp());
-//        System.out.println(tile.getGlued());
-//        System.out.println(Arrays.toString(tile.getTilesGlued()));
-//        //puzzle.tilt('D');
-//    }
+    public static void test10() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(6,6);
+        puzzle.addTile(0,1,"red");
+        puzzle.addTile(1,1,"blue");
+        puzzle.addTile(1,2,"green");
+        puzzle.addTile(2,1,"red");
+        puzzle.addTile(2,2,"orange");
+        puzzle.addTile(2,3,"green");
+        puzzle.addTile(3,3,"red");
+        puzzle.addTile(3,2,"purple");
+        puzzle.addTile(4,4,"green");
+        puzzle.addTile(4,3,"blue");
+        puzzle.addGlue(4,3);
+        puzzle.addGlue(2,2);
+        Glues glue = puzzle.getGlue(4,3);
+        System.out.println(glue.getType());
+        puzzle.actualGlue();
+    }
+    public static void test11() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(6,6);
+        puzzle.addTile(0,1,"red");
+        puzzle.addTile(1,1,"blue");
+        puzzle.addTile(1,2,"green");
+        puzzle.addTile(2,1,"red");
+        puzzle.addTile(2,2,"orange");
+        puzzle.addTile(2,3,"green");
+        puzzle.addTile(3,3,"red");
+        puzzle.addTile(3,2,"purple");
+        puzzle.addTile(4,4,"green");
+        puzzle.addTile(4,3,"blue");
+        puzzle.addGlue(4,3);
+        puzzle.addGlue(2,2);
+        Glues glue = puzzle.getGlue(4,4);
+        puzzle.actualGlue();
+        System.out.println("----------------------------");
+        Tiles tile = glue.getTile(4,4);
+        System.out.println(glue.maxMoveGlued(tile, 'R'));
+    }
     public static void test12() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4,3);
         puzzle.addFixed(0,2,"blue");

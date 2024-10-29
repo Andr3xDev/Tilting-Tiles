@@ -10,7 +10,7 @@ import shapes.*;
  * @author Andrés Felipe Chavarro Plazas
  * @author David Santiago Espinosa Rojas
  * @since 27-08-2024
- * @version Version 09
+ * @version Version 0.9
  */
 public class Puzzle {
 
@@ -19,6 +19,7 @@ public class Puzzle {
     private final int width;
     public Tiles[][] board;
     public Glues[][] gluesBoard;
+    private char[][] actualGlue;
     public Holes[][] holesBoard;
     private final Rectangle table;
     private int missingSpace;
@@ -39,10 +40,12 @@ public class Puzzle {
         this.board = new Tiles[height][width];
         this.holesBoard = new Holes[height][width];
         this.gluesBoard = new Glues[height][width];
+        this.actualGlue = new char[height][width];
         this.table = new Rectangle();
         this.missingSpace = width*height;
         this.actualBoard = new char[height][width];
         setActualBoard();
+        setActualGlue();
         makeVisibleC();
     }
 
@@ -208,9 +211,22 @@ public class Puzzle {
      */
     public void addGlue(int row, int column) throws puzzleExceptions{
         if(holesBoard[row][column] == null && board[row][column] != null) {
-            gluesBoard[row][column] = new Glues(row, column, this);
+            gluesBoard[row][column] = new Glues(row, column, this, true);
+            Glues glue = gluesBoard[row][column];
+            glue.addNeighbour(row, column);
+            setActualGlue();
         }else{
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
+        }
+    }
+
+    public void getGlue() throws puzzleExceptions{
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
+                if (gluesBoard[i][j] != null){
+                    System.out.println(gluesBoard[i][j]);
+                }
+            }
         }
     }
 
@@ -372,6 +388,15 @@ public class Puzzle {
         }
     }
 
+    public void actualGlue() {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                System.out.print(actualGlue[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
     /**
      * Function to get how many tiles can be placed in the board.
      */
@@ -436,6 +461,18 @@ public class Puzzle {
         }
     }
 
+    public void setActualGlue(){
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                if (gluesBoard[i][j] != null) {
+                    this.actualGlue[i][j] = gluesBoard[i][j].getType();
+                } else {
+                    this.actualGlue[i][j] = '.';
+                }
+            }
+        }
+    }
+
     /**
      * Function to add a tile to the board. It's a help function to make visible the initial board.
      */
@@ -462,27 +499,6 @@ public class Puzzle {
         }
     }
 
-
-
-//    public int maxMoveGlued (Tiles tile, char direction){
-//        int min = 999999999;
-//        for (int i = 0; i < 4; i++){
-//            if (tile.tilesGlued[i] != null){
-//                Tiles tileO = tile.tilesGlued[i];
-//                Tiles[] tiles = getNeighbors(tileO);
-//                for (Tiles tl : tiles){
-//                    min = switch (direction) {
-//                        case 'R' -> Math.min(maxMoveRight(tl), min);
-//                        case 'L' -> Math.min(maxMoveLeft(tl), min);
-//                        case 'U' -> Math.min(maxMoveUp(tl), min);
-//                        case 'D' -> Math.min(maxMoveDown(tl), min);
-//                        default -> min;
-//                    };
-//                }
-//            }
-//        }
-//        return min;
-//    }
 
 
     //* ------ Getters and Setters ------
@@ -524,5 +540,9 @@ public class Puzzle {
         } else {
             this.missingSpace--;
         }
+    }
+
+    public Glues getGlue(int i, int i1) {
+        return gluesBoard[i][i1];
     }
 }
