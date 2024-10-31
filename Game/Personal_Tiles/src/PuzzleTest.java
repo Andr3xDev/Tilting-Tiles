@@ -101,7 +101,7 @@ public class PuzzleTest {
     public void shouldRelocateTile() throws puzzleExceptions {
         Puzzle puzzle = new Puzzle(3, 3);
         puzzle.addTile(1, 1, "red");
-        Tiles tileInitial = puzzle.board[1][1];
+        Tiles tileInitial = puzzle.getTile(1, 1);
         tileInitial.relocateTile(new int[]{1,1}, new int[]{0,0});
     }
     @Test
@@ -109,7 +109,7 @@ public class PuzzleTest {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(4, 3);
             puzzle.addTile(1, 1, "green");
-            Tiles tileStart = puzzle.board[1][1];
+            Tiles tileStart = puzzle.getTile(1, 1);
             tileStart.relocateTile(new int[]{1,1}, new int[]{1000,0});
         });
     }
@@ -171,7 +171,7 @@ public class PuzzleTest {
         puzzle.addTile(1, 1, "blue");
         puzzle.makeInvisible();
         puzzle.makeVisible();
-        Tiles tile = puzzle.board[1][1];
+        Tiles tile = puzzle.getTile(1, 1);;
         assertTrue(tile.getVisible());
     }
 
@@ -181,7 +181,7 @@ public class PuzzleTest {
         Puzzle puzzle = new Puzzle(3, 3);
         puzzle.addTile(1, 1, "blue");
         puzzle.makeInvisible();
-        Tiles tile = puzzle.board[1][1];
+        Tiles tile = puzzle.getTile(1, 1);;
         assertFalse(tile.getVisible());
     }
 
@@ -192,7 +192,7 @@ public class PuzzleTest {
         puzzle.addTile(1, 1, "red");
         puzzle.addTile(1, 0, "blue");
         puzzle.deleteTile(1, 0);
-        assertEquals(puzzle.getMissingSpace(), 7);
+        assertEquals(8, puzzle.getMissingSpace());
     }
     @Test
     public void shouldNotMisplacedTiles() throws puzzleExceptions {
@@ -210,7 +210,7 @@ public class PuzzleTest {
         puzzle.addTile(0, 0, "red");
         puzzle.addTile(2, 2, "blue");
         puzzle.tilt('R');
-        Tiles tile = puzzle.board[0][2];
+        Tiles tile = puzzle.getTile(0, 2);;
         assertNotNull(tile);
     }
 
