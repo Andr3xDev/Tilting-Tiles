@@ -130,6 +130,9 @@ public class Tiles {
         for (int column = posX - 1; column >= 0; column--) {
             Tiles tileO = this.board.getTile(posY,column);
             Holes hole = this.board.getHole(posY,column);
+            if (tileO instanceof Rough){
+                return max;
+            }
             if (tileO == null && hole == null){
                 max++;
             } else if (hole != null) {
@@ -149,6 +152,9 @@ public class Tiles {
         for (int column = posX + 1; column < width; column++) {
             Tiles tileO = this.board.getTile(posY,column);
             Holes hole = this.board.getHole(posY,column);
+            if (tileO instanceof Rough){
+                return max;
+            }
             if (tileO == null && hole == null){
                 max++;
             } else if (hole != null) {
@@ -167,6 +173,9 @@ public class Tiles {
         for (int fila = posY - 1; fila >= 0; fila--){
             Tiles tileO = this.board.getTile(fila,posX);
             Holes hole = this.board.getHole(fila,posX);
+            if (tileO instanceof Rough){
+                return max;
+            }
             if (tileO == null && hole == null){
                 max++;
             } else if (hole != null) {
@@ -186,6 +195,9 @@ public class Tiles {
         for (int fila = posY + 1; fila < height; fila++){
             Tiles tileO = this.board.getTile(fila,posX);
             Holes hole = this.board.getHole(fila,posX);
+            if (tileO instanceof Rough){
+                return max;
+            }
             if (tileO instanceof Flying && hole != null){
                 max--;
             } else if (tileO == null && hole == null){
