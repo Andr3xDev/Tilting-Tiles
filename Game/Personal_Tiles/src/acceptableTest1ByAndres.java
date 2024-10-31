@@ -64,8 +64,8 @@ public class acceptableTest1ByAndres {
             puzzle.makeInvisible();
             System.out.println("Juan reset the puzzle and select the option to add a board custom with goal");
             Thread.sleep(time);
-            char[][] ending = new char[][]{{'r','r'},{'.','r'},{'.','.'}};
-            char[][] starting = new char[][]{{'r','.'},{'.','r',},{'.','r'}};
+            char[][] starting = new char[][]{{'r','r','.'},{'.','r','.'},{'.','.','.'},{'.','.','.'}};
+            char[][] ending = new char[][]{{'.','.','.'},{'.','.','.'},{'.','r','.'},{'r','r','.'}};
             Puzzle puzzle2 = new Puzzle(starting, ending);
             System.out.println("Juan's daughter wanted to see, if the board was in the final state");
             System.out.println(puzzle2.isGoal());
@@ -73,9 +73,11 @@ public class acceptableTest1ByAndres {
             System.out.println("Juan's daughter wanted to see, the objective board");
             //! missing print of the objective board
             System.out.println("She tried to tilt the board down and then see if she completed the puzzle");
+            puzzle2.tilt('D');
             System.out.println(puzzle2.isGoal());
-            
+            Thread.sleep(time);
 
+            //? NO se que mas poner de momento
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
