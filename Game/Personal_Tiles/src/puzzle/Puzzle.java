@@ -17,7 +17,7 @@ public class Puzzle {
     //* ------ Variables ------
     private final int height;
     private final int width;
-    public Tiles[][] board;
+    private final Tiles[][] board;
     public Glues[][] gluesBoard;
     private char[][] actualGlue;
     public Holes[][] holesBoard;
@@ -181,6 +181,17 @@ public class Puzzle {
         setActualBoard();
     }
 
+    public void addTemporal(int row, int column, String color) throws puzzleExceptions{
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
+        } else {
+            Temporal tile = new Temporal(column,row,color,this);
+            board[row][column] = tile;
+            this.missingSpace--;
+        }
+        setActualBoard();
+    }
+    
     /**
      * Function to delete tiles from the board, it checks if the position is valid and if there is a tile.
      * @param row It's the row of the tile objective.
@@ -279,6 +290,8 @@ public class Puzzle {
             case 'U':
                 moveUp();
                 break;
+            default:
+                System.out.println("Error: Invalid direction");
         }
     }
 

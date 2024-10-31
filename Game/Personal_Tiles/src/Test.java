@@ -12,7 +12,7 @@ public class Test {
         //test7();
         //test8();
         //test9();
-        test10();
+        //test10();
         //test11();
         //test12();
         //!test13();
@@ -20,6 +20,7 @@ public class Test {
         //test15();
         //test16c();
         //test17();
+        test18();
     }
 
     public static void test1() throws puzzleExceptions{
@@ -239,4 +240,16 @@ public class Test {
 //        System.out.println("----------------------");
 //        puzzle.actualArrangemment();
 //    }
+
+    public static void test18() throws puzzleExceptions{
+        Puzzle puzzle = new Puzzle(4, 4);
+        puzzle.addTemporal(0, 0, "red");
+        puzzle.tilt('D');
+        puzzle.actualArrangemment();
+        puzzle.tilt('U');
+        puzzle.tilt('R');
+        //puzzle.deleteTile(0,3);
+        puzzle.actualArrangemment();
+        puzzle.missPlacedTiles();
+    }
 }
