@@ -133,7 +133,9 @@ public class Tiles {
             if (tileO instanceof Rough){
                 return max;
             }
-            if (tileO == null && hole == null){
+            if (tileO instanceof Flying && hole != null){
+                max = max;
+            } else if (tileO == null && hole == null){
                 max++;
             } else if (hole != null) {
                 return -1;
@@ -155,7 +157,9 @@ public class Tiles {
             if (tileO instanceof Rough){
                 return max;
             }
-            if (tileO == null && hole == null){
+            if (tileO instanceof Flying && hole != null){
+                max = max;
+            } else if (tileO == null && hole == null){
                 max++;
             } else if (hole != null) {
                 return -1;
@@ -168,15 +172,17 @@ public class Tiles {
      * Method to calculate the maximum steps that the tile can move up.
      * @return The maximum steps that the tile can move up.
      */
-    protected int maxMoveUp(){
+    protected int maxMoveUp() {
         int max = 0;
-        for (int fila = posY - 1; fila >= 0; fila--){
-            Tiles tileO = this.board.getTile(fila,posX);
-            Holes hole = this.board.getHole(fila,posX);
+        for (int fila = posY - 1; fila >= 0; fila--) {
+            Tiles tileO = this.board.getTile(fila, posX);
+            Holes hole = this.board.getHole(fila, posX);
             if (tileO instanceof Rough){
                 return max;
             }
-            if (tileO == null && hole == null){
+            if (tileO instanceof Flying && hole != null){
+                max = max;
+            } else if (tileO == null && hole == null){
                 max++;
             } else if (hole != null) {
                 return -1;
@@ -184,7 +190,6 @@ public class Tiles {
         }
         return max;
     }
-
     /**
      * Method to calculate the maximum steps that the tile can move down.
      * @return The maximum steps that the tile can move down.
@@ -199,7 +204,7 @@ public class Tiles {
                 return max;
             }
             if (tileO instanceof Flying && hole != null){
-                max--;
+                max = max;
             } else if (tileO == null && hole == null){
                 max++;
             } else if (hole != null) {

@@ -105,8 +105,6 @@ public class Glues {
 
 
     public Tiles getTile(int row, int column) {
-        {
-            return this.board.getTile(row, column);
-        }
+        return this.board.getTile(row, column);
     }
 }

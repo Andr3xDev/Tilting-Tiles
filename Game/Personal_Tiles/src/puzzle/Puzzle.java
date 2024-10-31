@@ -222,6 +222,13 @@ public class Puzzle {
      */
     public void addGlue(int row, int column) throws puzzleExceptions{
         if(holesBoard[row][column] == null && board[row][column] != null) {
+
+            if (getTile(row,column) instanceof Freelance){
+                throw new puzzleExceptions(puzzleExceptions.FREELANCE_CONDITION);
+            }
+            if (getGlue(row,column) != null && getGlue(row,column).getType() != 'G'){
+                throw new puzzleExceptions(puzzleExceptions.GLUE_ALREADY);
+            }
             gluesBoard[row][column] = new Glues(row, column, this, true);
             Glues glue = gluesBoard[row][column];
             glue.addNeighbour(row, column);
@@ -555,7 +562,7 @@ public class Puzzle {
         }
     }
 
-    public Glues getGlue(int i, int i1) {
-        return gluesBoard[i][i1];
+    public Glues getGlue(int r, int c) {
+        return gluesBoard[r][c];
     }
 }

@@ -1,3 +1,4 @@
+import org.junit.experimental.theories.Theories;
 import puzzle.Fixed;
 import puzzle.Puzzle;
 import puzzle.Tiles;
@@ -12,6 +13,7 @@ public class acceptableTest2ByDavid {
         try {
             Thread.sleep(time);
             System.out.println("Juan's daughter placed a fixed tile in the top right corner");
+            Thread.sleep(time);
             puzzle.addFixed(3, 3, "blue");
             Thread.sleep(time);
             System.out.println("juan's daughter tried to relocate the fixed tile");
@@ -25,6 +27,7 @@ public class acceptableTest2ByDavid {
         }
         System.out.println("Juan's daughter tried to eliminate the fixed tile, because she didn't like it");
         try {
+            Thread.sleep(time);
             puzzle.deleteTile(3, 3);
             Thread.sleep(time);
         } catch (Exception e) {
@@ -32,6 +35,7 @@ public class acceptableTest2ByDavid {
         }
         System.out.println("Juan's daughter made a hole and tilt the board to eliminate de fixed tile");
         try{
+            Thread.sleep(time);
             puzzle.makeHole(0, 3);
             Thread.sleep(time);
             puzzle.tilt('U');
@@ -40,22 +44,44 @@ public class acceptableTest2ByDavid {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-        System.out.println("Juan's daughter saw a button that said 'rough', so she tried to put a rough tile");
+        System.out.println("Juan's daughter saw a button that said 'rough', " +
+                "so she tried to put a rough tile after another normal tile");
         try {
+            Thread.sleep(time);
             puzzle.addRough(2, 3, "green");
+            puzzle.addTile(4, 3, "red");
             Thread.sleep(time);
             System.out.println("Juan's daughter tried to tilt the board to eliminate the rough tile with the hole");
+            Thread.sleep(time);
             puzzle.tilt('U');
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
         System.out.println("Juan's daughter now wanted to eliminate the rough tile");
         try {
+            Thread.sleep(time);
             puzzle.deleteTile(2, 3);
             Thread.sleep(time);
             System.out.println("Now, Juan's daughter saw a button that said 'flying', so she tried to put a flying tile");
             Thread.sleep(time);
-            System.out.println("");
+            puzzle.addFlying(2, 3, "white");
+            Thread.sleep(time);
+            System.out.println("Juan's daughter tried to tilt the board to eliminate the flying tile");
+            Thread.sleep(time);
+            puzzle.tilt('U');
+            Thread.sleep(time);
+            System.out.println("Juan's daughter decided to eliminate the flying tile");
+            Thread.sleep(time);
+            puzzle.deleteTile(0, 3);
+            Thread.sleep(time);
+            System.out.println("Juan's daughter saw a button that said 'Freelance', so she tried to put a Freelance tile");
+            Thread.sleep(time);
+            puzzle.addFreelance(0, 0, "blue");
+            Thread.sleep(time);
+            System.out.println("Juan's daughter tried to add glue to the Freelance tile");
+            Thread.sleep(time);
+            puzzle.addGlue(0, 0);
+
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

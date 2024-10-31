@@ -8,6 +8,8 @@ public class puzzleExceptions extends Exception {
     public static final String ROUGH_EXCEPTION = "You can't tilt a rough tile";
     public static final String INVALID_DELETE = "There's not valid tile to delete";
     public static final String NO_GOAL = "There's not a goal defined";
+    public static final String FREELANCE_CONDITION = "Freelance tile can't be glued";
+    public static final String GLUE_ALREADY = "There's already a glue in the tile";
 
     public puzzleExceptions(String message) {
         super(message);
