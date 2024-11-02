@@ -1,7 +1,4 @@
-import org.junit.experimental.theories.Theories;
-import puzzle.Fixed;
-import puzzle.Puzzle;
-import puzzle.Tiles;
+import puzzle.*;
 
 public class acceptableTest2ByDavid {
     static int time = 1000;
