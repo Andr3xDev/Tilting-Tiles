@@ -1,7 +1,7 @@
 import puzzle.Puzzle;
 
 public class acceptableTest1ByAndres {
-    static int time = 1000;
+    static int time = 500;
     public static void main(String[] args) {
         System.out.println("This is an acceptable test");
         System.out.println("Juan created a puzzle with 4 rows and 4 columns");
@@ -54,7 +54,7 @@ public class acceptableTest1ByAndres {
             puzzle.addGlue(2, 0);
             Thread.sleep(time);
             System.out.println("She tried to glue the board, not a tile");
-            puzzle.addGlue(4, 4);
+            puzzle.addGlue(0, 0);
             //! glued tilt missing
             Thread.sleep(time);
         } catch (Exception e) {
@@ -99,6 +99,8 @@ public class acceptableTest1ByAndres {
             Thread.sleep(time);
             System.out.println("She tilt the board to eliminate all the tiles");
             Thread.sleep(time);
+            puzzle2.tilt('L');
+            Thread.sleep(time);
             puzzle2.tilt('U');
             Thread.sleep(time);
             puzzle2.tilt('L');
@@ -108,7 +110,6 @@ public class acceptableTest1ByAndres {
             puzzle2.actualArrangemment();
             Thread.sleep(time);
             System.out.println("Now she got bored, so she close the game");
-            puzzle2.makeInvisible();
             puzzle2.finish();
         }
         catch (Exception e) {

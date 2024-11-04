@@ -67,6 +67,7 @@ public class Puzzle {
         this.actualEnding = ending;
         this.actualBoard = new char[height][width];
         setActualBoard();
+        //setActualGlue();
         makeVisibleC();
     }
 
@@ -89,6 +90,7 @@ public class Puzzle {
         this.actualBoard = new char[height][width];
         makeVisibleC();
         initialPrint();
+        //setActualGlue();
         setActualBoard();
     }
 
@@ -379,7 +381,7 @@ public class Puzzle {
         try {
             for (int i = 0; i < this.height; i++) {
                 for (int j = 0; j < this.width; j++) {
-                    if (actualBoard[i][j] != actualEnding[i][j]) {
+                    if (board[i][j] != null && board[i][j].getName() != actualEnding[i][j]) {
                         return false;
                     }
                 }
@@ -449,6 +451,12 @@ public class Puzzle {
                 if (board[i][j] != null) {
                     board[i][j].makeInvisible();
                 }
+                if (holesBoard[i][j] != null) {
+                    holesBoard[i][j].makeInvisible();
+                }
+                if (gluesBoard[i][j] != null) {
+                    gluesBoard[i][j].makeInvisible();
+                }
             }
         }
     }
@@ -495,7 +503,7 @@ public class Puzzle {
             for (int j = 0; j < this.width; j++) {
                 if (gluesBoard[i][j] != null) {
                     this.actualGlue[i][j] = gluesBoard[i][j].getType();
-                } else {
+                } else if (gluesBoard[i][j] == null) {
                     this.actualGlue[i][j] = '.';
                 }
             }
