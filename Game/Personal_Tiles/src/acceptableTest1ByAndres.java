@@ -62,8 +62,8 @@ public class acceptableTest1ByAndres {
         }
         puzzle.makeInvisible();
         System.out.println("Juan reset the puzzle and select the option to add a board custom with goal");
-        char[][] ending = new char[][]{{'r','r'},{'.','r'},{'.','.'}};
-        char[][] starting = new char[][]{{'r','.'},{'.','r',},{'.','r'}};
+        char[][] ending = new char[][]{{'r','r'},{'r','.'},{'.','.'}};
+        char[][] starting = new char[][]{{'r','.'},{'.','.',},{'r','r'}};
         Puzzle puzzle2 = new Puzzle(starting, ending);
         try{
             Thread.sleep(time);
@@ -78,7 +78,7 @@ public class acceptableTest1ByAndres {
             //! reset the board
             System.out.println("She tried to tilt the board down and then see if she completed the puzzle");
             Thread.sleep(time);
-            puzzle2.tilt('D');
+            puzzle2.tilt('U');
             Thread.sleep(time);
             System.out.println(puzzle2.isGoal());
             Thread.sleep(time);
@@ -88,22 +88,22 @@ public class acceptableTest1ByAndres {
             Thread.sleep(time);
             System.out.println("She wanted to do a hole in the board, to eliminate a tile");
             Thread.sleep(time);
-            puzzle2.makeHole(1, 2);
+            puzzle2.makeHole(0, 0);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
         try {
             System.out.println("Now she put the hole in a valid position");
             Thread.sleep(time);
-            puzzle2.makeHole(0, 0);
+            puzzle2.makeHole(2, 1);
             Thread.sleep(time);
             System.out.println("She tilt the board to eliminate all the tiles");
             Thread.sleep(time);
-            puzzle2.tilt('L');
+            puzzle2.tilt('D');
             Thread.sleep(time);
-            puzzle2.tilt('U');
+            puzzle2.tilt('R');
             Thread.sleep(time);
-            puzzle2.tilt('L');
+            puzzle2.tilt('D');
             Thread.sleep(time);
             System.out.println("She wanted to see the actual arrangement of the board");
             Thread.sleep(time);

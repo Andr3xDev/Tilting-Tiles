@@ -11,7 +11,7 @@ public class Test {
         //test6();
         //test7();
         //test8();
-        //test9();
+        test9();
         //test10();
         //test11();
         //test12();
@@ -111,18 +111,17 @@ public class Test {
         System.out.println("----------------------");
         puzzle.actualArrangemment();
     }
-    public static void test9() {
-        char[][] ending = new char[][]{{'r','r'},{'.','r'},{'.','.'}};
-        char[][] starting = new char[][]{{'r','.'},{'.','.',},{'.','r'}};
+    public static void test9() throws puzzleExceptions {
+        char[][] ending = new char[][]{{'r','r'},{'r','.'},{'.','.'}};
+        char[][] starting = new char[][]{{'r','.'},{'.','.',},{'r','r'}};
         Puzzle puzzle = new Puzzle(starting, ending);
         puzzle.actualArrangemment();
-        System.out.println("----------------------");
-        System.out.println(puzzle.getHeight());
         System.out.println("----------------------");
         System.out.println(Arrays.deepToString(puzzle.getEndingBoard()));
         puzzle.missPlacedTiles();
         puzzle.tilt('U');
         puzzle.actualArrangemment();
+        System.out.println(puzzle.isGoal());
     }
     public static void test10() throws puzzleExceptions {
         Puzzle puzzle = new Puzzle(6,6);
