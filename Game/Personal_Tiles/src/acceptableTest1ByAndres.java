@@ -6,11 +6,12 @@ public class acceptableTest1ByAndres {
         System.out.println("This is an acceptable test");
         System.out.println("Juan created a puzzle with 4 rows and 4 columns");
         Puzzle puzzle = new Puzzle(4, 4);
+
         try {
             Thread.sleep(time);
             System.out.println("Juan placed a red tile in the top left corner to test the puzzle");
             puzzle.addTile(0, 0, "red");
-            Thread.sleep(time);
+            Thread.sleep(time);     
             System.out.println("Juan placed a blue tile in the bottom right corner to test the puzzle");
             puzzle.addTile(3, 3, "blue");
             Thread.sleep(time);
