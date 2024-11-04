@@ -503,13 +503,23 @@ public class Puzzle {
             for (int j = 0; j < this.width; j++) {
                 if (startBoard[i][j] != '.') {
                     try{
-                        addTile(i,j,String.valueOf(startBoard[i][j]));
+                        addTile(i,j,setColorConstructor(String.valueOf(startBoard[i][j])));
                     } catch (puzzleExceptions e){
                         System.out.println(e.getMessage());
                     }
                 }
             }
         }
+    }
+
+    private String setColorConstructor(String charName){
+        return switch (charName) {
+            case "r" -> "red";
+            case "g" -> "green";
+            case "b" -> "blue";
+            case "w" -> "white";
+            default -> "black";
+        };
     }
 
 
@@ -545,14 +555,6 @@ public class Puzzle {
     }
     public Holes getHole(int row, int column){
         return holesBoard[row][column];
-    }
-
-    public void setMissingSpace(int space) {
-        if (space == 1){
-            this.missingSpace++;
-        } else {
-            this.missingSpace--;
-        }
     }
 
     public Glues getGlue(int i, int i1) {
