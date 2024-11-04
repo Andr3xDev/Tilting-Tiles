@@ -43,6 +43,14 @@ public class Holes {
         holeTile.moveVertical(posY * 23);
     }
 
+    public void makeInvisible() {
+        holeTile.makeInvisible();
+    }
+
+    public void makeVisible() {
+        holeTile.makeVisible();
+    }
+
     /**
      * Method to get the name of the hole
      * @return Name of the hole

@@ -39,6 +39,14 @@ public class Glues {
         this.glue.moveVertical(column * 23 + 2);
     }
 
+    public void makeInvisible() {
+        this.glue.makeInvisible();
+    }
+
+    public void makeVisible() {
+        this.glue.makeVisible();
+    }
+
     public void addNeighbour(int row, int column) {
         if (valid(row, column)) {
             int rowSize = this.board.getHeight();
