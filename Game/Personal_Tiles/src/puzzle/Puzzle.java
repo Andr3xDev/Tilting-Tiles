@@ -451,6 +451,7 @@ public class Puzzle {
     public void finish() {
         //makeInvisible();
         System.out.println("Game was finished");
+        System.exit(0);
     }
 
 
