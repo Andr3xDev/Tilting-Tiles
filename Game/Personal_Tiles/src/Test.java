@@ -20,7 +20,7 @@ public class Test {
         //test15();
         //test16c();
         //test17();
-        test18();
+        //test18();
     }
 
     public static void test1() throws puzzleExceptions{
