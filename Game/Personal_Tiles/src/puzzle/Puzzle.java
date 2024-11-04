@@ -28,6 +28,8 @@ public class Puzzle {
     private char[][] actualBoard;
 
 
+
+
     //* ------ Constructors ------
     /**
      * Constructor to create a board without initial or final objectives.
@@ -49,6 +51,7 @@ public class Puzzle {
         makeVisibleC();
     }
 
+
     /**
      * Constructor to create a board with final arrangement, board is built empty.
      * @param ending Matrix of charts with the final objective arrangement of the board.
@@ -66,6 +69,7 @@ public class Puzzle {
         setActualBoard();
         makeVisibleC();
     }
+
 
     /**
      * Constructor to create a board with objectives, it builds the board with the initial arrangement
@@ -89,8 +93,8 @@ public class Puzzle {
     }
 
 
-    //* ------ Methods ------
 
+    //* ------ Methods ------
     /**
      * Function to add tiles to the board, it checks if the position is valid and if it is empty.
      * @param row Set the row of the tile.
@@ -108,6 +112,7 @@ public class Puzzle {
         }
         setActualBoard();
     }
+
 
     /**
      * Function to add tiles to the board, but it's a freelance tile. It checks if the position is valid and if it is empty.
@@ -127,6 +132,7 @@ public class Puzzle {
         setActualBoard();
     }
 
+
     /**
      * Function to add tiles to the board, but it's a rough tile. It can't be tilted.
      * @param row Set the row of the tile.
@@ -144,6 +150,7 @@ public class Puzzle {
         }
         setActualBoard();
     }
+
 
     /**
      * Function to add tiles to the board, but it's a flying tile. It ignores the holes of the table.
@@ -163,6 +170,7 @@ public class Puzzle {
         setActualBoard();
     }
 
+
     /**
      * Function to add tiles to the board, but it's a fixed tile. It can't be moved or deleted.
      * @param row Set the row of the tile.
@@ -181,17 +189,7 @@ public class Puzzle {
         setActualBoard();
     }
 
-    public void addTemporal(int row, int column, String color) throws puzzleExceptions{
-        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
-            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
-        } else {
-            Temporal tile = new Temporal(column,row,color,this);
-            board[row][column] = tile;
-            this.missingSpace--;
-        }
-        setActualBoard();
-    }
-    
+
     /**
      * Function to delete tiles from the board, it checks if the position is valid and if there is a tile.
      * @param row It's the row of the tile objective.
@@ -231,6 +229,8 @@ public class Puzzle {
         }
     }
 
+
+    //! MISSING DOC
     public void getGlue() throws puzzleExceptions{
         for (int i = 0; i < 4; i++){
             for (int j = 0; j < 4; j++){
@@ -241,18 +241,11 @@ public class Puzzle {
         }
     }
 
-//    public void deleteGlue(int row, int column) {
-//        Tiles tile = board[row][column];
-//        if (tile == null || !tile.getGlued() || tile.getHole()) {
-//            System.out.println("There is no tile in this position");
-//        } else{
-//            tile.setGlued(false);
-//            tile.tilesGlued[0] = null; //DOWN
-//            tile.tilesGlued[1] = null; //UP
-//            tile.tilesGlued[2] = null; //RIGHT
-//            tile.tilesGlued[3] = null; //LEFT
-//        }
-//    }
+
+    public void deleteGlue(int row, int column) {
+
+    }
+
 
     /**
      * Function to make a hole in the board. It makes the tiles fall from the board.
@@ -270,6 +263,11 @@ public class Puzzle {
         }
         setActualBoard();
     }
+
+
+
+    //+ PASTE FUNCTION HERE
+
 
     /**
      * Function to tilt the board in a direction. It will move all the tiles to the direction selected.
@@ -295,6 +293,7 @@ public class Puzzle {
         }
     }
 
+
     /**
      * Function to move all the tiles to the right.
      */
@@ -312,6 +311,7 @@ public class Puzzle {
             }
         }
     }
+
 
     /**
      * Function to move all the tiles to the left.
@@ -331,6 +331,7 @@ public class Puzzle {
         }
     }
 
+
     /**
      * Function to move all the tiles down.
      */
@@ -348,6 +349,7 @@ public class Puzzle {
             }
         }
     }
+
 
     /**
      * Function to move all the tiles up.
@@ -367,6 +369,7 @@ public class Puzzle {
         }
     }
 
+
     /**
      * Function to compare the actual arrangement of the board with the final arrangement if it exists.
      * If the final arrangement is not set, it will print a message.
@@ -381,7 +384,7 @@ public class Puzzle {
                     }
                 }
             }
-            finish();
+            System.out.println("The goal was reached");
             return true;
         } catch (NullPointerException e){
             throw new puzzleExceptions(puzzleExceptions.NO_GOAL);
@@ -401,6 +404,8 @@ public class Puzzle {
         }
     }
 
+
+    //! MISSING DOC
     public void actualGlue() {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
@@ -410,12 +415,14 @@ public class Puzzle {
         }
     }
 
+
     /**
      * Function to get how many tiles can be placed in the board.
      */
     public void missPlacedTiles() {
         System.out.println(this.missingSpace);
     }
+
 
     /**
      * Function to make the board visible. Includes the table and the tiles.
@@ -431,6 +438,7 @@ public class Puzzle {
         }
     }
 
+
     /**
      * Function to make the board invisible. Includes the table and the tiles.
      */
@@ -445,18 +453,21 @@ public class Puzzle {
         }
     }
 
+
     /**
      * Function to finish the game. It will make the board invisible and print a message when the goal is complete.
      */
     public void finish() {
-        //makeInvisible();
         System.out.println("Game was finished");
         System.exit(0);
     }
 
 
+
+
     //* ------ Private Methods ------
     // used to complementary the others methods.
+
 
     /**
      * Function to set the actual arrangement of the board. it represents the internal arrangement of the board.
@@ -475,6 +486,10 @@ public class Puzzle {
         }
     }
 
+
+    /**
+     * Function to set the actual glued board, it represents the internal connexions of the glue.
+     */
     public void setActualGlue(){
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
@@ -487,6 +502,7 @@ public class Puzzle {
         }
     }
 
+
     /**
      * Function to add a tile to the board. It's a help function to make visible the initial board.
      */
@@ -498,7 +514,10 @@ public class Puzzle {
         table.moveVertical(-3);
     }
 
-    //- missing do it with the final board
+
+    /**
+     * Function to print the initial arrangement of the board. It's a help function to make visible the initial board.
+     */
     private void initialPrint(){
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
@@ -513,6 +532,12 @@ public class Puzzle {
         }
     }
 
+
+    /**
+     * Function to set the color of the tiles. It's a help function to make visible the initial board.
+     * @param charName It's the initial char of the color.
+     * @return It returns the name of the color.
+     */
     private String setColorConstructor(String charName){
         return switch (charName) {
             case "r" -> "red";
