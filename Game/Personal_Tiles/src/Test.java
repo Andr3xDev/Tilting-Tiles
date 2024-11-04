@@ -243,7 +243,6 @@ public class Test {
 
     public static void test18() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
-        puzzle.addTemporal(0, 0, "red");
         puzzle.tilt('D');
         puzzle.actualArrangemment();
         puzzle.tilt('U');

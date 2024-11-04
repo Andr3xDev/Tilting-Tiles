@@ -6,7 +6,6 @@ public class acceptableTest1ByAndres {
         System.out.println("This is an acceptable test");
         System.out.println("Juan created a puzzle with 4 rows and 4 columns");
         Puzzle puzzle = new Puzzle(4, 4);
-
         try {
             Thread.sleep(time);
             System.out.println("Juan placed a red tile in the top left corner to test the puzzle");
@@ -56,29 +55,63 @@ public class acceptableTest1ByAndres {
             Thread.sleep(time);
             System.out.println("She tried to glue the board, not a tile");
             puzzle.addGlue(4, 4);
-            //! glued tile missing
+            //! glued tilt missing
+            Thread.sleep(time);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+        puzzle.makeInvisible();
+        System.out.println("Juan reset the puzzle and select the option to add a board custom with goal");
+        char[][] ending = new char[][]{{'r','r'},{'.','r'},{'.','.'}};
+        char[][] starting = new char[][]{{'r','.'},{'.','r',},{'.','r'}};
+        Puzzle puzzle2 = new Puzzle(starting, ending);
         try{
             Thread.sleep(time);
-            puzzle.makeInvisible();
-            System.out.println("Juan reset the puzzle and select the option to add a board custom with goal");
-            Thread.sleep(time);
-            char[][] ending = new char[][]{{'r','r'},{'.','r'},{'.','.'}};
-            char[][] starting = new char[][]{{'r','.'},{'.','r',},{'.','r'}};
-            Puzzle puzzle2 = new Puzzle(starting, ending);
             System.out.println("Juan's daughter wanted to see, if the board was in the final state");
+            Thread.sleep(time);
             System.out.println(puzzle2.isGoal());
             Thread.sleep(time);
             System.out.println("Juan's daughter wanted to see, the objective board");
-            //! missing print of the objective board
+            Thread.sleep(time);
+            //! Show the final board
+            Thread.sleep(time);
+            //! reset the board
             System.out.println("She tried to tilt the board down and then see if she completed the puzzle");
+            Thread.sleep(time);
+            puzzle2.tilt('D');
+            Thread.sleep(time);
             System.out.println(puzzle2.isGoal());
-            
-
-
+            Thread.sleep(time);
+            System.out.println("She wanted to know how many missing spaces she had");
+            Thread.sleep(time);
+            puzzle2.missPlacedTiles();
+            Thread.sleep(time);
+            System.out.println("She wanted to do a hole in the board, to eliminate a tile");
+            Thread.sleep(time);
+            puzzle2.makeHole(1, 2);
         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        try {
+            System.out.println("Now she put the hole in a valid position");
+            Thread.sleep(time);
+            puzzle2.makeHole(0, 0);
+            Thread.sleep(time);
+            System.out.println("She tilt the board to eliminate all the tiles");
+            Thread.sleep(time);
+            puzzle2.tilt('U');
+            Thread.sleep(time);
+            puzzle2.tilt('L');
+            Thread.sleep(time);
+            System.out.println("She wanted to see the actual arrangement of the board");
+            Thread.sleep(time);
+            puzzle2.actualArrangemment();
+            Thread.sleep(time);
+            System.out.println("Now she got bored, so she close the game");
+            puzzle2.makeInvisible();
+            puzzle2.finish();
+        }
+        catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
