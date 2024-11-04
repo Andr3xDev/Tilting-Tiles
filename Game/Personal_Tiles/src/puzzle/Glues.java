@@ -63,7 +63,11 @@ public class Glues {
                 int c = position[1];
                 if (r >= 0 && r < rowSize && c >= 0 && c < columnSize &&
                         this.board.getTile(r, c) != null) {
-                    board.gluesBoard[r][c] = new Glues(r, c, board, false);
+                    if (board.gluesBoard[r][c] != null && board.gluesBoard[r][c].getType() == 'g') {
+                        board.gluesBoard[r][c] = new Glues(r, c, board, true);
+                    } else{
+                        board.gluesBoard[r][c] = new Glues(r, c, board, false);
+                    }
                 }
             }
         }
@@ -71,13 +75,13 @@ public class Glues {
 
     public int maxMoveGlued(Tiles tile, char d) {
         if (this.type == 'g') {
-            return maxMoveAllGLued(this.getTile(tile.getPosX(), tile.getPosY()), d);
+            return maxMoveAllGlued(this.getTile(tile.getPosX(), tile.getPosY()), d);
         } else {
             return 0;
         }
     }
 
-    public int maxMoveAllGLued(Tiles tile, char direction) {
+    public int maxMoveAllGlued(Tiles tile, char direction) {
         int min = 999999999;
         for (int i = 0; i < 4; i++) {
             Tiles tileO = getTile(tile.getPosX(), tile.getPosY());
