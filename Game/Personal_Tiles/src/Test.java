@@ -11,7 +11,7 @@ public class Test {
         //test6();
         //test7();
         //test8();
-        test9();
+        //test9();
         //test10();
         //test11();
         //test12();
@@ -20,7 +20,7 @@ public class Test {
         //test15();
         //test16c();
         //test17();
-        //test18();
+        test18();
     }
 
     public static void test1() throws puzzleExceptions{
@@ -153,9 +153,9 @@ public class Test {
         puzzle.addTile(3,2,"purple");
         puzzle.addTile(4,4,"green");
         puzzle.addTile(4,3,"blue");
-        puzzle.addGlue(4,3);
+        puzzle.addGlue(3,3);
         puzzle.addGlue(2,2);
-        Glues glue = puzzle.getGlue(4,4);
+        Glues glue = puzzle.getGlue(3,3);
         puzzle.actualGlue();
         System.out.println("----------------------------");
         Tiles tile = glue.getTile(4,4);
@@ -242,11 +242,11 @@ public class Test {
 
     public static void test18() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4, 4);
-        puzzle.tilt('D');
+        puzzle.addTemporal(0,0,"red");
         puzzle.actualArrangemment();
-        puzzle.tilt('U');
+        puzzle.tilt('L');
         puzzle.tilt('R');
-        //puzzle.deleteTile(0,3);
+        puzzle.tilt('R');
         puzzle.actualArrangemment();
         puzzle.missPlacedTiles();
     }
