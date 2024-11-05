@@ -13,6 +13,14 @@ public class Glues {
     private String color;
     private char type;
 
+
+    /**
+     * Constructor of the Glues class
+     * @param row row position of the glue
+     * @param column column position of the glue
+     * @param board board where the glue is
+     * @param glued true if the glue is glued, false otherwise
+     */
     public Glues(int row, int column, Puzzle board, boolean glued) {
         this.row = row;
         this.column = column;
@@ -23,6 +31,11 @@ public class Glues {
         makeVisibleX();
     }
 
+
+    /**
+     * Function to set the glue as glued or not glued, and define the type of the glue
+     * @param glued true if the glue is glued and type g, false and type p otherwise
+     */
     private void setGlued(boolean glued) {
         if (glued) {
             this.type = 'g';
@@ -31,6 +44,10 @@ public class Glues {
         }
     }
 
+
+    /**
+     * Function to make the glue visible in the board on the creation
+     */
     public void makeVisibleX() {
         this.glue.makeVisible();
         this.glue.changeSize(15);
@@ -39,14 +56,28 @@ public class Glues {
         this.glue.moveVertical(column * 23 + 2);
     }
 
+
+    /**
+     * Function to make the glue invisible
+     */
     public void makeInvisible() {
         this.glue.makeInvisible();
     }
 
+
+    /**
+     * Function to make the glue visible
+     */
     public void makeVisible() {
         this.glue.makeVisible();
     }
 
+
+    /**
+     * Function to add a neighbour glue to the current glue
+     * @param row row position of the glue
+     * @param column column position of the glue
+     */
     public void addNeighbour(int row, int column) {
         if (valid(row, column)) {
             int rowSize = this.board.getHeight();
@@ -74,6 +105,11 @@ public class Glues {
     }
 
 
+    /**
+     * Function to eliminate a neighbour glue after a glue is deleted
+     * @param row row position of the glue
+     * @param column column position of the glue
+     */
     public void eliminateNeighbour(int row, int column) {
         if (valid(row, column)) {
             this.board.gluesBoard[row][column] = null;
@@ -82,6 +118,7 @@ public class Glues {
         rePaint();
     }
 
+    //! Pending to implement
     public int maxMoveGlued(Tiles tile, char d) {
         if (this.type == 'g') {
             return maxMoveAllGlued(this.getTile(tile.getPosX(), tile.getPosY()), d);
@@ -90,6 +127,10 @@ public class Glues {
         }
     }
 
+
+    /**
+     * Function to recognize the glued tiles and add the neighbours
+     */
     public void recognizeGlue() {
         for (int i = 0; i < this.board.getHeight(); i++) {
             for (int j = 0; j < this.board.getWidth(); j++) {
@@ -101,6 +142,10 @@ public class Glues {
         }
     }
 
+
+    /**
+     * Eliminates all the glues in the board of type p
+     */
     private void reset(){
         System.out.println("Reset");
         for (int i = 0; i < this.board.getHeight(); i++) {
@@ -112,6 +157,10 @@ public class Glues {
         }
     }
 
+
+    /**
+     * Function to repaint the board after a glue is deleted
+     */
     private void rePaint(){
         for (int i = 0; i < this.board.getHeight(); i++) {
             for (int j = 0; j < this.board.getWidth(); j++) {
@@ -122,6 +171,13 @@ public class Glues {
         }
     }
 
+
+    /**
+     * Function to get the maximum movement of the glued tiles as a group
+     * @param tile tile to move
+     * @param direction direction to move
+     * @return the maximum movement of the glued tiles
+     */
     public int maxMoveAllGlued(Tiles tile, char direction) {
         int min = 999999999;
         for (int i = 0; i < 4; i++) {
@@ -144,6 +200,12 @@ public class Glues {
     }
 
 
+    /**
+     * Validate if the position is valid
+     * @param row objective row
+     * @param column objective column
+     * @return true if the position is valid, false otherwise
+     */
     private boolean valid(int row, int column) {
         return row > 0 &&
                 row < this.board.getHeight() &&
@@ -152,11 +214,21 @@ public class Glues {
     }
 
 
+    /**
+     * Function to get the type of the glue
+     * @return g if the glue is glued, p if the glue is not glued
+     */
     public char getType() {
         return this.type;
     }
 
 
+    /**
+     * Function to get the tile in the board
+     * @param row row position of the tile
+     * @param column column position of the tile
+     * @return The tile object
+     */
     public Tiles getTile(int row, int column) {
         return this.board.getTile(row, column);
     }
