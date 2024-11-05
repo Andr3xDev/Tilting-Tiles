@@ -235,7 +235,7 @@ public class Tiles {
      * @param name Name of the tile to move.
      * @throws puzzleExceptions If the tile can't move to the position.
      */
-    private void decideTile(int row,int column,int newRow,int newColumn,String name) throws puzzleExceptions {
+    public void decideTile(int row,int column,int newRow,int newColumn,String name) throws puzzleExceptions {
         Tiles tile = this.board.getTile(row, column);
         if (tile instanceof Flying){
             board.deleteTile(row,column);

@@ -105,7 +105,8 @@ public class Puzzle {
      * @throws puzzleExceptions It throws an exception if the position is invalid.
      */
     public void addTile(int row, int column, String color) throws puzzleExceptions{
-        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 ||
+                board[row][column] != null || holesBoard[row][column] != null){
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Tiles tile = new Tiles(column,row,color,this);
@@ -117,14 +118,16 @@ public class Puzzle {
 
 
     /**
-     * Function to add tiles to the board, but it's a freelance tile. It checks if the position is valid and if it is empty.
+     * Function to add tiles to the board, but it's a freelance tile.
+     * It checks if the position is valid and if it is empty.
      * @param row Set the row of the tile.
      * @param column Set the column of the tile.
      * @param color Set the color and name of the tile.
      * @throws puzzleExceptions It throws an exception if the position is invalid.
      */
     public void addFreelance(int row, int column, String color) throws puzzleExceptions{
-        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 ||
+                board[row][column] != null || holesBoard[row][column] != null){
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Freelance tile = new Freelance(column,row,color,this);
@@ -143,7 +146,8 @@ public class Puzzle {
      * @throws puzzleExceptions It throws an exception if the position is invalid.
      */
     public void addRough(int row, int column, String color) throws puzzleExceptions{
-        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null || holesBoard[row][column] != null){
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 ||
+                board[row][column] != null || holesBoard[row][column] != null){
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Rough tile = new Rough(column,row,color,this);
@@ -191,6 +195,24 @@ public class Puzzle {
         setActualBoard();
     }
 
+
+    /**
+     * Function to add tiles to the board, but it's a Temporal tile. It will be destroyed after try tilt twice.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
+    public void addTemporal(int row, int column, String color) throws puzzleExceptions{
+        if (row >= this.height || column >= this.width || row < 0 || column < 0 || board[row][column] != null){
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
+        } else {
+            Temporal tile = new Temporal(column,row,color,this);
+            board[row][column] = tile;
+            this.missingSpace--;
+        }
+        setActualBoard();
+    }
 
     /**
      * Function to delete tiles from the board, it checks if the position is valid and if there is a tile.
@@ -267,14 +289,11 @@ public class Puzzle {
     }
 
 
-
-    //+ PASTE FUNCTION HERE
-
-
     /**
      * Function to tilt the board in a direction. It will move all the tiles to the direction selected.
      * If a hole it's in the way, the tiles will fall/eliminate.
-     * @param direction It's the direction to tilt the board. It can be 'L' for left, 'R' for right, 'D' for down and 'U' for up.
+     * @param direction It's the direction to tilt the board. It can be 'L' for left,
+     *                  'R' for right, 'D' for down and 'U' for up.
      */
     public void tilt(char direction) {
         switch (direction){
