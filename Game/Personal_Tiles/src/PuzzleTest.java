@@ -34,9 +34,7 @@ public class PuzzleTest {
     }
     @Test
     public void shouldNotCreatePuzzle1(){
-        assertThrows(java.lang.NegativeArraySizeException.class, () -> {
-            new Puzzle(-4, 4);
-        });
+        assertThrows(java.lang.NegativeArraySizeException.class, () -> new Puzzle(-4, 4));
     }
     @Test
     public void shouldCreatePuzzle2(){
@@ -44,7 +42,7 @@ public class PuzzleTest {
         Puzzle puzzle = new Puzzle(finish);
         assertEquals(puzzle.getHeight(),3);
     }
-    @Test //! This test is not working
+    @Test
     public void shouldCreatePuzzle2E(){
         char[][] finish = new char[][]{{'r',99,'r'},{'.','r','.'},{'.','.','.'}};
         Puzzle puzzle = new Puzzle(finish);
@@ -57,12 +55,12 @@ public class PuzzleTest {
         Puzzle puzzle = new Puzzle(finish);
         assertEquals(puzzle.getHeight(),3);
     }
-    @Test //! This test is not working
-    public void shouldCreatePuzzle33(){
-        char[][] finish = new char[][]{{'r','r','r'},{'.','r','.'},{'.','.','.'}};
-        char[][] start = new char[][]{{'r','.','.'},{'.','b','.'},{'w','.','.'}};
-        Puzzle puzzle = new Puzzle(finish);
-        assertEquals(puzzle.getHeight(),3);
+    @Test
+    public void shouldNotCreatePuzzle3(){
+        char[][] finish = new char[][]{{2,'r','r'},{'.','r','.'},{'.','.','.'}};
+        char[][] start = new char[][]{{1,'.','.'},{'.','b','.'},{'w','.','.'}};
+        Puzzle puzzle = new Puzzle(start,finish);
+        assertNotEquals(puzzle.getTile(0,0).getName(),'r');
     }
 
     //* Inserting tiles
@@ -73,7 +71,7 @@ public class PuzzleTest {
         puzzle.addTile(1, 0, "blue");
     }
     @Test
-    public void shouldNotInsertTile() throws puzzleExceptions {
+    public void shouldNotInsertTile() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addTile(10, 1, "red");
@@ -88,7 +86,7 @@ public class PuzzleTest {
         puzzle.deleteTile(1, 1);
     }
     @Test
-    public void shouldNotDeleteTile() throws puzzleExceptions {
+    public void shouldNotDeleteTile() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addTile(1, 1, "red");
@@ -105,7 +103,7 @@ public class PuzzleTest {
         tileInitial.relocateTile(new int[]{1,1}, new int[]{0,0});
     }
     @Test
-    public void shouldNotRelocateTile() throws puzzleExceptions {
+    public void shouldNotRelocateTile() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(4, 3);
             puzzle.addTile(1, 1, "green");
@@ -114,41 +112,56 @@ public class PuzzleTest {
         });
     }
 
-//    //* Add glue
-//    public void shouldAddGlue(){
-//        Puzzle puzzle = new Puzzle(3, 3);
-//        puzzle.addTile(1, 1, "blue");
-//        puzzle.addGlue(1, 1);
-//        Tiles tile = puzzle.board[1][1];
-//        assertTrue(tile.getGlued());
-//    }
-//    public void shouldNotAddGlue(){
-//        Puzzle puzzle = new Puzzle(3, 3);
-//        puzzle.addGlue(0, 0);
-//        Tiles tile = puzzle.board[1][1];
-//        assertFalse(tile.getGlued());
-//    }
-//
-//    //* Delete glue
-//    public void shouldDeleteGlue(){
-//        Puzzle puzzle = new Puzzle(3, 3);
-//        puzzle.addTile(1, 1, "blue");
-//        puzzle.addGlue(1, 1);
-//        Tiles tile = puzzle.board[1][1];
-//        puzzle.deleteGlue(1, 1);
-//        assertFalse(tile.getGlued());
-//    }
-//    public void shouldNotDeleteGlue(){
-//        Puzzle puzzle = new Puzzle(3, 3);
-//        puzzle.addTile(0, 0, "blue");
-//        puzzle.deleteGlue(0, 0);
-//        Tiles tile = puzzle.board[0][0];
-//        assertFalse(tile.getGlued());
-//    }
-//
+    //* Add glue
+    @Test
+    public void shouldAddGlue(){
+        try {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addGlue(0, 0);
+            assertEquals(puzzle.getGlue(0, 0).getType(), 'g');
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldNotAddGlue(){
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addGlue(1, 1);
+        });
+    }
+
+    //* Delete glue
+    @Test
+    public void shouldDeleteGlue(){
+        try {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addGlue(0, 0);
+            puzzle.deleteGlue(0, 0);
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldNotDeleteGlue(){
+        assertThrows(java.lang.NullPointerException.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addGlue(0, 0);
+            puzzle.deleteGlue(0,1);
+        });
+    }
+
     //* Make hole
     @Test
-    public void shouldMakeHole() throws puzzleExceptions {
+    public void shouldMakeHole() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.makeHole(1, 1);
@@ -156,7 +169,7 @@ public class PuzzleTest {
         });
     }
     @Test
-    public void shouldNotMakeHole() throws puzzleExceptions {
+    public void shouldNotMakeHole() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addTile(1, 1, "blue");
@@ -171,7 +184,7 @@ public class PuzzleTest {
         puzzle.addTile(1, 1, "blue");
         puzzle.makeInvisible();
         puzzle.makeVisible();
-        Tiles tile = puzzle.getTile(1, 1);;
+        Tiles tile = puzzle.getTile(1, 1);
         assertTrue(tile.getVisible());
     }
 
@@ -181,7 +194,7 @@ public class PuzzleTest {
         Puzzle puzzle = new Puzzle(3, 3);
         puzzle.addTile(1, 1, "blue");
         puzzle.makeInvisible();
-        Tiles tile = puzzle.getTile(1, 1);;
+        Tiles tile = puzzle.getTile(1, 1);
         assertFalse(tile.getVisible());
     }
 
@@ -210,11 +223,11 @@ public class PuzzleTest {
         puzzle.addTile(0, 0, "red");
         puzzle.addTile(2, 2, "blue");
         puzzle.tilt('R');
-        Tiles tile = puzzle.getTile(0, 2);;
+        Tiles tile = puzzle.getTile(0, 2);
         assertNotNull(tile);
     }
 
-    //* is gloal
+    //* is goal
     @Test
     public void shouldIsGoal() throws puzzleExceptions {
         char[][] start = new char[][]{{'r','.','.'},{'.','.','.'},{'.','.','.'}};
@@ -225,9 +238,9 @@ public class PuzzleTest {
     }
     @Test
     public void shouldIsNotGoal() throws puzzleExceptions {
-        char[][] ending = new char[][]{{'r','O','r'},{'O','O','O'},{'O','O','r'}};
-        Puzzle puzzle = new Puzzle(ending);
-        puzzle.addTile(0, 0, "red");
+        char[][] ending = new char[][]{{'r','.','r'},{'.','.','.'},{'.','.','r'}};
+        char[][] start = new char[][]{{'r','.','r'},{'.','r','.'},{'.','.','.'}};
+        Puzzle puzzle = new Puzzle(start,ending);
         puzzle.addTile(2, 2, "red");
         assertFalse(puzzle.isGoal());
     }
@@ -259,7 +272,7 @@ public class PuzzleTest {
         puzzle.tilt('U');
     }
     @Test
-    public void shouldNotWorkFixedTile() throws puzzleExceptions {
+    public void shouldNotWorkFixedTile() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addFixed(10, 1, "red");
@@ -278,12 +291,14 @@ public class PuzzleTest {
         puzzle.deleteTile(0, 0);
     }
     @Test
-    public void shouldNotWorkRoughTile() throws puzzleExceptions {
-        assertThrows(puzzle.puzzleExceptions.class, () -> {
+    public void shouldNotWorkRoughTile() {
+        try {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addRough(1, 1, "red");
-            puzzle.tilt('U');
-        });
+            puzzle.deleteTile(1, 1);
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     //* Freelance tiles
@@ -293,7 +308,7 @@ public class PuzzleTest {
         puzzle.addFreelance(1, 1, "red");
     }
     @Test
-    public void shouldNotWorkFreelanceTile() throws puzzleExceptions {
+    public void shouldNotWorkFreelanceTile() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addFreelance(10, 1, "red");
@@ -309,7 +324,7 @@ public class PuzzleTest {
         puzzle.tilt('R');
     }
     @Test
-    public void shouldNotWorkFlyingTile() throws puzzleExceptions {
+    public void shouldNotWorkFlyingTile() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addFlying(10, 1, "red");

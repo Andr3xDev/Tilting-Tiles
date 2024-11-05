@@ -159,9 +159,9 @@ public class Test {
         puzzle.actualGlue();
         System.out.println("----------------------------");
         Tiles tile = glue.getTile(4,4);
-        System.out.println(glue.maxMoveGlued(tile, 'R'));
+        System.out.println(glue.maxMoveGlued(tile, 'D'));
         System.out.println("----------------------------");
-        puzzle.deleteGlue(3,3);
+        //puzzle.deleteGlue(3,3);
         puzzle.actualGlue();
     }
     public static void test12() throws puzzleExceptions{

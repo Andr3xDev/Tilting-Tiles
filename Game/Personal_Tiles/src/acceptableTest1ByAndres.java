@@ -57,6 +57,9 @@ public class acceptableTest1ByAndres {
             puzzle.addGlue(0, 0);
             //! glued tilt missing
             Thread.sleep(time);
+            System.out.println("She tried to eliminate glue of the tile");
+            puzzle.deleteGlue(2, 0);
+            Thread.sleep(time);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
