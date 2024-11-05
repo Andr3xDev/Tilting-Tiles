@@ -13,14 +13,14 @@ public class Test {
         //test8();
         //test9();
         //test10();
-        //test11();
+        test11();
         //test12();
         //!test13();
         //test14();
         //test15();
         //test16c();
         //test17();
-        test18();
+        //test18();
     }
 
     public static void test1() throws puzzleExceptions{
@@ -160,6 +160,9 @@ public class Test {
         System.out.println("----------------------------");
         Tiles tile = glue.getTile(4,4);
         System.out.println(glue.maxMoveGlued(tile, 'R'));
+        System.out.println("----------------------------");
+        puzzle.deleteGlue(3,3);
+        puzzle.actualGlue();
     }
     public static void test12() throws puzzleExceptions{
         Puzzle puzzle = new Puzzle(4,3);
