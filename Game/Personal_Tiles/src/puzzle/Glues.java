@@ -93,7 +93,7 @@ public class Glues {
                 int r = position[0];
                 int c = position[1];
                 if (r >= 0 && r < rowSize && c >= 0 && c < columnSize &&
-                        this.board.getTile(r, c) != null) {
+                        this.board.getTile(r, c) != null && !(board.getTile(r,c) instanceof Freelance)) {
                     if (board.gluesBoard[r][c] != null && board.gluesBoard[r][c].getType() == 'g') {
                         board.gluesBoard[r][c] = new Glues(r, c, board, true);
                     } else{

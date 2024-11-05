@@ -243,7 +243,8 @@ public class Puzzle {
      * @param column It's the column of the tile.
      */
     public void addGlue(int row, int column) throws puzzleExceptions{
-        if(holesBoard[row][column] == null && board[row][column] != null) {
+        if(holesBoard[row][column] == null && board[row][column] != null
+                && !(board[row][column] instanceof Freelance)) {
             gluesBoard[row][column] = new Glues(row, column, this, true);
             Glues glue = gluesBoard[row][column];
             glue.recognizeGlue();
