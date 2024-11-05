@@ -147,7 +147,6 @@ public class Glues {
      * Eliminates all the glues in the board of type p
      */
     private void reset(){
-        System.out.println("Reset");
         for (int i = 0; i < this.board.getHeight(); i++) {
             for (int j = 0; j < this.board.getWidth(); j++) {
                 if (this.board.gluesBoard[i][j] != null && this.board.gluesBoard[i][j].getType() != 'g') {
