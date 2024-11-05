@@ -73,6 +73,29 @@ public class Glues {
         }
     }
 
+
+    public void eliminateNeighbour(int row, int column) {
+        if (valid(row, column)) {
+            int rowSize = this.board.getHeight();
+            int columnSize = this.board.getWidth();
+            int[][] positions = {
+                    {row - 1, column},     // Up
+                    {row + 1, column},     // Down
+                    {row, column - 1},     // Left
+                    {row, column + 1}      // Right
+            };
+
+            for (int[] position : positions) {
+                int r = position[0];
+                int c = position[1];
+                if (r >= 0 && r < rowSize && c >= 0 && c < columnSize &&
+                        this.board.getTile(r, c) != null) {
+                    board.gluesBoard[r][c] = null;
+                }
+            }
+        }
+    }
+
     public int maxMoveGlued(Tiles tile, char d) {
         if (this.type == 'g') {
             return maxMoveAllGlued(this.getTile(tile.getPosX(), tile.getPosY()), d);

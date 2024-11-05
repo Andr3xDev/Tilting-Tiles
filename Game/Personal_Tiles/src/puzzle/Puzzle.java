@@ -254,8 +254,10 @@ public class Puzzle {
     }
 
 
-    //! MISSING DOC
-    public void getGlue() throws puzzleExceptions{
+    /**
+     * Function to get the glue of the board. It will print the position of the glues.
+     */
+    public void getGlue(){
         for (int i = 0; i < 4; i++){
             for (int j = 0; j < 4; j++){
                 if (gluesBoard[i][j] != null){
@@ -266,8 +268,21 @@ public class Puzzle {
     }
 
 
-    public void deleteGlue(int row, int column) {
-
+    /**
+     * Function to delete the glue from a tile. It checks if the position is valid and if there is a glue.
+     * @param row It's the row of the tile.
+     * @param column It's the column of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid or if there is no glue.
+     */
+    public void deleteGlue(int row, int column) throws puzzleExceptions {
+        if(holesBoard[row][column] == null && board[row][column] != null && gluesBoard[row][column].getType() == 'g') {
+            gluesBoard[row][column] = null;
+            Glues glue = gluesBoard[row][column];
+            glue.eliminateNeighbour(row, column);
+            setActualGlue();
+        }else{
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
+        }
     }
 
 
