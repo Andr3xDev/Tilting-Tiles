@@ -76,24 +76,10 @@ public class Glues {
 
     public void eliminateNeighbour(int row, int column) {
         if (valid(row, column)) {
-            int rowSize = this.board.getHeight();
-            int columnSize = this.board.getWidth();
-            int[][] positions = {
-                    {row - 1, column},     // Up
-                    {row + 1, column},     // Down
-                    {row, column - 1},     // Left
-                    {row, column + 1}      // Right
-            };
-
-            for (int[] position : positions) {
-                int r = position[0];
-                int c = position[1];
-                if (r >= 0 && r < rowSize && c >= 0 && c < columnSize &&
-                        this.board.getTile(r, c) != null) {
-                    board.gluesBoard[r][c] = null;
-                }
-            }
+            this.board.gluesBoard[row][column] = null;
         }
+        reset();
+        rePaint();
     }
 
     public int maxMoveGlued(Tiles tile, char d) {
@@ -101,6 +87,38 @@ public class Glues {
             return maxMoveAllGlued(this.getTile(tile.getPosX(), tile.getPosY()), d);
         } else {
             return 0;
+        }
+    }
+
+    public void recognizeGlue() {
+        for (int i = 0; i < this.board.getHeight(); i++) {
+            for (int j = 0; j < this.board.getWidth(); j++) {
+                if (this.board.gluesBoard[i][j] != null && this.board.gluesBoard[i][j].getType() == 'g') {
+                    this.board.gluesBoard[i][j].addNeighbour(i,j);
+                }
+            }
+
+        }
+    }
+
+    private void reset(){
+        System.out.println("Reset");
+        for (int i = 0; i < this.board.getHeight(); i++) {
+            for (int j = 0; j < this.board.getWidth(); j++) {
+                if (this.board.gluesBoard[i][j] != null && this.board.gluesBoard[i][j].getType() != 'g') {
+                    this.board.gluesBoard[i][j] = null;
+                }
+            }
+        }
+    }
+
+    private void rePaint(){
+        for (int i = 0; i < this.board.getHeight(); i++) {
+            for (int j = 0; j < this.board.getWidth(); j++) {
+                if (this.board.gluesBoard[i][j] != null && this.board.gluesBoard[i][j].getType() == 'g') {
+                    this.board.gluesBoard[i][j].addNeighbour(i,j);
+                }
+            }
         }
     }
 

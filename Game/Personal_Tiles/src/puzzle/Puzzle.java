@@ -246,7 +246,7 @@ public class Puzzle {
         if(holesBoard[row][column] == null && board[row][column] != null) {
             gluesBoard[row][column] = new Glues(row, column, this, true);
             Glues glue = gluesBoard[row][column];
-            glue.addNeighbour(row, column);
+            glue.recognizeGlue();
             setActualGlue();
         }else{
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
@@ -276,13 +276,15 @@ public class Puzzle {
      */
     public void deleteGlue(int row, int column) throws puzzleExceptions {
         if(holesBoard[row][column] == null && board[row][column] != null && gluesBoard[row][column].getType() == 'g') {
-            gluesBoard[row][column] = null;
             Glues glue = gluesBoard[row][column];
-            glue.eliminateNeighbour(row, column);
-            setActualGlue();
+            if (glue != null && glue.getType() == 'g'){
+                glue.eliminateNeighbour(row, column);
+                glue.makeInvisible();
+            }
         }else{
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         }
+        setActualGlue();
     }
 
 
@@ -441,7 +443,9 @@ public class Puzzle {
     }
 
 
-    //! MISSING DOC
+    /**
+     * Function to print the actual glue board. It means, the internal function of the glue.
+     */
     public void actualGlue() {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
