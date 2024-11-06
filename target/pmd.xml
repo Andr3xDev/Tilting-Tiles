@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.38.0" timestamp="2024-11-05T20:01:00.249">
+<file name="/home/andr3xc/dev/Tilting-Tiles/src/main/java/puzzle/Fixed.java">
+<violation beginline="26" endline="26" begincolumn="19" endcolumn="22" rule="UnusedLocalVariable" ruleset="Best Practices" package="puzzle" class="Fixed" method="Fixed" variable="tile" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+Avoid unused local variables such as 'tile'.
+</violation>
+</file>
+<file name="/home/andr3xc/dev/Tilting-Tiles/src/main/java/puzzle/Flying.java">
+<violation beginline="26" endline="26" begincolumn="19" endcolumn="22" rule="UnusedLocalVariable" ruleset="Best Practices" package="puzzle" class="Flying" method="Flying" variable="tile" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+Avoid unused local variables such as 'tile'.
+</violation>
+</file>
+<file name="/home/andr3xc/dev/Tilting-Tiles/src/main/java/puzzle/Freelance.java">
+<violation beginline="10" endline="10" begincolumn="19" endcolumn="22" rule="UnusedLocalVariable" ruleset="Best Practices" package="puzzle" class="Freelance" method="Freelance" variable="tile" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+Avoid unused local variables such as 'tile'.
+</violation>
+</file>
+<file name="/home/andr3xc/dev/Tilting-Tiles/src/main/java/puzzle/Holes.java">
+<violation beginline="17" endline="17" begincolumn="20" endcolumn="24" rule="UnusedPrivateField" ruleset="Best Practices" package="puzzle" class="Holes" variable="board" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_bestpractices.html#unusedprivatefield" priority="3">
+Avoid unused private fields such as 'board'.
+</violation>
+</file>
+<file name="/home/andr3xc/dev/Tilting-Tiles/src/main/java/puzzle/Rough.java">
+<violation beginline="23" endline="23" begincolumn="19" endcolumn="22" rule="UnusedLocalVariable" ruleset="Best Practices" package="puzzle" class="Rough" method="Rough" variable="tile" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+Avoid unused local variables such as 'tile'.
+</violation>
+</file>
+<file name="/home/andr3xc/dev/Tilting-Tiles/src/main/java/puzzle/Temporal.java">
+<violation beginline="26" endline="26" begincolumn="19" endcolumn="22" rule="UnusedLocalVariable" ruleset="Best Practices" package="puzzle" class="Temporal" method="Temporal" variable="tile" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+Avoid unused local variables such as 'tile'.
+</violation>
+</file>
+<file name="/home/andr3xc/dev/Tilting-Tiles/src/main/java/shapes/Canvas.java">
+<violation beginline="120" endline="120" begincolumn="13" endcolumn="40" rule="IfElseStmtsMustUseBraces" ruleset="Code Style" package="shapes" class="Canvas" method="setForegroundColor" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_codestyle.html#ifelsestmtsmustusebraces" priority="3">
+Avoid using if...else statements without curly braces
+</violation>
+<violation beginline="122" endline="122" begincolumn="13" endcolumn="42" rule="IfElseStmtsMustUseBraces" ruleset="Code Style" package="shapes" class="Canvas" method="setForegroundColor" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_codestyle.html#ifelsestmtsmustusebraces" priority="3">
+Avoid using if...else statements without curly braces
+</violation>
+<violation beginline="124" endline="124" begincolumn="13" endcolumn="41" rule="IfElseStmtsMustUseBraces" ruleset="Code Style" package="shapes" class="Canvas" method="setForegroundColor" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_codestyle.html#ifelsestmtsmustusebraces" priority="3">
+Avoid using if...else statements without curly braces
+</violation>
+<violation beginline="126" endline="126" begincolumn="13" endcolumn="43" rule="IfElseStmtsMustUseBraces" ruleset="Code Style" package="shapes" class="Canvas" method="setForegroundColor" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_codestyle.html#ifelsestmtsmustusebraces" priority="3">
+Avoid using if...else statements without curly braces
+</violation>
+<violation beginline="128" endline="128" begincolumn="13" endcolumn="42" rule="IfElseStmtsMustUseBraces" ruleset="Code Style" package="shapes" class="Canvas" method="setForegroundColor" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_codestyle.html#ifelsestmtsmustusebraces" priority="3">
+Avoid using if...else statements without curly braces
+</violation>
+<violation beginline="130" endline="130" begincolumn="13" endcolumn="44" rule="IfElseStmtsMustUseBraces" ruleset="Code Style" package="shapes" class="Canvas" method="setForegroundColor" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_codestyle.html#ifelsestmtsmustusebraces" priority="3">
+Avoid using if...else statements without curly braces
+</violation>
+<violation beginline="132" endline="132" begincolumn="13" endcolumn="42" rule="IfElseStmtsMustUseBraces" ruleset="Code Style" package="shapes" class="Canvas" method="setForegroundColor" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_codestyle.html#ifelsestmtsmustusebraces" priority="3">
+Avoid using if...else statements without curly braces
+</violation>
+<violation beginline="134" endline="134" begincolumn="13" endcolumn="42" rule="IfElseStmtsMustUseBraces" ruleset="Code Style" package="shapes" class="Canvas" method="setForegroundColor" externalInfoUrl="https://pmd.github.io/pmd-6.38.0/pmd_rules_java_codestyle.html#ifelsestmtsmustusebraces" priority="3">
+Avoid using if...else statements without curly braces
+</violation>
+</file>
+</pmd>
