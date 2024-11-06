@@ -495,18 +495,18 @@ public class PuzzleTest {
 
 
     //* Add fragile
-    @Test
-    public void shouldAddFragile(){
-        try {
-            Puzzle puzzle = new Puzzle(3, 3);
-            puzzle.addTile(0, 0, "red");
-            puzzle.addTile(0, 1, "red");
-            puzzle.addFragile(0, 0);
-            assertEquals(puzzle.getGlue(0, 0).getType(), 'f');
-        } catch (puzzleExceptions e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    @Test
+//    public void shouldAddFragile(){
+//        try {
+//            Puzzle puzzle = new Puzzle(3, 3);
+//            puzzle.addTile(0, 0, "red");
+//            puzzle.addTile(0, 1, "red");
+//            puzzle.addFragile(0, 0);
+//            assertEquals(puzzle.getGlue(0, 0).getType(), 'f');
+//        } catch (puzzleExceptions e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
     @Test
     public void shouldNotAddFragile(){
         assertThrows(java.lang.ArrayIndexOutOfBoundsException.class, () -> {

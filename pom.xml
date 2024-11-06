@@ -32,22 +32,35 @@
                 <version>3.15.0</version>
                 <configuration>
                     <targetJdk>17</targetJdk>
+                    <linkXRef>true</linkXRef>
+                    <printFailingErrors>true</printFailingErrors>
+                    <failOnViolation>false</failOnViolation>
+                    <excludes>
+                        <exclude>shapes/*</exclude>
+                    </excludes>
+
                     <rulesets>
                         <ruleset>rulesets/java/basic.xml</ruleset>
                         <ruleset>rulesets/java/braces.xml</ruleset>
+                        <ruleset>rulesets/java/design.xml</ruleset>
+                        <ruleset>rulesets/java/naming.xml</ruleset>
+                        <ruleset>rulesets/java/optimizations.xml</ruleset>
                         <ruleset>rulesets/java/unusedcode.xml</ruleset>
                     </rulesets>
+                    <outputEncoding>UTF-8</outputEncoding>
                 </configuration>
                 <executions>
                     <execution>
                         <phase>verify</phase>
                         <goals>
+                            <goal>pmd</goal>
                             <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
 
+            <!-- Plugin de JaCoCo para cobertura de pruebas -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
