@@ -3,7 +3,7 @@ import puzzle.*;
 
 public class acceptableTest2ByDavid {
     static int time = 1000;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("This is an acceptable test");
         System.out.println("Juan updated the puzzle to get the new features");
         System.out.println("Juan created a puzzle with 5 rows and 5 columns");
@@ -84,5 +84,13 @@ public class acceptableTest2ByDavid {
             System.out.println("Error: " + e.getMessage());
         }
 
+
+
+
+
+
+        System.out.println("Finally she got bored and left the puzzle");
+        Thread.sleep(time);
+        puzzle.finish();
     }
 }
