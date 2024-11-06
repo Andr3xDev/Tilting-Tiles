@@ -256,6 +256,23 @@ public class Puzzle {
         }
     }
 
+    /**
+     * Function to add fragile glue to a tile. It will break after a tilt twice.
+     * @param row It's the row of the tile.
+     * @param column It's the column of the tile.
+     */
+    public void addFragile(int row, int column) throws puzzleExceptions{
+        if(holesBoard[row][column] == null && board[row][column] != null
+                && !(board[row][column] instanceof Freelance)) {
+            gluesBoard[row][column] = new Fragile(row, column, this, true);
+            Fragile glue = (Fragile) gluesBoard[row][column];
+            glue.recognizeGlue();
+            setActualGlue();
+        }else{
+            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
+        }
+    }
+
 
     /**
      * Function to get the glue of the board. It will print the position of the glues.

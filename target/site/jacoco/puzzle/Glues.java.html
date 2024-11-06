@@ -2,15 +2,16 @@
 
 import shapes.Circle;
 
+import javax.annotation.processing.Generated;
 import java.util.ArrayList;
 
 public class Glues {
     //* Attributes
-    private int row;
-    private int column;
-    private Puzzle board;
-    private Circle glue;
-    private String color;
+    private final int row;
+    private final int column;
+    private final Puzzle board;
+    private final Circle glue;
+    private final String color;
     private char type;
 
 
@@ -21,56 +22,56 @@ public class Glues {
      * @param board board where the glue is
      * @param glued true if the glue is glued, false otherwise
      */
-<span class="fc" id="L24">    public Glues(int row, int column, Puzzle board, boolean glued) {</span>
-<span class="fc" id="L25">        this.row = row;</span>
-<span class="fc" id="L26">        this.column = column;</span>
-<span class="fc" id="L27">        this.color = &quot;yellow&quot;;</span>
-<span class="fc" id="L28">        this.board = board;</span>
-<span class="fc" id="L29">        this.glue = new Circle();</span>
-<span class="fc" id="L30">        setGlued(glued);</span>
-<span class="fc" id="L31">        makeVisibleX();</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L25">    public Glues(int row, int column, Puzzle board, boolean glued) {</span>
+<span class="fc" id="L26">        this.row = row;</span>
+<span class="fc" id="L27">        this.column = column;</span>
+<span class="fc" id="L28">        this.color = &quot;yellow&quot;;</span>
+<span class="fc" id="L29">        this.board = board;</span>
+<span class="fc" id="L30">        this.glue = new Circle();</span>
+<span class="fc" id="L31">        setGlued(glued);</span>
+<span class="fc" id="L32">        makeVisibleX();</span>
+<span class="fc" id="L33">    }</span>
 
 
     /**
      * Function to set the glue as glued or not glued, and define the type of the glue
      * @param glued true if the glue is glued and type g, false and type p otherwise
      */
-    private void setGlued(boolean glued) {
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (glued) {</span>
-<span class="fc" id="L41">            this.type = 'g';</span>
+    protected void setGlued(boolean glued) {
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (glued) {</span>
+<span class="fc" id="L42">            this.type = 'g';</span>
         } else {
-<span class="nc" id="L43">            this.type = 'p';</span>
+<span class="nc" id="L44">            this.type = 'p';</span>
         }
-<span class="fc" id="L45">    }</span>
+<span class="fc" id="L46">    }</span>
 
 
     /**
      * Function to make the glue visible in the board on the creation
      */
     public void makeVisibleX() {
-<span class="fc" id="L52">        this.glue.makeVisible();</span>
-<span class="fc" id="L53">        this.glue.changeSize(15);</span>
-<span class="fc" id="L54">        this.glue.changeColor(this.color);</span>
-<span class="fc" id="L55">        this.glue.moveHorizontal(row * 23 + 2);</span>
-<span class="fc" id="L56">        this.glue.moveVertical(column * 23 + 2);</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L53">        this.glue.makeVisible();</span>
+<span class="fc" id="L54">        this.glue.changeSize(15);</span>
+<span class="fc" id="L55">        this.glue.changeColor(this.color);</span>
+<span class="fc" id="L56">        this.glue.moveHorizontal(row * 23 + 2);</span>
+<span class="fc" id="L57">        this.glue.moveVertical(column * 23 + 2);</span>
+<span class="fc" id="L58">    }</span>
 
 
     /**
      * Function to make the glue invisible
      */
     public void makeInvisible() {
-<span class="fc" id="L64">        this.glue.makeInvisible();</span>
-<span class="fc" id="L65">    }</span>
+<span class="fc" id="L65">        this.glue.makeInvisible();</span>
+<span class="fc" id="L66">    }</span>
 
 
     /**
      * Function to make the glue visible
      */
     public void makeVisible() {
-<span class="nc" id="L72">        this.glue.makeVisible();</span>
-<span class="nc" id="L73">    }</span>
+<span class="nc" id="L73">        this.glue.makeVisible();</span>
+<span class="nc" id="L74">    }</span>
 
 
     /**
@@ -78,31 +79,32 @@ public class Glues {
      * @param row row position of the glue
      * @param column column position of the glue
      */
-    public void addNeighbour(int row, int column) {
-<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if (valid(row, column)) {</span>
-<span class="nc" id="L83">            int rowSize = this.board.getHeight();</span>
-<span class="nc" id="L84">            int columnSize = this.board.getWidth();</span>
-<span class="nc" id="L85">            int[][] positions = {</span>
+    @Generated(&quot;Not apply&quot;)
+    protected void addNeighbour(int row, int column) {
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        if (valid(row, column)) {</span>
+<span class="nc" id="L85">            int rowSize = this.board.getHeight();</span>
+<span class="nc" id="L86">            int columnSize = this.board.getWidth();</span>
+<span class="nc" id="L87">            int[][] positions = {</span>
                     {row - 1, column},     // Up
                     {row + 1, column},     // Down
                     {row, column - 1},     // Left
                     {row, column + 1}      // Right
             };
 
-<span class="nc bnc" id="L92" title="All 2 branches missed.">            for (int[] position : positions) {</span>
-<span class="nc" id="L93">                int r = position[0];</span>
-<span class="nc" id="L94">                int c = position[1];</span>
-<span class="nc bnc" id="L95" title="All 8 branches missed.">                if (r &gt;= 0 &amp;&amp; r &lt; rowSize &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; columnSize &amp;&amp;</span>
-<span class="nc bnc" id="L96" title="All 4 branches missed.">                        this.board.getTile(r, c) != null &amp;&amp; !(board.getTile(r,c) instanceof Freelance)) {</span>
-<span class="nc bnc" id="L97" title="All 4 branches missed.">                    if (board.gluesBoard[r][c] != null &amp;&amp; board.gluesBoard[r][c].getType() == 'g') {</span>
-<span class="nc" id="L98">                        board.gluesBoard[r][c] = new Glues(r, c, board, true);</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            for (int[] position : positions) {</span>
+<span class="nc" id="L95">                int r = position[0];</span>
+<span class="nc" id="L96">                int c = position[1];</span>
+<span class="nc bnc" id="L97" title="All 8 branches missed.">                if (r &gt;= 0 &amp;&amp; r &lt; rowSize &amp;&amp; c &gt;= 0 &amp;&amp; c &lt; columnSize &amp;&amp;</span>
+<span class="nc bnc" id="L98" title="All 4 branches missed.">                        this.board.getTile(r, c) != null &amp;&amp; !(board.getTile(r,c) instanceof Freelance)) {</span>
+<span class="nc bnc" id="L99" title="All 4 branches missed.">                    if (board.gluesBoard[r][c] != null &amp;&amp; board.gluesBoard[r][c].getType() == 'g') {</span>
+<span class="nc" id="L100">                        board.gluesBoard[r][c] = new Glues(r, c, board, true);</span>
                     } else{
-<span class="nc" id="L100">                        board.gluesBoard[r][c] = new Glues(r, c, board, false);</span>
+<span class="nc" id="L102">                        board.gluesBoard[r][c] = new Glues(r, c, board, false);</span>
                     }
                 }
             }
         }
-<span class="fc" id="L105">    }</span>
+<span class="fc" id="L107">    }</span>
 
 
     /**
@@ -111,92 +113,40 @@ public class Glues {
      * @param column column position of the glue
      */
     public void eliminateNeighbour(int row, int column) {
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        if (valid(row, column)) {</span>
-<span class="nc" id="L115">            this.board.gluesBoard[row][column] = null;</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (valid(row, column)) {</span>
+<span class="nc" id="L117">            this.board.gluesBoard[row][column] = null;</span>
         }
-<span class="fc" id="L117">        reset();</span>
-<span class="fc" id="L118">        rePaint();</span>
-<span class="fc" id="L119">    }</span>
-
-    //! Pending to implement
-    public int maxMoveGlued(Tiles tile, char d) {
-<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (this.type == 'g') {</span>
-<span class="nc" id="L124">            return maxMoveAllGlued(this.getTile(tile.getPosX(), tile.getPosY()), d);</span>
-        } else {
-<span class="nc" id="L126">            return 0;</span>
-        }
-    }
+<span class="fc" id="L119">        reset();</span>
+<span class="fc" id="L120">        recognizeGlue();</span>
+<span class="fc" id="L121">    }</span>
 
 
     /**
      * Function to recognize the glued tiles and add the neighbours
      */
     public void recognizeGlue() {
-<span class="fc bfc" id="L135" title="All 2 branches covered.">        for (int i = 0; i &lt; this.board.getHeight(); i++) {</span>
-<span class="fc bfc" id="L136" title="All 2 branches covered.">            for (int j = 0; j &lt; this.board.getWidth(); j++) {</span>
-<span class="pc bpc" id="L137" title="1 of 4 branches missed.">                if (this.board.gluesBoard[i][j] != null &amp;&amp; this.board.gluesBoard[i][j].getType() == 'g') {</span>
-<span class="fc" id="L138">                    this.board.gluesBoard[i][j].addNeighbour(i,j);</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        for (int i = 0; i &lt; this.board.getHeight(); i++) {</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">            for (int j = 0; j &lt; this.board.getWidth(); j++) {</span>
+<span class="pc bpc" id="L130" title="1 of 4 branches missed.">                if (this.board.gluesBoard[i][j] != null &amp;&amp; this.board.gluesBoard[i][j].getType() == 'g') {</span>
+<span class="fc" id="L131">                    this.board.gluesBoard[i][j].addNeighbour(i,j);</span>
                 }
             }
-
         }
-<span class="fc" id="L143">    }</span>
+<span class="fc" id="L135">    }</span>
 
 
     /**
      * Eliminates all the glues in the board of type p
      */
     private void reset(){
-<span class="fc bfc" id="L150" title="All 2 branches covered.">        for (int i = 0; i &lt; this.board.getHeight(); i++) {</span>
-<span class="fc bfc" id="L151" title="All 2 branches covered.">            for (int j = 0; j &lt; this.board.getWidth(); j++) {</span>
-<span class="pc bpc" id="L152" title="1 of 4 branches missed.">                if (this.board.gluesBoard[i][j] != null &amp;&amp; this.board.gluesBoard[i][j].getType() != 'g') {</span>
-<span class="nc" id="L153">                    this.board.gluesBoard[i][j] = null;</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        for (int i = 0; i &lt; this.board.getHeight(); i++) {</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">            for (int j = 0; j &lt; this.board.getWidth(); j++) {</span>
+<span class="pc bpc" id="L144" title="1 of 4 branches missed.">                if (this.board.gluesBoard[i][j] != null &amp;&amp; this.board.gluesBoard[i][j].getType() != 'g') {</span>
+<span class="nc" id="L145">                    this.board.gluesBoard[i][j] = null;</span>
                 }
             }
         }
-<span class="fc" id="L157">    }</span>
-
-
-    /**
-     * Function to repaint the board after a glue is deleted
-     */
-    private void rePaint(){
-<span class="fc bfc" id="L164" title="All 2 branches covered.">        for (int i = 0; i &lt; this.board.getHeight(); i++) {</span>
-<span class="fc bfc" id="L165" title="All 2 branches covered.">            for (int j = 0; j &lt; this.board.getWidth(); j++) {</span>
-<span class="pc bpc" id="L166" title="1 of 4 branches missed.">                if (this.board.gluesBoard[i][j] != null &amp;&amp; this.board.gluesBoard[i][j].getType() == 'g') {</span>
-<span class="fc" id="L167">                    this.board.gluesBoard[i][j].addNeighbour(i,j);</span>
-                }
-            }
-        }
-<span class="fc" id="L171">    }</span>
-
-
-    /**
-     * Function to get the maximum movement of the glued tiles as a group
-     * @param tile tile to move
-     * @param direction direction to move
-     * @return the maximum movement of the glued tiles
-     */
-    public int maxMoveAllGlued(Tiles tile, char direction) {
-<span class="nc" id="L181">        int min = 999999999;</span>
-<span class="nc bnc" id="L182" title="All 2 branches missed.">        for (int i = 0; i &lt; 4; i++) {</span>
-<span class="nc" id="L183">            Tiles tileO = getTile(tile.getPosX(), tile.getPosY());</span>
-<span class="nc" id="L184">            ArrayList&lt;Tiles&gt; tiles = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L185" title="All 2 branches missed.">            if (tileO != null) {</span>
-<span class="nc" id="L186">                tiles.add(tileO);</span>
-            }
-<span class="nc bnc" id="L188" title="All 2 branches missed.">            for (Tiles tl : tiles) {</span>
-<span class="nc bnc" id="L189" title="All 5 branches missed.">                min = switch (direction) {</span>
-<span class="nc" id="L190">                    case 'R' -&gt; Math.min(tl.maxMoveRight(), min);</span>
-<span class="nc" id="L191">                    case 'L' -&gt; Math.min(tl.maxMoveLeft(), min);</span>
-<span class="nc" id="L192">                    case 'U' -&gt; Math.min(tl.maxMoveUp(), min);</span>
-<span class="nc" id="L193">                    case 'D' -&gt; Math.min(tl.maxMoveDown(), min);</span>
-<span class="nc" id="L194">                    default -&gt; min;</span>
-                };
-<span class="nc" id="L196">            }</span>
-        }
-<span class="nc" id="L198">        return min;</span>
-    }
+<span class="fc" id="L149">    }</span>
 
 
     /**
@@ -205,11 +155,12 @@ public class Glues {
      * @param column objective column
      * @return true if the position is valid, false otherwise
      */
+    @Generated(&quot;Not apply&quot;)
     private boolean valid(int row, int column) {
-<span class="pc bpc" id="L209" title="1 of 2 branches missed.">        return row &gt; 0 &amp;&amp;</span>
-<span class="nc bnc" id="L210" title="All 4 branches missed.">                row &lt; this.board.getHeight() &amp;&amp;</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        return row &gt; 0 &amp;&amp;</span>
+<span class="nc bnc" id="L161" title="All 4 branches missed.">                row &lt; this.board.getHeight() &amp;&amp;</span>
                 column &gt; 0 &amp;&amp;
-<span class="pc bnc" id="L212" title="All 2 branches missed.">                column &lt; this.board.getWidth();</span>
+<span class="pc bnc" id="L163" title="All 2 branches missed.">                column &lt; this.board.getWidth();</span>
     }
 
 
@@ -218,18 +169,8 @@ public class Glues {
      * @return g if the glue is glued, p if the glue is not glued
      */
     public char getType() {
-<span class="fc" id="L221">        return this.type;</span>
+<span class="fc" id="L172">        return this.type;</span>
     }
 
-
-    /**
-     * Function to get the tile in the board
-     * @param row row position of the tile
-     * @param column column position of the tile
-     * @return The tile object
-     */
-    public Tiles getTile(int row, int column) {
-<span class="nc" id="L232">        return this.board.getTile(row, column);</span>
-    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -24,7 +24,6 @@ public class PuzzleContest {
         ArrayList<String> memory = new ArrayList<>();
         ArrayList<Character> moves = new ArrayList<>();
         solutions(start, ending, memory, moves);
-        System.out.println("Movimientos mínimos: " + this.finalMove);
         return !this.finalMove.isEmpty();
     }
 

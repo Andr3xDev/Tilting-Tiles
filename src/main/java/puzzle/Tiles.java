@@ -305,14 +305,14 @@ public class Tiles {
      */
     public void makeVisible() {
         tile.makeVisible();
-        this.visible = true;
+        setVisible(true);
     }
     /**
      * Function to make invisible the tiles
      */
     public void makeInvisible() {
         tile.makeInvisible();
-        this.visible = false;
+        setVisible(false);
     }
 
 

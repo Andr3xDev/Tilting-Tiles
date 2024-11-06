@@ -148,9 +148,9 @@ public class Puzzle {
      * @throws puzzleExceptions It throws an exception if the position is invalid.
      */
     public void addRough(int row, int column, String color) throws puzzleExceptions{
-<span class="pc bpc" id="L151" title="6 of 12 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 ||</span>
+<span class="pc bpc" id="L151" title="5 of 12 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 ||</span>
                 board[row][column] != null || holesBoard[row][column] != null){
-<span class="nc" id="L153">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+<span class="fc" id="L153">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
         } else {
 <span class="fc" id="L155">            Rough tile = new Rough(column,row,color,this);</span>
 <span class="fc" id="L156">            board[row][column] = tile;</span>
@@ -223,8 +223,8 @@ public class Puzzle {
      * @throws puzzleExceptions It throws an exception if the position is invalid or if there is no tile.
      */
     public void deleteTile(int row, int column) throws puzzleExceptions {
-<span class="pc bpc" id="L226" title="4 of 8 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 ){</span>
-<span class="nc" id="L227">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+<span class="pc bpc" id="L226" title="3 of 8 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 ){</span>
+<span class="fc" id="L227">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
         } else {
 <span class="fc" id="L229">            Tiles tile = getTile(row,column);</span>
 <span class="pc bpc" id="L230" title="1 of 4 branches missed.">            if (tile == null || tile instanceof Fixed){</span>
@@ -245,7 +245,7 @@ public class Puzzle {
      * @param column It's the column of the tile.
      */
     public void addGlue(int row, int column) throws puzzleExceptions{
-<span class="pc bpc" id="L248" title="1 of 6 branches missed.">        if(holesBoard[row][column] == null &amp;&amp; board[row][column] != null</span>
+<span class="pc bpc" id="L248" title="2 of 6 branches missed.">        if(holesBoard[row][column] == null &amp;&amp; board[row][column] != null</span>
                 &amp;&amp; !(board[row][column] instanceof Freelance)) {
 <span class="fc" id="L250">            gluesBoard[row][column] = new Glues(row, column, this, true);</span>
 <span class="fc" id="L251">            Glues glue = gluesBoard[row][column];</span>
@@ -316,7 +316,7 @@ public class Puzzle {
      *                  'R' for right, 'D' for down and 'U' for up.
      */
     public void tilt(char direction) {
-<span class="pc bpc" id="L319" title="2 of 5 branches missed.">        switch (direction){</span>
+<span class="pc bpc" id="L319" title="1 of 5 branches missed.">        switch (direction){</span>
             case 'L':
 <span class="fc" id="L321">                moveLeft();</span>
 <span class="fc" id="L322">                break;</span>
@@ -324,8 +324,8 @@ public class Puzzle {
 <span class="fc" id="L324">                moveRight();</span>
 <span class="fc" id="L325">                break;</span>
             case 'D':
-<span class="nc" id="L327">                moveDown();</span>
-<span class="nc" id="L328">                break;</span>
+<span class="fc" id="L327">                moveDown();</span>
+<span class="fc" id="L328">                break;</span>
             case 'U':
 <span class="fc" id="L330">                moveUp();</span>
 <span class="fc" id="L331">                break;</span>
@@ -361,12 +361,12 @@ public class Puzzle {
 <span class="fc bfc" id="L361" title="All 2 branches covered.">        for (int i = 0; i &lt; this.width; i++) {</span>
 <span class="fc bfc" id="L362" title="All 2 branches covered.">            for (int j = 0; j &lt; this.height; j++) {</span>
 <span class="fc" id="L363">                Tiles tile = board[j][i];</span>
-<span class="pc bpc" id="L364" title="1 of 2 branches missed.">                if (tile != null) {</span>
+<span class="fc bfc" id="L364" title="All 2 branches covered.">                if (tile != null) {</span>
                     try {
-<span class="nc" id="L366">                        tile.moveLeft();</span>
+<span class="fc" id="L366">                        tile.moveLeft();</span>
 <span class="nc" id="L367">                    } catch (puzzleExceptions e) {</span>
 <span class="nc" id="L368">                        System.out.println(e.getMessage());</span>
-<span class="nc" id="L369">                    }</span>
+<span class="fc" id="L369">                    }</span>
                 }
             }
         }
@@ -377,19 +377,19 @@ public class Puzzle {
      * Function to move all the tiles down.
      */
     private void moveDown(){
-<span class="nc bnc" id="L380" title="All 2 branches missed.">        for (int i = this.height - 1; i &gt;= 0; i--) {</span>
-<span class="nc bnc" id="L381" title="All 2 branches missed.">            for (int j = 0; j &lt; this.width; j++) {</span>
-<span class="nc" id="L382">                Tiles tile = getTile(i,j);</span>
-<span class="nc bnc" id="L383" title="All 2 branches missed.">                if (tile != null){</span>
+<span class="fc bfc" id="L380" title="All 2 branches covered.">        for (int i = this.height - 1; i &gt;= 0; i--) {</span>
+<span class="fc bfc" id="L381" title="All 2 branches covered.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="fc" id="L382">                Tiles tile = getTile(i,j);</span>
+<span class="fc bfc" id="L383" title="All 2 branches covered.">                if (tile != null){</span>
                     try {
-<span class="nc" id="L385">                        tile.moveDown();</span>
+<span class="fc" id="L385">                        tile.moveDown();</span>
 <span class="nc" id="L386">                    } catch (puzzleExceptions e) {</span>
 <span class="nc" id="L387">                        System.out.println(e.getMessage());</span>
-<span class="nc" id="L388">                    }</span>
+<span class="fc" id="L388">                    }</span>
                 }
             }
         }
-<span class="nc" id="L392">    }</span>
+<span class="fc" id="L392">    }</span>
 
 
     /**
@@ -437,26 +437,26 @@ public class Puzzle {
      * Function to print the actual arrangement of the board. It means, te internal function of the board.
      */
     public void actualArrangemment() {
-<span class="nc bnc" id="L440" title="All 2 branches missed.">        for (int i = 0; i &lt; this.height; i++) {</span>
-<span class="nc bnc" id="L441" title="All 2 branches missed.">            for (int j = 0; j &lt; this.width; j++) {</span>
-<span class="nc" id="L442">                System.out.print(actualBoard[i][j]);</span>
+<span class="fc bfc" id="L440" title="All 2 branches covered.">        for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="fc bfc" id="L441" title="All 2 branches covered.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="fc" id="L442">                System.out.print(actualBoard[i][j]);</span>
             }
-<span class="nc" id="L444">            System.out.println();</span>
+<span class="fc" id="L444">            System.out.println();</span>
         }
-<span class="nc" id="L446">    }</span>
+<span class="fc" id="L446">    }</span>
 
 
     /**
      * Function to print the actual glue board. It means, the internal function of the glue.
      */
     public void actualGlue() {
-<span class="nc bnc" id="L453" title="All 2 branches missed.">        for (int i = 0; i &lt; this.height; i++) {</span>
-<span class="nc bnc" id="L454" title="All 2 branches missed.">            for (int j = 0; j &lt; this.width; j++) {</span>
-<span class="nc" id="L455">                System.out.print(actualGlue[i][j]);</span>
+<span class="fc bfc" id="L453" title="All 2 branches covered.">        for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="fc bfc" id="L454" title="All 2 branches covered.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="fc" id="L455">                System.out.print(actualGlue[i][j]);</span>
             }
-<span class="nc" id="L457">            System.out.println();</span>
+<span class="fc" id="L457">            System.out.println();</span>
         }
-<span class="nc" id="L459">    }</span>
+<span class="fc" id="L459">    }</span>
 
 
     /**
@@ -620,7 +620,7 @@ public class Puzzle {
 <span class="fc" id="L620">    }</span>
 
     public char[][] getActualBoard() {
-<span class="nc" id="L623">        return actualBoard;</span>
+<span class="fc" id="L623">        return actualBoard;</span>
     }
 
     public char[][] getEndingBoard() {
@@ -628,8 +628,8 @@ public class Puzzle {
     }
 
     public void setBoard(char[][] original){
-<span class="nc" id="L631">        this.actualBoard=original;</span>
-<span class="nc" id="L632">    }</span>
+<span class="fc" id="L631">        this.actualBoard=original;</span>
+<span class="fc" id="L632">    }</span>
 
     public int getWidth() {
 <span class="fc" id="L635">        return this.width;</span>

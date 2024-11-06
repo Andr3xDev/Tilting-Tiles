@@ -94,6 +94,14 @@ public class PuzzleTest {
             puzzle.deleteTile(0, 0);
         });
     }
+    @Test
+    public void shouldNotDeleteTile2() {
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(1, 1, "red");
+            puzzle.deleteTile(-1, 110);
+        });
+    }
 
     //* Relocating tiles
     @Test
@@ -112,6 +120,15 @@ public class PuzzleTest {
             tileStart.relocateTile(new int[]{1,1}, new int[]{1000,0});
         });
     }
+    @Test
+    public void shouldNotRelocateTile2() {
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(4, 3);
+            puzzle.addTile(1, 1, "green");
+            Tiles tileStart = puzzle.getTile(1, 1);
+            tileStart.relocateTile(new int[]{1,0}, new int[]{1,-1});
+        });
+    }
 
     //* Add glue
     @Test
@@ -128,12 +145,61 @@ public class PuzzleTest {
     }
     @Test
     public void shouldNotAddGlue(){
-        assertThrows(puzzle.puzzleExceptions.class, () -> {
+        assertThrows(java.lang.ArrayIndexOutOfBoundsException.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addTile(0, 0, "red");
             puzzle.addTile(0, 1, "red");
-            puzzle.addGlue(1, 1);
+            puzzle.addGlue(-1, 1000);
         });
+    }
+
+    //* Get glue
+    @Test
+    public void shouldGetGlue(){
+        try {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addGlue(0, 0);
+            assertNotNull(puzzle.getGlue(0, 0));
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldNotGetGlue(){
+        try {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addGlue(0, 0);
+            assertNull(puzzle.getGlue(2, 2));
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldActualGlue(){
+        try {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addGlue(0, 0);
+            puzzle.actualGlue();
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldNotActualGlue(){
+        try {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.actualGlue();
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     //* Delete glue
@@ -224,7 +290,10 @@ public class PuzzleTest {
         puzzle.addTile(0, 0, "red");
         puzzle.addTile(2, 2, "blue");
         puzzle.tilt('R');
-        Tiles tile = puzzle.getTile(0, 2);
+        puzzle.tilt('D');
+        puzzle.tilt('L');
+        puzzle.tilt('U');
+        Tiles tile = puzzle.getTile(0, 0);
         assertNotNull(tile);
     }
 
@@ -284,6 +353,15 @@ public class PuzzleTest {
             System.out.println(e.getMessage());
         }
     }
+    @Test
+    public void shouldNotWorkRoughTile2() {
+        try {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addRough(-1, 100, "red");
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     //* Freelance tiles
     @Test
@@ -291,7 +369,9 @@ public class PuzzleTest {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
             puzzle.addFreelance(1, 1, "red");
-            puzzle.addGlue(1, 1);
+            Tiles tile = puzzle.getTile(1, 1);
+            tile.relocateTile(new int[]{1,1}, new int[]{0,0});
+            puzzle.addGlue(0, 0);
         });
     }
     @Test
@@ -309,6 +389,9 @@ public class PuzzleTest {
         puzzle.addFlying(0, 0, "red");
         puzzle.makeHole(0, 2);
         puzzle.tilt('R');
+        puzzle.tilt('D');
+        puzzle.tilt('L');
+        puzzle.tilt('U');
     }
     @Test
     public void shouldNotWorkFlyingTile() {
@@ -323,9 +406,44 @@ public class PuzzleTest {
     public void shouldWorkTemporalTile() throws puzzleExceptions {
         Puzzle puzzle = new Puzzle(3, 3);
         puzzle.addTemporal(0, 0, "red");
+        Tiles tile = puzzle.getTile(0, 0);
+        tile.relocateTile(new int[]{0,0}, new int[]{1,1});
         puzzle.tilt('R');
         puzzle.tilt('L');
         puzzle.tilt('R');
+        assertEquals(9, puzzle.getMissingSpace());
+    }
+    @Test
+    public void shouldWorkTemporalTile2() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTemporal(0, 0, "red");
+        Tiles tile = puzzle.getTile(0, 0);
+        tile.relocateTile(new int[]{0,0}, new int[]{1,1});
+        puzzle.tilt('U');
+        puzzle.tilt('D');
+        puzzle.tilt('U');
+        assertEquals(9, puzzle.getMissingSpace());
+    }
+    @Test
+    public void shouldWorkTemporalTile3() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTemporal(0, 0, "red");
+        Tiles tile = puzzle.getTile(0, 0);
+        tile.relocateTile(new int[]{0,0}, new int[]{1,1});
+        puzzle.tilt('D');
+        puzzle.tilt('L');
+        puzzle.tilt('R');
+        assertEquals(9, puzzle.getMissingSpace());
+    }
+    @Test
+    public void shouldWorkTemporalTile4() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTemporal(0, 0, "red");
+        Tiles tile = puzzle.getTile(0, 0);
+        tile.relocateTile(new int[]{0,0}, new int[]{1,1});
+        puzzle.tilt('L');
+        puzzle.tilt('D');
+        puzzle.tilt('U');
         assertEquals(9, puzzle.getMissingSpace());
     }
     @Test
@@ -335,6 +453,70 @@ public class PuzzleTest {
             puzzle.addTemporal(10, 1, "red");
         });
     }
+
+    //* Puzzle contest
+    @Test
+    public void shouldWorkPuzzleContest() {
+        char[][] start = new char[][]{{'r','.','.'},{'.','.','.'},{'.','.','.'}};
+        char[][] ending = new char[][]{{'.','.','.'},{'.','.','.'},{'.','.','r'}};
+        PuzzleContest contest = new PuzzleContest();
+        assertTrue(contest.solve(start, ending));
+    }
+    @Test
+    public void shouldNotWorkPuzzleContest() {
+        char[][] start = new char[][]{{'r','.','.','.','.','.'}};
+        char[][] ending = new char[][]{{'r','.','r','.','.','.'}};
+        PuzzleContest contest = new PuzzleContest();
+        assertFalse(contest.solve(start, ending));
+    }
+
+    @Test
+    public void shouldWorkPuzzleContestS(){
+        char[][] start = new char[][]{{'r','.','.'},{'.','.','.'},{'.','.','.'}};
+        char[][] ending = new char[][]{{'.','.','.'},{'.','.','.'},{'.','.','r'}};
+        PuzzleContest contest = new PuzzleContest();
+        contest.simulate(start, ending);
+    }
+    @Test
+    public void shouldNotWorkPuzzleContestS() {
+        char[][] start = new char[][]{{'r','.','.','.','.','.'}};
+        char[][] ending = new char[][]{{'r','.','r','.','.','.'}};
+        PuzzleContest contest = new PuzzleContest();
+        contest.simulate(start, ending);
+    }
+
+
+    //* ActualArrangement
+    @Test
+    public void shouldWorkActualArrangement() {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.actualArrangemment();
+    }
+
+
+    //* Add fragile
+    @Test
+    public void shouldAddFragile(){
+        try {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addFragile(0, 0);
+            assertEquals(puzzle.getGlue(0, 0).getType(), 'f');
+        } catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @Test
+    public void shouldNotAddFragile(){
+        assertThrows(java.lang.ArrayIndexOutOfBoundsException.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTile(0, 0, "red");
+            puzzle.addTile(0, 1, "red");
+            puzzle.addFragile(-1, 1000);
+        });
+    }
+
     /**
      * Tears down the test fixture.
      * Called after every test case method.

@@ -7,7 +7,7 @@ import java.util.Arrays;
  * This class represents a puzzle contest. It is used to solve a puzzle game and find the minimum number of moves to
  * solve it. represents and simulate a puzzle contest.
  */
-<span class="nc" id="L10">public class PuzzleContest {</span>
+<span class="fc" id="L10">public class PuzzleContest {</span>
 
     //* Attributes
     private ArrayList&lt;Character&gt; finalMove;
@@ -20,12 +20,11 @@ import java.util.Arrays;
      * @return true if the puzzle game was solved, false otherwise.
      */
     public boolean solve(char[][] start, char[][] ending) {
-<span class="nc" id="L23">        this.finalMove = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L24">        ArrayList&lt;String&gt; memory = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L25">        ArrayList&lt;Character&gt; moves = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L26">        solutions(start, ending, memory, moves);</span>
-<span class="nc" id="L27">        System.out.println(&quot;Movimientos mínimos: &quot; + this.finalMove);</span>
-<span class="nc bnc" id="L28" title="All 2 branches missed.">        return !this.finalMove.isEmpty();</span>
+<span class="fc" id="L23">        this.finalMove = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L24">        ArrayList&lt;String&gt; memory = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L25">        ArrayList&lt;Character&gt; moves = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L26">        solutions(start, ending, memory, moves);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        return !this.finalMove.isEmpty();</span>
     }
 
     /**
@@ -34,12 +33,12 @@ import java.util.Arrays;
      * @param ending the final state of the puzzle game.
      */
     public void simulate(char[][] start, char[][] ending) {
-<span class="nc" id="L37">        this.finalMove = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L38">        ArrayList&lt;String&gt; memory = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L39">        ArrayList&lt;Character&gt; moves = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L40">        solutions(start, ending, memory, moves);</span>
-<span class="nc" id="L41">        System.out.println(&quot;Movimientos mínimos: &quot; + this.finalMove);</span>
-<span class="nc" id="L42">    }</span>
+<span class="fc" id="L36">        this.finalMove = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L37">        ArrayList&lt;String&gt; memory = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L38">        ArrayList&lt;Character&gt; moves = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L39">        solutions(start, ending, memory, moves);</span>
+<span class="fc" id="L40">        System.out.println(&quot;Movimientos mínimos: &quot; + this.finalMove);</span>
+<span class="fc" id="L41">    }</span>
 
 
     //* Private Methods
@@ -52,56 +51,56 @@ import java.util.Arrays;
      * @param moves the moves to solve the puzzle game.
      */
     private void solutions(char[][] start, char[][] ending, ArrayList&lt;String&gt; memory, ArrayList&lt;Character&gt; moves) {
-<span class="nc" id="L55">        Puzzle puzzle = new Puzzle(start, ending);</span>
+<span class="fc" id="L54">        Puzzle puzzle = new Puzzle(start, ending);</span>
 
         // Comprobamos si ya se alcanzó el estado objetivo
-<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (sameBoard(start, ending)) {</span>
-<span class="nc bnc" id="L59" title="All 4 branches missed.">            if (this.finalMove.isEmpty() || moves.size() &lt; this.finalMove.size()) {</span>
-<span class="nc" id="L60">                this.finalMove = new ArrayList&lt;&gt;(moves);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (sameBoard(start, ending)) {</span>
+<span class="fc bfc" id="L58" title="All 4 branches covered.">            if (this.finalMove.isEmpty() || moves.size() &lt; this.finalMove.size()) {</span>
+<span class="fc" id="L59">                this.finalMove = new ArrayList&lt;&gt;(moves);</span>
             }
-<span class="nc" id="L62">            return;</span>
+<span class="fc" id="L61">            return;</span>
         }
 
         // Representación del estado actual del tablero como cadena para evitar ciclos
-<span class="nc" id="L66">        String currentBoardState = Arrays.deepToString(puzzle.getActualBoard());</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (memory.contains(currentBoardState)) {</span>
-<span class="nc" id="L68">            return;</span>
+<span class="fc" id="L65">        String currentBoardState = Arrays.deepToString(puzzle.getActualBoard());</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (memory.contains(currentBoardState)) {</span>
+<span class="fc" id="L67">            return;</span>
         }
 
-<span class="nc" id="L71">        memory.add(currentBoardState);  // Añadir el estado actual a la memoria</span>
-<span class="nc" id="L72">        char[][] originalBoard = cloneBoard(puzzle.getActualBoard());  // Clonar el estado original del tablero</span>
+<span class="fc" id="L70">        memory.add(currentBoardState);  // Añadir el estado actual a la memoria</span>
+<span class="fc" id="L71">        char[][] originalBoard = cloneBoard(puzzle.getActualBoard());  // Clonar el estado original del tablero</span>
 
         // Intentar cada dirección de movimiento
-<span class="nc" id="L75">        char[] directions = {'U', 'D', 'L', 'R'};</span>
-<span class="nc bnc" id="L76" title="All 2 branches missed.">        for (char direction : directions) {</span>
-<span class="nc" id="L77">            puzzle.tilt(direction);</span>
-<span class="nc" id="L78">            moves.add(direction);</span>
-<span class="nc" id="L79">            solutions(puzzle.getActualBoard(), ending, memory, moves);</span>
-<span class="nc" id="L80">            moves.remove(moves.size() - 1);  // Retrocedemos el movimiento</span>
-<span class="nc" id="L81">            puzzle.setBoard(originalBoard);  // Restaurar el tablero original</span>
+<span class="fc" id="L74">        char[] directions = {'U', 'D', 'L', 'R'};</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (char direction : directions) {</span>
+<span class="fc" id="L76">            puzzle.tilt(direction);</span>
+<span class="fc" id="L77">            moves.add(direction);</span>
+<span class="fc" id="L78">            solutions(puzzle.getActualBoard(), ending, memory, moves);</span>
+<span class="fc" id="L79">            moves.remove(moves.size() - 1);  // Retrocedemos el movimiento</span>
+<span class="fc" id="L80">            puzzle.setBoard(originalBoard);  // Restaurar el tablero original</span>
         }
 
-<span class="nc" id="L84">        memory.remove(memory.size() - 1);  // Eliminar el estado actual para otros caminos</span>
-<span class="nc" id="L85">    }</span>
+<span class="fc" id="L83">        memory.remove(memory.size() - 1);  // Eliminar el estado actual para otros caminos</span>
+<span class="fc" id="L84">    }</span>
 
     private boolean sameBoard(char[][] board1, char[][] board2) {
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        for (int i = 0; i &lt; board1.length; i++) {</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">            for (int j = 0; j &lt; board1[0].length; j++) {</span>
-<span class="nc bnc" id="L90" title="All 2 branches missed.">                if (board1[i][j] != board2[i][j]) {</span>
-<span class="nc" id="L91">                    return false;</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        for (int i = 0; i &lt; board1.length; i++) {</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            for (int j = 0; j &lt; board1[0].length; j++) {</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">                if (board1[i][j] != board2[i][j]) {</span>
+<span class="fc" id="L90">                    return false;</span>
                 }
             }
         }
-<span class="nc" id="L95">        return true;</span>
+<span class="fc" id="L94">        return true;</span>
     }
 
     // Clonar un tablero 2D
     private char[][] cloneBoard(char[][] board) {
-<span class="nc" id="L100">        char[][] clonedBoard = new char[board.length][board[0].length];</span>
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        for (int i = 0; i &lt; board.length; i++) {</span>
-<span class="nc" id="L102">            clonedBoard[i] = board[i].clone();</span>
+<span class="fc" id="L99">        char[][] clonedBoard = new char[board.length][board[0].length];</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        for (int i = 0; i &lt; board.length; i++) {</span>
+<span class="fc" id="L101">            clonedBoard[i] = board[i].clone();</span>
         }
-<span class="nc" id="L104">        return clonedBoard;</span>
+<span class="fc" id="L103">        return clonedBoard;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
