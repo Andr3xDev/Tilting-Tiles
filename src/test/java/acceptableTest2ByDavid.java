@@ -2,7 +2,7 @@
 import puzzle.*;
 
 public class acceptableTest2ByDavid {
-    static int time = 1000;
+    static int time = 100;
     public static void main(String[] args) throws InterruptedException {
         System.out.println("This is an acceptable test");
         System.out.println("Juan updated the puzzle to get the new features");
@@ -83,11 +83,31 @@ public class acceptableTest2ByDavid {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-
-
-
-
-
+        try {
+            System.out.println("Juan's daughter tried to move the Freelance tile to the right");
+            Thread.sleep(time);
+            puzzle.tilt('R');
+            Thread.sleep(time);
+            System.out.println("Juan's daughter saw a bottom that said 'Temporal', so she wanted to put a temporal tile");
+            Thread.sleep(time);
+            puzzle.addTemporal(0, 0, "green");
+            Thread.sleep(time);
+            System.out.println("Juan's daughter tried to move the temporal tile to down");
+            Thread.sleep(time);
+            puzzle.tilt('D');
+            Thread.sleep(time);
+            System.out.println("Juan's daughter tried to move the temporal tile to the right");
+            Thread.sleep(time);
+            puzzle.tilt('R');
+            Thread.sleep(time);
+            System.out.println("Juan's daughter tried to move the temporal tile to up");
+            Thread.sleep(time);
+            puzzle.tilt('L');
+            Thread.sleep(time);
+            System.out.println("She noticed that the temporal tile was destroyed");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
         System.out.println("Finally she got bored and left the puzzle");
         Thread.sleep(time);
