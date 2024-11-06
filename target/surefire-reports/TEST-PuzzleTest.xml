@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="PuzzleTest" time="8.944" tests="51" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="PuzzleTest" time="8.97" tests="51" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="CO"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-21-openjdk/lib"/>
-    <property name="sun.java.command" value="/home/andr3xc/dev/Tilting-Tiles/target/surefire/surefirebooter-20241106122558729_3.jar /home/andr3xc/dev/Tilting-Tiles/target/surefire 2024-11-06T12-25-58_612-jvmRun1 surefire-20241106122558729_1tmp surefire_0-20241106122558729_2tmp"/>
+    <property name="sun.java.command" value="/home/andr3xc/dev/Tilting-Tiles/target/surefire/surefirebooter-20241106145858303_3.jar /home/andr3xc/dev/Tilting-Tiles/target/surefire 2024-11-06T14-58-58_192-jvmRun1 surefire-20241106145858303_1tmp surefire_0-20241106145858303_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/andr3xc/dev/Tilting-Tiles/target/test-classes:/home/andr3xc/dev/Tilting-Tiles/target/classes:/home/andr3xc/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.1/junit-jupiter-api-5.8.1.jar:/home/andr3xc/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/andr3xc/.m2/repository/org/junit/platform/junit-platform-commons/1.8.1/junit-platform-commons-1.8.1.jar:/home/andr3xc/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -28,7 +28,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/andr3xc/dev/Tilting-Tiles/target/surefire/surefirebooter-20241106122558729_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/andr3xc/dev/Tilting-Tiles/target/surefire/surefirebooter-20241106145858303_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.5+11"/>
     <property name="user.name" value="andr3xc"/>
@@ -54,90 +54,90 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldTiltPuzzle" classname="PuzzleTest" time="0.423"/>
-  <testcase name="shouldWorkFreelanceTile" classname="PuzzleTest" time="0.201"/>
-  <testcase name="shouldNotInsertTile" classname="PuzzleTest" time="0.069"/>
-  <testcase name="shouldIsGoal" classname="PuzzleTest" time="0.086">
+  <testcase name="shouldTiltPuzzle" classname="PuzzleTest" time="0.53"/>
+  <testcase name="shouldWorkFreelanceTile" classname="PuzzleTest" time="0.198"/>
+  <testcase name="shouldNotInsertTile" classname="PuzzleTest" time="0.067"/>
+  <testcase name="shouldIsGoal" classname="PuzzleTest" time="0.09">
     <system-out><![CDATA[The goal was reached
 ]]></system-out>
   </testcase>
-  <testcase name="shouldNotWorkRoughTile" classname="PuzzleTest" time="0.161"/>
-  <testcase name="shouldWorkRoughTile" classname="PuzzleTest" time="0.241"/>
-  <testcase name="shouldNotWorkFlyingTile" classname="PuzzleTest" time="0.071"/>
-  <testcase name="shouldNotAddFragile" classname="PuzzleTest" time="0.098"/>
-  <testcase name="shouldWorkFlyingTile" classname="PuzzleTest" time="0.5"/>
-  <testcase name="shouldWorkTemporalTile" classname="PuzzleTest" time="0.23">
+  <testcase name="shouldNotWorkRoughTile" classname="PuzzleTest" time="0.155"/>
+  <testcase name="shouldWorkRoughTile" classname="PuzzleTest" time="0.243"/>
+  <testcase name="shouldNotWorkFlyingTile" classname="PuzzleTest" time="0.08"/>
+  <testcase name="shouldNotAddFragile" classname="PuzzleTest" time="0.099"/>
+  <testcase name="shouldWorkFlyingTile" classname="PuzzleTest" time="0.493"/>
+  <testcase name="shouldWorkTemporalTile" classname="PuzzleTest" time="0.214">
     <system-out><![CDATA[Lives: 0
 ]]></system-out>
   </testcase>
-  <testcase name="shouldAddGlue" classname="PuzzleTest" time="0.151"/>
-  <testcase name="shouldNotWorkPuzzleContestS" classname="PuzzleTest" time="0.699">
+  <testcase name="shouldAddGlue" classname="PuzzleTest" time="0.15"/>
+  <testcase name="shouldNotWorkPuzzleContestS" classname="PuzzleTest" time="0.673">
     <system-out><![CDATA[Movimientos mínimos: []
 ]]></system-out>
   </testcase>
-  <testcase name="shouldMakeInvisible" classname="PuzzleTest" time="0.069"/>
-  <testcase name="shouldMakeHole" classname="PuzzleTest" time="0.112"/>
+  <testcase name="shouldMakeInvisible" classname="PuzzleTest" time="0.068"/>
+  <testcase name="shouldMakeHole" classname="PuzzleTest" time="0.109"/>
   <testcase name="shouldNotWorkRoughTile2" classname="PuzzleTest" time="0.055">
     <system-out><![CDATA[Row or column not valid
 ]]></system-out>
   </testcase>
-  <testcase name="shouldNotDeleteGlue" classname="PuzzleTest" time="0.131"/>
-  <testcase name="shouldNotDeleteTile" classname="PuzzleTest" time="0.066"/>
+  <testcase name="shouldNotDeleteGlue" classname="PuzzleTest" time="0.13"/>
+  <testcase name="shouldNotDeleteTile" classname="PuzzleTest" time="0.067"/>
   <testcase name="shouldNotDeleteTile2" classname="PuzzleTest" time="0.066"/>
   <testcase name="shouldNotRelocateTile" classname="PuzzleTest" time="0.066"/>
-  <testcase name="shouldInsertTile" classname="PuzzleTest" time="0.077"/>
+  <testcase name="shouldInsertTile" classname="PuzzleTest" time="0.078"/>
   <testcase name="shouldNotWorkFixedTile" classname="PuzzleTest" time="0.056"/>
   <testcase name="shouldWorkFixedTile" classname="PuzzleTest" time="0.186"/>
-  <testcase name="shouldWorkPuzzleContestS" classname="PuzzleTest" time="0.935">
+  <testcase name="shouldWorkPuzzleContestS" classname="PuzzleTest" time="0.937">
     <system-out><![CDATA[Movimientos mínimos: [R]
 ]]></system-out>
   </testcase>
-  <testcase name="shouldNotWorkFreelanceTile" classname="PuzzleTest" time="0.057"/>
-  <testcase name="shouldNotWorkTemporalTile" classname="PuzzleTest" time="0.057"/>
-  <testcase name="shouldRelocateTile" classname="PuzzleTest" time="0.08"/>
-  <testcase name="shouldGetGlue" classname="PuzzleTest" time="0.136"/>
-  <testcase name="shouldNotRelocateTile2" classname="PuzzleTest" time="0.069"/>
-  <testcase name="shouldWorkActualArrangement" classname="PuzzleTest" time="0.062">
+  <testcase name="shouldNotWorkFreelanceTile" classname="PuzzleTest" time="0.056"/>
+  <testcase name="shouldNotWorkTemporalTile" classname="PuzzleTest" time="0.056"/>
+  <testcase name="shouldRelocateTile" classname="PuzzleTest" time="0.077"/>
+  <testcase name="shouldGetGlue" classname="PuzzleTest" time="0.132"/>
+  <testcase name="shouldNotRelocateTile2" classname="PuzzleTest" time="0.068"/>
+  <testcase name="shouldWorkActualArrangement" classname="PuzzleTest" time="0.058">
     <system-out><![CDATA[...
 ...
 ...
 ]]></system-out>
   </testcase>
-  <testcase name="shouldDeleteGlue" classname="PuzzleTest" time="0.135"/>
+  <testcase name="shouldDeleteGlue" classname="PuzzleTest" time="0.134"/>
   <testcase name="shouldDeleteTile" classname="PuzzleTest" time="0.069"/>
-  <testcase name="shouldWorkPuzzleContest" classname="PuzzleTest" time="0.948"/>
+  <testcase name="shouldWorkPuzzleContest" classname="PuzzleTest" time="0.949"/>
   <testcase name="shouldNotAddGlue" classname="PuzzleTest" time="0.08"/>
   <testcase name="shouldNotCreatePuzzle1" classname="PuzzleTest" time="0.002"/>
-  <testcase name="shouldNotCreatePuzzle3" classname="PuzzleTest" time="0.092"/>
-  <testcase name="shouldCreatePuzzle1" classname="PuzzleTest" time="0.057"/>
+  <testcase name="shouldNotCreatePuzzle3" classname="PuzzleTest" time="0.091"/>
+  <testcase name="shouldCreatePuzzle1" classname="PuzzleTest" time="0.058"/>
   <testcase name="shouldCreatePuzzle2" classname="PuzzleTest" time="0.057"/>
-  <testcase name="shouldCreatePuzzle3" classname="PuzzleTest" time="0.09"/>
-  <testcase name="shouldIsNotGoal" classname="PuzzleTest" time="0.102"/>
+  <testcase name="shouldCreatePuzzle3" classname="PuzzleTest" time="0.089"/>
+  <testcase name="shouldIsNotGoal" classname="PuzzleTest" time="0.1"/>
   <testcase name="shouldNotMakeHole" classname="PuzzleTest" time="0.068"/>
-  <testcase name="shouldNotActualGlue" classname="PuzzleTest" time="0.08">
+  <testcase name="shouldNotActualGlue" classname="PuzzleTest" time="0.081">
     <system-out><![CDATA[...
 ...
 ...
 ]]></system-out>
   </testcase>
   <testcase name="shouldNotMisplacedTiles" classname="PuzzleTest" time="0.09"/>
-  <testcase name="shouldMisplacedTiles" classname="PuzzleTest" time="0.081"/>
+  <testcase name="shouldMisplacedTiles" classname="PuzzleTest" time="0.08"/>
   <testcase name="shouldNotGetGlue" classname="PuzzleTest" time="0.138"/>
-  <testcase name="shouldWorkTemporalTile2" classname="PuzzleTest" time="0.194">
+  <testcase name="shouldWorkTemporalTile2" classname="PuzzleTest" time="0.192">
     <system-out><![CDATA[Lives: 0
 ]]></system-out>
   </testcase>
-  <testcase name="shouldWorkTemporalTile3" classname="PuzzleTest" time="0.195">
+  <testcase name="shouldWorkTemporalTile3" classname="PuzzleTest" time="0.193">
     <system-out><![CDATA[Lives: 0
 ]]></system-out>
   </testcase>
-  <testcase name="shouldWorkTemporalTile4" classname="PuzzleTest" time="0.194">
+  <testcase name="shouldWorkTemporalTile4" classname="PuzzleTest" time="0.192">
     <system-out><![CDATA[Lives: 0
 ]]></system-out>
   </testcase>
-  <testcase name="shouldCreatePuzzle2E" classname="PuzzleTest" time="0.059"/>
-  <testcase name="shouldNotWorkPuzzleContest" classname="PuzzleTest" time="0.642"/>
-  <testcase name="shouldActualGlue" classname="PuzzleTest" time="0.137">
+  <testcase name="shouldCreatePuzzle2E" classname="PuzzleTest" time="0.058"/>
+  <testcase name="shouldNotWorkPuzzleContest" classname="PuzzleTest" time="0.64"/>
+  <testcase name="shouldActualGlue" classname="PuzzleTest" time="0.136">
     <system-out><![CDATA[g..
 ...
 ...
