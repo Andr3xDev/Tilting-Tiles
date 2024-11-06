@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Holes.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tilting-Tiles</a> &gt; <a href="index.source.html" class="el_package">puzzle</a> &gt; <span class="el_source">Holes.java</span></div><h1>Holes.java</h1><pre class="source lang-java linenums">package puzzle;
+
+import shapes.Triangle;
+
+/**
+ * Class Holes
+ * This class represents the holes in the puzzle, it creates a board just with the holes
+ */
+public class Holes {
+
+    //* Attributes
+    protected int posX;
+    protected int posY;
+    private final static char name = 'X';
+    private final static String color = &quot;Black&quot;;
+    private Triangle holeTile;
+    private Puzzle board;
+
+    //* Constructor
+    /**
+     * Constructor of the class Holes
+     * @param posX Position in the row
+     * @param posY Position in the column
+     * @param board Board where the hole is
+     */
+<span class="fc" id="L26">    public Holes(int posX, int posY,Puzzle board) {</span>
+<span class="fc" id="L27">        this.posX = posX;</span>
+<span class="fc" id="L28">        this.posY = posY;</span>
+<span class="fc" id="L29">        this.holeTile = new Triangle();</span>
+<span class="fc" id="L30">        this.board = board;</span>
+<span class="fc" id="L31">        makeVisibleX();</span>
+<span class="fc" id="L32">    }</span>
+
+    //* Methods
+    /**
+     * Method to make visible the hole in the GUI
+     */
+    public void makeVisibleX() {
+<span class="fc" id="L39">        holeTile.makeVisible();</span>
+<span class="fc" id="L40">        holeTile.changeColor(color);</span>
+<span class="fc" id="L41">        holeTile.changeSize(20,20);</span>
+<span class="fc" id="L42">        holeTile.moveHorizontal(posX * 23);</span>
+<span class="fc" id="L43">        holeTile.moveVertical(posY * 23);</span>
+<span class="fc" id="L44">    }</span>
+
+    public void makeInvisible() {
+<span class="nc" id="L47">        holeTile.makeInvisible();</span>
+<span class="nc" id="L48">    }</span>
+
+    public void makeVisible() {
+<span class="nc" id="L51">        holeTile.makeVisible();</span>
+<span class="nc" id="L52">    }</span>
+
+    /**
+     * Method to get the name of the hole
+     * @return Name of the hole
+     */
+    public char getName() {
+<span class="fc" id="L59">        return name;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Flying.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tilting-Tiles</a> &gt; <a href="index.source.html" class="el_package">puzzle</a> &gt; <span class="el_source">Flying.java</span></div><h1>Flying.java</h1><pre class="source lang-java linenums">package puzzle;
+
+import shapes.Rectangle;
+
+/**
+ * Class that represents the flying tile
+ * This tile can move in any direction ignoring the holes of the board
+ */
+public class Flying extends Tiles{
+
+    //* Attributes
+    private final int row;
+    private final int column;
+
+    //* Constructor
+
+    /**
+     * Constructor of the flying tile
+     * @param posX Position in the row
+     * @param posY Position in the column
+     * @param color Color of the tile
+     * @param board Board where the tile is
+     */
+    public Flying(int posX, int posY, String color, Puzzle board) {
+<span class="fc" id="L25">        super(posX, posY, color, board);</span>
+<span class="fc" id="L26">        Rectangle tile = new Rectangle();</span>
+<span class="fc" id="L27">        this.row = posY;</span>
+<span class="fc" id="L28">        this.column = posX;</span>
+<span class="fc" id="L29">        makeVisibleCreate();</span>
+<span class="fc" id="L30">    }</span>
+
+    //* Methods
+
+    /**
+     * Method to make visible the tile in the creation and set the position in the GUI
+     */
+    @Override
+    public void makeVisibleCreate() {
+<span class="fc" id="L39">        tile.changeColor(this.getColor());</span>
+<span class="fc" id="L40">        tile.changeSize(20, 20);</span>
+<span class="fc" id="L41">        tile.moveHorizontal(column * 23);</span>
+<span class="fc" id="L42">        tile.moveVertical(row * 23);</span>
+<span class="fc" id="L43">        tile.makeVisible();</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Method to move the tile to the left
+     */
+    @Override
+    protected void moveLeft() {
+<span class="nc" id="L51">        int moveSteps = this.maxMoveL();</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (moveSteps &gt; 0) {</span>
+<span class="nc" id="L53">            int[] from = {getPosY(), getPosX()};</span>
+<span class="nc" id="L54">            int[] to = {getPosY(), getPosX() - moveSteps};</span>
+            try {
+<span class="nc" id="L56">                relocateTile(from, to);</span>
+<span class="nc" id="L57">            } catch (puzzleExceptions e) {</span>
+<span class="nc" id="L58">                System.out.println(e.getMessage());</span>
+<span class="nc" id="L59">            }</span>
+        }
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * Method to move the tile to the right
+     */
+    @Override
+    protected void moveRight() {
+<span class="fc" id="L68">        int moveSteps = this.maxMoveR();</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if (moveSteps &gt; 0) {</span>
+<span class="fc" id="L70">            int[] from = {getPosY(), getPosX()};</span>
+<span class="fc" id="L71">            int[] to = {getPosY(), getPosX() + moveSteps};</span>
+            try {
+<span class="fc" id="L73">                relocateTile(from, to);</span>
+<span class="nc" id="L74">            } catch (puzzleExceptions e) {</span>
+<span class="nc" id="L75">                System.out.println(e.getMessage());</span>
+<span class="fc" id="L76">            }</span>
+        }
+<span class="fc" id="L78">    }</span>
+
+    /**
+     * Method to move the tile down
+     */
+    @Override
+    protected void moveDown() {
+<span class="nc" id="L85">        int moveSteps = this.maxMoveD();</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (moveSteps &gt; 0) {</span>
+<span class="nc" id="L87">            int[] from = {getPosY(), getPosX()};</span>
+<span class="nc" id="L88">            int[] to = {getPosY() + moveSteps,getPosX()};</span>
+            try {
+<span class="nc" id="L90">                relocateTile(from, to);</span>
+<span class="nc" id="L91">            } catch (puzzleExceptions e) {</span>
+<span class="nc" id="L92">                System.out.println(e.getMessage());</span>
+<span class="nc" id="L93">            }</span>
+        }
+<span class="nc" id="L95">    }</span>
+
+    /**
+     * Method to move the tile up
+     */
+    @Override
+    protected void moveUp() {
+<span class="nc" id="L102">        int moveSteps = this.maxMoveU();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (moveSteps &gt; 0) {</span>
+<span class="nc" id="L104">            int[] from = {getPosY(), getPosX()};</span>
+<span class="nc" id="L105">            int[] to = {getPosY() - moveSteps,getPosX()};</span>
+            try {
+<span class="nc" id="L107">                relocateTile(from, to);</span>
+<span class="nc" id="L108">            } catch (puzzleExceptions e) {</span>
+<span class="nc" id="L109">                System.out.println(e.getMessage());</span>
+<span class="nc" id="L110">            }</span>
+        }
+<span class="nc" id="L112">    }</span>
+
+    /**
+     * Method to get the maximum steps to move to the right
+     * @return Maximum steps to move to the right
+     */
+    protected int maxMoveR(){
+<span class="fc" id="L119">        int max = 0;</span>
+<span class="fc" id="L120">        int width = this.board.getWidth();</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        for (int column = posX + 1; column &lt; width; column++) {</span>
+<span class="fc" id="L122">            Tiles tileO = this.board.getTile(posY,column);</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">            if (tileO == null){</span>
+<span class="fc" id="L124">                max++;</span>
+            }
+        }
+<span class="fc" id="L127">        return max;</span>
+    }
+
+    /**
+     * Method to get the maximum steps to move to the left
+     * @return Maximum steps to move to the left
+     */
+    protected int maxMoveU(){
+<span class="nc" id="L135">        int max = 0;</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        for (int fila = posY - 1; fila &gt;= 0; fila--){</span>
+<span class="nc" id="L137">            Tiles tileO = this.board.getTile(fila,posX);</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if (tileO == null){</span>
+<span class="nc" id="L139">                max++;</span>
+            }
+        }
+<span class="nc" id="L142">        return max;</span>
+    }
+
+    /**
+     * Method to get the maximum steps to move down
+     * @return Maximum steps to move down
+     */
+    protected int maxMoveD(){
+<span class="nc" id="L150">        int max = 0;</span>
+<span class="nc" id="L151">        int height = this.board.getHeight();</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        for (int fila = posY + 1; fila &lt; height; fila++){</span>
+<span class="nc" id="L153">            Tiles tileO = this.board.getTile(fila,posX);</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">            if (tileO == null){</span>
+<span class="nc" id="L155">                max++;</span>
+            }
+        }
+<span class="nc" id="L158">        return max;</span>
+    }
+
+    /**
+     * Method to get the maximum steps to move to the left
+     * @return Maximum steps to move to the left
+     */
+    protected int maxMoveL(){
+<span class="nc" id="L166">        int max = 0;</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">        for (int column = posX - 1; column &gt;= 0; column--) {</span>
+<span class="nc" id="L168">            Tiles tileO = this.board.getTile(posY,column);</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">            if (tileO == null ){</span>
+<span class="nc" id="L170">                max++;</span>
+            }
+        }
+<span class="nc" id="L173">        return max;</span>
+    }
+
+    /**
+     * Method to make visible the tile in the GUI
+     */
+    @Override
+    public void makeVisible() {
+<span class="nc" id="L181">        this.tile.makeVisible();</span>
+<span class="nc" id="L182">    }</span>
+
+    /**
+     * Method to make invisible the tile in the GUI
+     */
+    @Override
+    public void makeInvisible() {
+<span class="fc" id="L189">        this.tile.makeInvisible();</span>
+<span class="fc" id="L190">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
