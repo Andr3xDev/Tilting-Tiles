@@ -1,9 +1,10 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import puzzle.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import puzzle.*;
+
 
 /**
  Test class for the domain.Puzzle class methods, these check the correct functioning of the program internally.
