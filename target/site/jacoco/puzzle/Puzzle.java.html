@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Puzzle.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tilting-Tiles</a> &gt; <a href="index.source.html" class="el_package">puzzle</a> &gt; <span class="el_source">Puzzle.java</span></div><h1>Puzzle.java</h1><pre class="source lang-java linenums">package puzzle;
+
+import shapes.*;
+
+
+/**
+ * The initial project aims to develop an application that allows simulating a
+ * situation inspired by Problem F of the 2023 Tilting international programming marathon
+ * puzzle.Tiles. In this simulator you want to test a special glue, Gummy Glue, which is used
+ * applied on a tile causes it and the neighboring tiles to stick together.
+ *
+ * @author Andrés Felipe Chavarro Plazas
+ * @author David Santiago Espinosa Rojas
+ * @since 27-08-2024
+ * @version Version 1.0
+ */
+public class Puzzle {
+
+    //* ------ Variables ------
+    private final int height;
+    private final int width;
+    public final Tiles[][] board;
+    public Glues[][] gluesBoard;
+    private char[][] actualGlue;
+    public Holes[][] holesBoard;
+    private final Rectangle table;
+    private int missingSpace;
+    private char[][]  actualEnding;
+    private char[][] startBoard;
+    private char[][] actualBoard;
+
+
+
+
+    //* ------ Constructors ------
+    /**
+     * Constructor to create a board without initial or final objectives.
+     * @param height to set the height of the board.
+     * @param width to set the width of the board.
+     */
+<span class="fc" id="L41">    public Puzzle(int width, int height) {</span>
+<span class="fc" id="L42">        this.height = height;</span>
+<span class="fc" id="L43">        this.width = width;</span>
+<span class="fc" id="L44">        this.board = new Tiles[height][width];</span>
+<span class="fc" id="L45">        this.holesBoard = new Holes[height][width];</span>
+<span class="fc" id="L46">        this.gluesBoard = new Glues[height][width];</span>
+<span class="fc" id="L47">        this.actualGlue = new char[height][width];</span>
+<span class="fc" id="L48">        this.table = new Rectangle();</span>
+<span class="fc" id="L49">        this.missingSpace = width*height;</span>
+<span class="fc" id="L50">        this.actualBoard = new char[height][width];</span>
+<span class="fc" id="L51">        setActualBoard();</span>
+<span class="fc" id="L52">        setActualGlue();</span>
+<span class="fc" id="L53">        makeVisibleC();</span>
+<span class="fc" id="L54">    }</span>
+
+
+    /**
+     * Constructor to create a board with final arrangement, board is built empty.
+     * @param ending Matrix of charts with the final objective arrangement of the board.
+     */
+<span class="fc" id="L61">    public Puzzle(char[][] ending) {</span>
+<span class="fc" id="L62">        this.width = ending.length;</span>
+<span class="fc" id="L63">        this.height = ending[0].length;</span>
+<span class="fc" id="L64">        this.board = new Tiles[height][width];</span>
+<span class="fc" id="L65">        this.holesBoard = new Holes[height][width];</span>
+<span class="fc" id="L66">        this.gluesBoard = new Glues[height][width];</span>
+<span class="fc" id="L67">        this.table = new Rectangle();</span>
+<span class="fc" id="L68">        this.missingSpace = this.width*this.height;</span>
+<span class="fc" id="L69">        this.actualEnding = ending;</span>
+<span class="fc" id="L70">        this.actualBoard = new char[height][width];</span>
+        //setActualGlue();
+<span class="fc" id="L72">        makeVisibleC();</span>
+<span class="fc" id="L73">        setActualBoard();</span>
+<span class="fc" id="L74">    }</span>
+
+
+    /**
+     * Constructor to create a board with objectives, it builds the board with the initial arrangement
+     * @param start Matrix of charts with the initial arrangement of the board.
+     * @param ending Matrix of charts with the final objective arrangement of the board.
+     */
+<span class="fc" id="L82">    public Puzzle(char[][] start, char[][] ending) {</span>
+<span class="fc" id="L83">        this.height = start.length;</span>
+<span class="fc" id="L84">        this.width = start[0].length;</span>
+<span class="fc" id="L85">        this.board = new Tiles[height][width];</span>
+<span class="fc" id="L86">        this.table = new Rectangle();</span>
+<span class="fc" id="L87">        this.missingSpace = start.length*start[0].length;</span>
+<span class="fc" id="L88">        this.holesBoard = new Holes[height][width];</span>
+<span class="fc" id="L89">        this.gluesBoard = new Glues[height][width];</span>
+<span class="fc" id="L90">        this.actualEnding = ending;</span>
+<span class="fc" id="L91">        this.startBoard = start;</span>
+<span class="fc" id="L92">        this.actualBoard = new char[height][width];</span>
+<span class="fc" id="L93">        makeVisibleC();</span>
+<span class="fc" id="L94">        initialPrint();</span>
+        //setActualGlue();
+<span class="fc" id="L96">        setActualBoard();</span>
+<span class="fc" id="L97">    }</span>
+
+
+
+    //* ------ Methods ------
+    /**
+     * Function to add tiles to the board, it checks if the position is valid and if it is empty.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
+    public void addTile(int row, int column, String color) throws puzzleExceptions{
+<span class="pc bpc" id="L110" title="4 of 12 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 ||</span>
+                board[row][column] != null || holesBoard[row][column] != null){
+<span class="fc" id="L112">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        } else {
+<span class="fc" id="L114">            Tiles tile = new Tiles(column,row,color,this);</span>
+<span class="fc" id="L115">            board[row][column] = tile;</span>
+<span class="fc" id="L116">            this.missingSpace--;</span>
+        }
+<span class="fc" id="L118">        setActualBoard();</span>
+<span class="fc" id="L119">    }</span>
+
+
+    /**
+     * Function to add tiles to the board, but it's a freelance tile.
+     * It checks if the position is valid and if it is empty.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
+    public void addFreelance(int row, int column, String color) throws puzzleExceptions{
+<span class="pc bpc" id="L131" title="5 of 12 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 ||</span>
+                board[row][column] != null || holesBoard[row][column] != null){
+<span class="fc" id="L133">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        } else {
+<span class="fc" id="L135">            Freelance tile = new Freelance(column,row,color,this);</span>
+<span class="fc" id="L136">            board[row][column] = tile;</span>
+<span class="fc" id="L137">            this.missingSpace--;</span>
+        }
+<span class="fc" id="L139">        setActualBoard();</span>
+<span class="fc" id="L140">    }</span>
+
+
+    /**
+     * Function to add tiles to the board, but it's a rough tile. It can't be tilted.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
+    public void addRough(int row, int column, String color) throws puzzleExceptions{
+<span class="pc bpc" id="L151" title="6 of 12 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 ||</span>
+                board[row][column] != null || holesBoard[row][column] != null){
+<span class="nc" id="L153">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        } else {
+<span class="fc" id="L155">            Rough tile = new Rough(column,row,color,this);</span>
+<span class="fc" id="L156">            board[row][column] = tile;</span>
+<span class="fc" id="L157">            this.missingSpace--;</span>
+        }
+<span class="fc" id="L159">        setActualBoard();</span>
+<span class="fc" id="L160">    }</span>
+
+
+    /**
+     * Function to add tiles to the board, but it's a flying tile. It ignores the holes of the table.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
+    public void addFlying(int row, int column, String color) throws puzzleExceptions{
+<span class="pc bpc" id="L171" title="4 of 10 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 || board[row][column] != null ){</span>
+<span class="fc" id="L172">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        } else {
+<span class="fc" id="L174">            Flying tile = new Flying(column,row,color,this);</span>
+<span class="fc" id="L175">            board[row][column] = tile;</span>
+<span class="fc" id="L176">            this.missingSpace--;</span>
+        }
+<span class="fc" id="L178">        setActualBoard();</span>
+<span class="fc" id="L179">    }</span>
+
+
+    /**
+     * Function to add tiles to the board, but it's a fixed tile. It can't be moved or deleted.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
+    public void addFixed(int row, int column, String color) throws puzzleExceptions{
+<span class="pc bpc" id="L190" title="4 of 10 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 || board[row][column] != null){</span>
+<span class="fc" id="L191">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        } else {
+<span class="fc" id="L193">            Fixed tile = new Fixed(column,row,color,this);</span>
+<span class="fc" id="L194">            board[row][column] = tile;</span>
+<span class="fc" id="L195">            this.missingSpace--;</span>
+        }
+<span class="fc" id="L197">        setActualBoard();</span>
+<span class="fc" id="L198">    }</span>
+
+
+    /**
+     * Function to add tiles to the board, but it's a Temporal tile. It will be destroyed after try tilt twice.
+     * @param row Set the row of the tile.
+     * @param column Set the column of the tile.
+     * @param color Set the color and name of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid.
+     */
+    public void addTemporal(int row, int column, String color) throws puzzleExceptions{
+<span class="pc bpc" id="L209" title="4 of 10 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 || board[row][column] != null){</span>
+<span class="fc" id="L210">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        } else {
+<span class="fc" id="L212">            Temporal tile = new Temporal(column,row,color,this);</span>
+<span class="fc" id="L213">            board[row][column] = tile;</span>
+<span class="fc" id="L214">            this.missingSpace--;</span>
+        }
+<span class="fc" id="L216">        setActualBoard();</span>
+<span class="fc" id="L217">    }</span>
+
+    /**
+     * Function to delete tiles from the board, it checks if the position is valid and if there is a tile.
+     * @param row It's the row of the tile objective.
+     * @param column It's the column of the tile objective.
+     * @throws puzzleExceptions It throws an exception if the position is invalid or if there is no tile.
+     */
+    public void deleteTile(int row, int column) throws puzzleExceptions {
+<span class="pc bpc" id="L226" title="4 of 8 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 ){</span>
+<span class="nc" id="L227">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        } else {
+<span class="fc" id="L229">            Tiles tile = getTile(row,column);</span>
+<span class="pc bpc" id="L230" title="1 of 4 branches missed.">            if (tile == null || tile instanceof Fixed){</span>
+<span class="fc" id="L231">                throw new puzzleExceptions(puzzleExceptions.INVALID_DELETE);</span>
+            }else {
+<span class="fc" id="L233">                tile.makeInvisible();</span>
+<span class="fc" id="L234">                board[row][column] = null;</span>
+<span class="fc" id="L235">                this.missingSpace++;</span>
+            }
+        }
+<span class="fc" id="L238">        setActualBoard();</span>
+<span class="fc" id="L239">    }</span>
+
+
+    /**
+     * Function to add glue to a tile. It checks if the position is valid and if there is a tile. Ignores the holes.
+     * @param row It's the row of the tile.
+     * @param column It's the column of the tile.
+     */
+    public void addGlue(int row, int column) throws puzzleExceptions{
+<span class="pc bpc" id="L248" title="1 of 6 branches missed.">        if(holesBoard[row][column] == null &amp;&amp; board[row][column] != null</span>
+                &amp;&amp; !(board[row][column] instanceof Freelance)) {
+<span class="fc" id="L250">            gluesBoard[row][column] = new Glues(row, column, this, true);</span>
+<span class="fc" id="L251">            Glues glue = gluesBoard[row][column];</span>
+<span class="fc" id="L252">            glue.recognizeGlue();</span>
+<span class="fc" id="L253">            setActualGlue();</span>
+<span class="fc" id="L254">        }else{</span>
+<span class="fc" id="L255">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        }
+<span class="fc" id="L257">    }</span>
+
+
+    /**
+     * Function to get the glue of the board. It will print the position of the glues.
+     */
+    public void getGlue(){
+<span class="nc bnc" id="L264" title="All 2 branches missed.">        for (int i = 0; i &lt; 4; i++){</span>
+<span class="nc bnc" id="L265" title="All 2 branches missed.">            for (int j = 0; j &lt; 4; j++){</span>
+<span class="nc bnc" id="L266" title="All 2 branches missed.">                if (gluesBoard[i][j] != null){</span>
+<span class="nc" id="L267">                    System.out.println(gluesBoard[i][j]);</span>
+                }
+            }
+        }
+<span class="nc" id="L271">    }</span>
+
+
+    /**
+     * Function to delete the glue from a tile. It checks if the position is valid and if there is a glue.
+     * @param row It's the row of the tile.
+     * @param column It's the column of the tile.
+     * @throws puzzleExceptions It throws an exception if the position is invalid or if there is no glue.
+     */
+    public void deleteGlue(int row, int column) throws puzzleExceptions {
+<span class="pc bpc" id="L281" title="3 of 6 branches missed.">        if(holesBoard[row][column] == null &amp;&amp; board[row][column] != null &amp;&amp; gluesBoard[row][column].getType() == 'g') {</span>
+<span class="fc" id="L282">            Glues glue = gluesBoard[row][column];</span>
+<span class="pc bpc" id="L283" title="2 of 4 branches missed.">            if (glue != null &amp;&amp; glue.getType() == 'g'){</span>
+<span class="fc" id="L284">                glue.eliminateNeighbour(row, column);</span>
+<span class="fc" id="L285">                glue.makeInvisible();</span>
+            }
+<span class="fc" id="L287">        }else{</span>
+<span class="nc" id="L288">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        }
+<span class="fc" id="L290">        setActualGlue();</span>
+<span class="fc" id="L291">    }</span>
+
+
+    /**
+     * Function to make a hole in the board. It makes the tiles fall from the board.
+     * @param row It's the row of the hole.
+     * @param column It's the column of the hole.
+     * @throws puzzleExceptions It throws an exception if the position is invalid or if there is a tile.
+     */
+    public void makeHole(int row, int column) throws puzzleExceptions{
+<span class="pc bpc" id="L301" title="4 of 10 branches missed.">        if (row &gt;= this.height || column &gt;= this.width || row &lt; 0 || column &lt; 0 || board[row][column] != null){</span>
+<span class="fc" id="L302">            throw new puzzleExceptions(puzzleExceptions.INVALID_POS);</span>
+        } else {
+<span class="fc" id="L304">            Holes tile = new Holes(column, row,this);</span>
+<span class="fc" id="L305">            holesBoard[row][column] = tile;</span>
+<span class="fc" id="L306">            this.missingSpace--;</span>
+        }
+<span class="fc" id="L308">        setActualBoard();</span>
+<span class="fc" id="L309">    }</span>
+
+
+    /**
+     * Function to tilt the board in a direction. It will move all the tiles to the direction selected.
+     * If a hole it's in the way, the tiles will fall/eliminate.
+     * @param direction It's the direction to tilt the board. It can be 'L' for left,
+     *                  'R' for right, 'D' for down and 'U' for up.
+     */
+    public void tilt(char direction) {
+<span class="pc bpc" id="L319" title="2 of 5 branches missed.">        switch (direction){</span>
+            case 'L':
+<span class="fc" id="L321">                moveLeft();</span>
+<span class="fc" id="L322">                break;</span>
+            case 'R':
+<span class="fc" id="L324">                moveRight();</span>
+<span class="fc" id="L325">                break;</span>
+            case 'D':
+<span class="nc" id="L327">                moveDown();</span>
+<span class="nc" id="L328">                break;</span>
+            case 'U':
+<span class="fc" id="L330">                moveUp();</span>
+<span class="fc" id="L331">                break;</span>
+            default:
+<span class="nc" id="L333">                System.out.println(&quot;Error: Invalid direction&quot;);</span>
+        }
+<span class="fc" id="L335">    }</span>
+
+
+    /**
+     * Function to move all the tiles to the right.
+     */
+    private void moveRight() {
+<span class="fc bfc" id="L342" title="All 2 branches covered.">        for (int i = this.width - 1; i &gt;= 0; i--) {</span>
+<span class="fc bfc" id="L343" title="All 2 branches covered.">            for (int j = 0; j &lt; this.height; j++) {</span>
+<span class="fc" id="L344">                Tiles tile = board[j][i];</span>
+<span class="fc bfc" id="L345" title="All 2 branches covered.">                if (tile != null) {</span>
+                    try {
+<span class="fc" id="L347">                        tile.moveRight();</span>
+<span class="nc" id="L348">                    } catch (puzzleExceptions e) {</span>
+<span class="nc" id="L349">                        System.out.println(e.getMessage());</span>
+<span class="fc" id="L350">                    }</span>
+                }
+            }
+        }
+<span class="fc" id="L354">    }</span>
+
+
+    /**
+     * Function to move all the tiles to the left.
+     */
+    private void moveLeft(){
+<span class="fc bfc" id="L361" title="All 2 branches covered.">        for (int i = 0; i &lt; this.width; i++) {</span>
+<span class="fc bfc" id="L362" title="All 2 branches covered.">            for (int j = 0; j &lt; this.height; j++) {</span>
+<span class="fc" id="L363">                Tiles tile = board[j][i];</span>
+<span class="pc bpc" id="L364" title="1 of 2 branches missed.">                if (tile != null) {</span>
+                    try {
+<span class="nc" id="L366">                        tile.moveLeft();</span>
+<span class="nc" id="L367">                    } catch (puzzleExceptions e) {</span>
+<span class="nc" id="L368">                        System.out.println(e.getMessage());</span>
+<span class="nc" id="L369">                    }</span>
+                }
+            }
+        }
+<span class="fc" id="L373">    }</span>
+
+
+    /**
+     * Function to move all the tiles down.
+     */
+    private void moveDown(){
+<span class="nc bnc" id="L380" title="All 2 branches missed.">        for (int i = this.height - 1; i &gt;= 0; i--) {</span>
+<span class="nc bnc" id="L381" title="All 2 branches missed.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="nc" id="L382">                Tiles tile = getTile(i,j);</span>
+<span class="nc bnc" id="L383" title="All 2 branches missed.">                if (tile != null){</span>
+                    try {
+<span class="nc" id="L385">                        tile.moveDown();</span>
+<span class="nc" id="L386">                    } catch (puzzleExceptions e) {</span>
+<span class="nc" id="L387">                        System.out.println(e.getMessage());</span>
+<span class="nc" id="L388">                    }</span>
+                }
+            }
+        }
+<span class="nc" id="L392">    }</span>
+
+
+    /**
+     * Function to move all the tiles up.
+     */
+    private void moveUp(){
+<span class="fc bfc" id="L399" title="All 2 branches covered.">        for (int i = 0; i &lt; height; i++) {</span>
+<span class="fc bfc" id="L400" title="All 2 branches covered.">            for (int j = 0; j &lt; width; j++) {</span>
+<span class="fc" id="L401">                Tiles tile = board[i][j];</span>
+<span class="fc bfc" id="L402" title="All 2 branches covered.">                if (tile != null) {</span>
+                    try {
+<span class="fc" id="L404">                        tile.moveUp();</span>
+<span class="nc" id="L405">                    } catch (puzzleExceptions e) {</span>
+<span class="nc" id="L406">                        System.out.println(e.getMessage());</span>
+<span class="fc" id="L407">                    }</span>
+                }
+            }
+        }
+<span class="fc" id="L411">    }</span>
+
+
+    /**
+     * Function to compare the actual arrangement of the board with the final arrangement if it exists.
+     * If the final arrangement is not set, it will print a message.
+     * Otherwise, it will compare the two arrangements and determinate equality.
+     */
+    public boolean isGoal() throws puzzleExceptions {
+        try {
+<span class="fc bfc" id="L421" title="All 2 branches covered.">            for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="fc bfc" id="L422" title="All 2 branches covered.">                for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="fc bfc" id="L423" title="All 4 branches covered.">                    if (board[i][j] != null &amp;&amp; board[i][j].getName() != actualEnding[i][j]) {</span>
+<span class="fc" id="L424">                        return false;</span>
+                    }
+                }
+            }
+<span class="fc" id="L428">            System.out.println(&quot;The goal was reached&quot;);</span>
+<span class="fc" id="L429">            return true;</span>
+<span class="nc" id="L430">        } catch (NullPointerException e){</span>
+<span class="nc" id="L431">            throw new puzzleExceptions(puzzleExceptions.NO_GOAL);</span>
+        }
+    }
+
+
+    /**
+     * Function to print the actual arrangement of the board. It means, te internal function of the board.
+     */
+    public void actualArrangemment() {
+<span class="nc bnc" id="L440" title="All 2 branches missed.">        for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="nc bnc" id="L441" title="All 2 branches missed.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="nc" id="L442">                System.out.print(actualBoard[i][j]);</span>
+            }
+<span class="nc" id="L444">            System.out.println();</span>
+        }
+<span class="nc" id="L446">    }</span>
+
+
+    /**
+     * Function to print the actual glue board. It means, the internal function of the glue.
+     */
+    public void actualGlue() {
+<span class="nc bnc" id="L453" title="All 2 branches missed.">        for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="nc bnc" id="L454" title="All 2 branches missed.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="nc" id="L455">                System.out.print(actualGlue[i][j]);</span>
+            }
+<span class="nc" id="L457">            System.out.println();</span>
+        }
+<span class="nc" id="L459">    }</span>
+
+
+    /**
+     * Function to get how many tiles can be placed in the board.
+     */
+    public void missPlacedTiles() {
+<span class="nc" id="L466">        System.out.println(this.missingSpace);</span>
+<span class="nc" id="L467">    }</span>
+
+
+    /**
+     * Function to make the board visible. Includes the table and the tiles.
+     */
+    public void makeVisible() {
+<span class="fc" id="L474">        table.makeVisible();</span>
+<span class="fc bfc" id="L475" title="All 2 branches covered.">        for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="fc bfc" id="L476" title="All 2 branches covered.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="fc bfc" id="L477" title="All 2 branches covered.">                if (board[i][j] != null) {</span>
+<span class="fc" id="L478">                    board[i][j].makeVisible();</span>
+                }
+<span class="pc bpc" id="L480" title="1 of 2 branches missed.">                if (holesBoard[i][j] != null) {</span>
+<span class="nc" id="L481">                    holesBoard[i][j].makeVisible();</span>
+                }
+<span class="pc bpc" id="L483" title="1 of 2 branches missed.">                if (gluesBoard[i][j] != null) {</span>
+<span class="nc" id="L484">                    gluesBoard[i][j].makeVisible();</span>
+                }
+            }
+        }
+<span class="fc" id="L488">    }</span>
+
+
+    /**
+     * Function to make the board invisible. Includes the table and the tiles.
+     */
+    public void makeInvisible() {
+<span class="fc" id="L495">        table.makeInvisible();</span>
+<span class="fc bfc" id="L496" title="All 2 branches covered.">        for (int i = 0; i &lt; this.width; i++) {</span>
+<span class="fc bfc" id="L497" title="All 2 branches covered.">            for (int j = 0; j &lt; this.height; j++) {</span>
+<span class="fc bfc" id="L498" title="All 2 branches covered.">                if (board[i][j] != null) {</span>
+<span class="fc" id="L499">                    board[i][j].makeInvisible();</span>
+                }
+<span class="pc bpc" id="L501" title="1 of 2 branches missed.">                if (holesBoard[i][j] != null) {</span>
+<span class="nc" id="L502">                    holesBoard[i][j].makeInvisible();</span>
+                }
+<span class="pc bpc" id="L504" title="1 of 2 branches missed.">                if (gluesBoard[i][j] != null) {</span>
+<span class="nc" id="L505">                    gluesBoard[i][j].makeInvisible();</span>
+                }
+            }
+        }
+<span class="fc" id="L509">    }</span>
+
+
+    /**
+     * Function to finish the game. It will make the board invisible and print a message when the goal is complete.
+     */
+    public void finish() {
+<span class="nc" id="L516">        System.out.println(&quot;Game was finished&quot;);</span>
+<span class="nc" id="L517">        System.exit(0);</span>
+<span class="nc" id="L518">    }</span>
+
+
+
+
+    //* ------ Private Methods ------
+    // used to complementary the others methods.
+
+
+    /**
+     * Function to set the actual arrangement of the board. it represents the internal arrangement of the board.
+     */
+    public void setActualBoard() {
+<span class="fc bfc" id="L531" title="All 2 branches covered.">        for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="fc bfc" id="L532" title="All 2 branches covered.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="fc bfc" id="L533" title="All 2 branches covered.">                if (board[i][j] != null) {</span>
+<span class="fc" id="L534">                    this.actualBoard[i][j] = board[i][j].getName();</span>
+<span class="fc bfc" id="L535" title="All 2 branches covered.">                } else if (holesBoard[i][j] != null) {</span>
+<span class="fc" id="L536">                    this.actualBoard[i][j] = holesBoard[i][j].getName();</span>
+                } else {
+<span class="fc" id="L538">                    this.actualBoard[i][j] = '.';</span>
+                }
+            }
+        }
+<span class="fc" id="L542">    }</span>
+
+
+    /**
+     * Function to set the actual glued board, it represents the internal connexions of the glue.
+     */
+    public void setActualGlue(){
+<span class="fc bfc" id="L549" title="All 2 branches covered.">        for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="fc bfc" id="L550" title="All 2 branches covered.">            for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="fc bfc" id="L551" title="All 2 branches covered.">                if (gluesBoard[i][j] != null) {</span>
+<span class="fc" id="L552">                    this.actualGlue[i][j] = gluesBoard[i][j].getType();</span>
+<span class="pc bpc" id="L553" title="1 of 2 branches missed.">                } else if (gluesBoard[i][j] == null) {</span>
+<span class="fc" id="L554">                    this.actualGlue[i][j] = '.';</span>
+                }
+            }
+        }
+<span class="fc" id="L558">    }</span>
+
+
+    /**
+     * Function to add a tile to the board. It's a help function to make visible the initial board.
+     */
+    private void makeVisibleC(){
+<span class="fc" id="L565">        table.makeVisible();</span>
+<span class="fc" id="L566">        table.changeSize((height*20)+height*3+2,(width*20)+width*3+2);</span>
+<span class="fc" id="L567">        table.changeColor(&quot;yellow&quot;);</span>
+<span class="fc" id="L568">        table.moveHorizontal(-3);</span>
+<span class="fc" id="L569">        table.moveVertical(-3);</span>
+<span class="fc" id="L570">    }</span>
+
+
+    /**
+     * Function to print the initial arrangement of the board. It's a help function to make visible the initial board.
+     */
+    private void initialPrint(){
+        try {
+<span class="fc bfc" id="L578" title="All 2 branches covered.">            for (int i = 0; i &lt; this.height; i++) {</span>
+<span class="fc bfc" id="L579" title="All 2 branches covered.">                for (int j = 0; j &lt; this.width; j++) {</span>
+<span class="fc bfc" id="L580" title="All 2 branches covered.">                    if (startBoard[i][j] != '.') {</span>
+<span class="fc" id="L581">                        addTile(i,j,setColorConstructor(String.valueOf(startBoard[i][j])));</span>
+                    }
+                }
+            }
+<span class="nc" id="L585">        }catch (puzzleExceptions e) {</span>
+<span class="nc" id="L586">            System.out.println(e.getMessage());</span>
+<span class="fc" id="L587">        }</span>
+<span class="fc" id="L588">    }</span>
+
+
+    /**
+     * Function to set the color of the tiles. It's a help function to make visible the initial board.
+     * @param charName It's the initial char of the color.
+     * @return It returns the name of the color.
+     */
+    private String setColorConstructor(String charName){
+<span class="pc bpc" id="L597" title="1 of 5 branches missed.">        return switch (charName) {</span>
+<span class="fc" id="L598">            case &quot;r&quot; -&gt; &quot;red&quot;;</span>
+<span class="nc" id="L599">            case &quot;g&quot; -&gt; &quot;green&quot;;</span>
+<span class="fc" id="L600">            case &quot;b&quot; -&gt; &quot;blue&quot;;</span>
+<span class="fc" id="L601">            case &quot;w&quot; -&gt; &quot;white&quot;;</span>
+<span class="fc" id="L602">            default -&gt; &quot;black&quot;;</span>
+        };
+    }
+
+
+
+    //* ------ Getters and Setters ------
+
+    public int getHeight() {
+<span class="fc" id="L611">        return height;</span>
+    }
+
+    public int getMissingSpace() {
+<span class="fc" id="L615">        return this.missingSpace;</span>
+    }
+
+    public void moreSpace(){
+<span class="fc" id="L619">        this.missingSpace++;</span>
+<span class="fc" id="L620">    }</span>
+
+    public char[][] getActualBoard() {
+<span class="nc" id="L623">        return actualBoard;</span>
+    }
+
+    public char[][] getEndingBoard() {
+<span class="nc" id="L627">        return actualEnding;</span>
+    }
+
+    public void setBoard(char[][] original){
+<span class="nc" id="L631">        this.actualBoard=original;</span>
+<span class="nc" id="L632">    }</span>
+
+    public int getWidth() {
+<span class="fc" id="L635">        return this.width;</span>
+    }
+
+    public Tiles getTile(int row, int column){
+<span class="fc" id="L639">        return board[row][column];</span>
+    }
+    public Holes getHole(int row, int column){
+<span class="fc" id="L642">        return holesBoard[row][column];</span>
+    }
+
+    public Glues getGlue(int i, int i1) {
+<span class="fc" id="L646">        return gluesBoard[i][i1];</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

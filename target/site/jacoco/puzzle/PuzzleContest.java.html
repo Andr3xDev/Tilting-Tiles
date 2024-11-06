@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PuzzleContest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tilting-Tiles</a> &gt; <a href="index.source.html" class="el_package">puzzle</a> &gt; <span class="el_source">PuzzleContest.java</span></div><h1>PuzzleContest.java</h1><pre class="source lang-java linenums">package puzzle;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * This class represents a puzzle contest. It is used to solve a puzzle game and find the minimum number of moves to
+ * solve it. represents and simulate a puzzle contest.
+ */
+<span class="nc" id="L10">public class PuzzleContest {</span>
+
+    //* Attributes
+    private ArrayList&lt;Character&gt; finalMove;
+
+    //* Methods
+    /**
+     * This method solves a puzzle game and find the minimum number of moves to solve it.
+     * @param start the initial state of the puzzle game.
+     * @param ending the final state of the puzzle game.
+     * @return true if the puzzle game was solved, false otherwise.
+     */
+    public boolean solve(char[][] start, char[][] ending) {
+<span class="nc" id="L23">        this.finalMove = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L24">        ArrayList&lt;String&gt; memory = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L25">        ArrayList&lt;Character&gt; moves = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L26">        solutions(start, ending, memory, moves);</span>
+<span class="nc" id="L27">        System.out.println(&quot;Movimientos mínimos: &quot; + this.finalMove);</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        return !this.finalMove.isEmpty();</span>
+    }
+
+    /**
+     * This method simulates a puzzle game whit GUI.
+     * @param start the initial state of the puzzle game.
+     * @param ending the final state of the puzzle game.
+     */
+    public void simulate(char[][] start, char[][] ending) {
+<span class="nc" id="L37">        this.finalMove = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L38">        ArrayList&lt;String&gt; memory = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L39">        ArrayList&lt;Character&gt; moves = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L40">        solutions(start, ending, memory, moves);</span>
+<span class="nc" id="L41">        System.out.println(&quot;Movimientos mínimos: &quot; + this.finalMove);</span>
+<span class="nc" id="L42">    }</span>
+
+
+    //* Private Methods
+
+    /**
+     * This method finds the minimum number of moves to solve a puzzle game.
+     * @param start the initial state of the puzzle game.
+     * @param ending the final state of the puzzle game.
+     * @param memory the memory of the states of the puzzle game.
+     * @param moves the moves to solve the puzzle game.
+     */
+    private void solutions(char[][] start, char[][] ending, ArrayList&lt;String&gt; memory, ArrayList&lt;Character&gt; moves) {
+<span class="nc" id="L55">        Puzzle puzzle = new Puzzle(start, ending);</span>
+
+        // Comprobamos si ya se alcanzó el estado objetivo
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (sameBoard(start, ending)) {</span>
+<span class="nc bnc" id="L59" title="All 4 branches missed.">            if (this.finalMove.isEmpty() || moves.size() &lt; this.finalMove.size()) {</span>
+<span class="nc" id="L60">                this.finalMove = new ArrayList&lt;&gt;(moves);</span>
+            }
+<span class="nc" id="L62">            return;</span>
+        }
+
+        // Representación del estado actual del tablero como cadena para evitar ciclos
+<span class="nc" id="L66">        String currentBoardState = Arrays.deepToString(puzzle.getActualBoard());</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (memory.contains(currentBoardState)) {</span>
+<span class="nc" id="L68">            return;</span>
+        }
+
+<span class="nc" id="L71">        memory.add(currentBoardState);  // Añadir el estado actual a la memoria</span>
+<span class="nc" id="L72">        char[][] originalBoard = cloneBoard(puzzle.getActualBoard());  // Clonar el estado original del tablero</span>
+
+        // Intentar cada dirección de movimiento
+<span class="nc" id="L75">        char[] directions = {'U', 'D', 'L', 'R'};</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        for (char direction : directions) {</span>
+<span class="nc" id="L77">            puzzle.tilt(direction);</span>
+<span class="nc" id="L78">            moves.add(direction);</span>
+<span class="nc" id="L79">            solutions(puzzle.getActualBoard(), ending, memory, moves);</span>
+<span class="nc" id="L80">            moves.remove(moves.size() - 1);  // Retrocedemos el movimiento</span>
+<span class="nc" id="L81">            puzzle.setBoard(originalBoard);  // Restaurar el tablero original</span>
+        }
+
+<span class="nc" id="L84">        memory.remove(memory.size() - 1);  // Eliminar el estado actual para otros caminos</span>
+<span class="nc" id="L85">    }</span>
+
+    private boolean sameBoard(char[][] board1, char[][] board2) {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        for (int i = 0; i &lt; board1.length; i++) {</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">            for (int j = 0; j &lt; board1[0].length; j++) {</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">                if (board1[i][j] != board2[i][j]) {</span>
+<span class="nc" id="L91">                    return false;</span>
+                }
+            }
+        }
+<span class="nc" id="L95">        return true;</span>
+    }
+
+    // Clonar un tablero 2D
+    private char[][] cloneBoard(char[][] board) {
+<span class="nc" id="L100">        char[][] clonedBoard = new char[board.length][board[0].length];</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        for (int i = 0; i &lt; board.length; i++) {</span>
+<span class="nc" id="L102">            clonedBoard[i] = board[i].clone();</span>
+        }
+<span class="nc" id="L104">        return clonedBoard;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

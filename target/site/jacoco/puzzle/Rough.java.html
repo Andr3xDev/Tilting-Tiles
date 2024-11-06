@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Rough.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tilting-Tiles</a> &gt; <a href="index.source.html" class="el_package">puzzle</a> &gt; <span class="el_source">Rough.java</span></div><h1>Rough.java</h1><pre class="source lang-java linenums">package puzzle;
+import shapes.Rectangle;
+
+/**
+ * Class that represents the rough tiles of the puzzle
+ */
+public class Rough extends Tiles{
+
+    //* Attributes
+    private final int row;
+    private final int column;
+
+    //* Constructor
+    /**
+     * Constructor of the class
+     * @param posX Position in the row
+     * @param posY Position in the column
+     * @param color Color of the tile
+     * @param board Board where the tile is
+     */
+    public Rough(int posX, int posY, String color, Puzzle board) {
+<span class="fc" id="L22">        super(posX, posY, color, board);</span>
+<span class="fc" id="L23">        Rectangle tile = new Rectangle();</span>
+<span class="fc" id="L24">        this.row = posY;</span>
+<span class="fc" id="L25">        this.column = posX;</span>
+<span class="fc" id="L26">        makeVisibleCreate();</span>
+<span class="fc" id="L27">    }</span>
+
+    //* Methods
+    /**
+     * Method that creates the tile
+     */
+    @Override
+    public void makeVisibleCreate() {
+<span class="fc" id="L35">        tile.changeColor(this.getColor());</span>
+<span class="fc" id="L36">        tile.changeSize(20, 20);</span>
+<span class="fc" id="L37">        tile.moveHorizontal(column * 23);</span>
+<span class="fc" id="L38">        tile.moveVertical(row * 23);</span>
+<span class="fc" id="L39">        tile.makeVisible();</span>
+<span class="fc" id="L40">    }</span>
+    /**
+     * Method that makes the tile visible
+     */
+    public void makeVisible() {
+<span class="nc" id="L45">        tile.makeVisible();</span>
+<span class="nc" id="L46">    }</span>
+
+    /**
+     * Method that makes the tile invisible
+     */
+    public void makeInvisible() {
+<span class="fc" id="L52">        tile.makeInvisible();</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Method that prevent moves the tile to the left
+     * @throws puzzleExceptions Exception that throws if the tile can't move
+     */
+    @Override
+    protected void moveLeft() throws puzzleExceptions {
+<span class="nc" id="L61">        throw new puzzleExceptions(puzzleExceptions.ROUGH_EXCEPTION);</span>
+    }
+
+    /**
+     * Method that prevent moves the tile to the right
+     * @throws puzzleExceptions Exception that throws if the tile can't move
+     */
+    @Override
+    protected void moveRight() throws puzzleExceptions {
+<span class="nc" id="L70">        throw new puzzleExceptions(puzzleExceptions.ROUGH_EXCEPTION);</span>
+    }
+
+    /**
+     * Method that prevent moves the tile down
+     * @throws puzzleExceptions Exception that throws if the tile can't move
+     */
+    @Override
+    protected void moveDown() throws puzzleExceptions {
+<span class="nc" id="L79">        throw new puzzleExceptions(puzzleExceptions.ROUGH_EXCEPTION);</span>
+    }
+
+    /**
+     * Method that prevent moves the tile up
+     * @throws puzzleExceptions Exception that throws if the tile can't move
+     */
+    @Override
+    protected void moveUp() throws puzzleExceptions {
+<span class="nc" id="L88">        throw new puzzleExceptions(puzzleExceptions.ROUGH_EXCEPTION);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
