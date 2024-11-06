@@ -272,6 +272,13 @@ public class Tiles {
             } catch (puzzleExceptions e) {
                 throw new RuntimeException(e);
             }
+        } else if (tile instanceof Temporal) {
+            board.deleteTile(row, column);
+            try {
+                board.addTemporal(newRow, newColumn, name);
+            } catch (puzzleExceptions e) {
+                throw new RuntimeException(e);
+            }
         } else {
             board.deleteTile(row,column);
             try {
