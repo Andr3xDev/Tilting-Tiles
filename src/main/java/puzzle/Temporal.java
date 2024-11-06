@@ -11,6 +11,7 @@ public class Temporal extends Tiles{
     private final int column;
     private int lives;
 
+
     //* Constructor
     /**
      * Constructor of the class
@@ -26,9 +27,10 @@ public class Temporal extends Tiles{
         Rectangle tile = new Rectangle();
         setPosY(posY);
         setPosX(posX);
-        this.lives = 2;
+        this.lives = 1;
         makeVisibleCreate();
     }
+
 
     //* Methods
     /**
@@ -36,18 +38,21 @@ public class Temporal extends Tiles{
      */
     @Override
     public void makeVisibleCreate() {
-        tile.changeColor(this.getColor());
+        this.tile.changeColor(this.getColor());
         tile.changeSize(20, 20);
         tile.moveHorizontal(column * 23);
         tile.moveVertical(row * 23);
         tile.makeVisible();
     }
+
+
     /**
      * Method that makes the tile visible
      */
     public void makeVisible() {
         tile.makeVisible();
     }
+
 
     /**
      * Method that makes the tile invisible
@@ -56,6 +61,7 @@ public class Temporal extends Tiles{
         tile.makeInvisible();
     }
 
+
     /**
      * Method to move the tile to the left. It's a help function to move the tiles in the board.
      * @throws puzzleExceptions If the tile can't move to the left.
@@ -63,6 +69,7 @@ public class Temporal extends Tiles{
     @Override
     protected void moveLeft() throws puzzleExceptions {
         reduceLives();
+        System.out.println("Lives: " + this.lives);
         int moveSteps = maxMoveLeft();
         if (moveSteps == -1 || this.lives == 0) {
             this.board.deleteTile(posY, posX);
@@ -77,6 +84,7 @@ public class Temporal extends Tiles{
         }
     }
 
+
     /**
      * Method to move the tile to the right. It's a help function to move the tiles in the board.
      * @throws puzzleExceptions If the tile can't move to the right.
@@ -84,6 +92,7 @@ public class Temporal extends Tiles{
     @Override
     protected void moveRight() throws puzzleExceptions {
         reduceLives();
+        System.out.println("Lives: " + this.lives);
         int moveSteps = maxMoveRight();
         if (moveSteps == -1 || this.lives == 0) {
             this.board.deleteTile(posY, posX);
@@ -98,6 +107,7 @@ public class Temporal extends Tiles{
         }
     }
 
+
     /**
      * Method to move the tile down. It's a help function to move the tiles in the board.
      * @throws puzzleExceptions If the tile can't move down.
@@ -106,6 +116,7 @@ public class Temporal extends Tiles{
     protected void moveDown() throws puzzleExceptions {
         int moveSteps = maxMoveDown();
         reduceLives();
+        System.out.println("Lives: " + this.lives);
         if (moveSteps == -1 || this.lives == 0) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
@@ -119,6 +130,7 @@ public class Temporal extends Tiles{
         }
     }
 
+
     /**
      * Method to move the tile up. It's a help function to move the tiles in the board.
      * @throws puzzleExceptions If the tile can't move up.
@@ -127,6 +139,7 @@ public class Temporal extends Tiles{
     protected void moveUp() throws puzzleExceptions {
         int moveSteps = maxMoveUp();
         reduceLives();
+        System.out.println("Lives: " + this.lives);
         if (moveSteps == -1 || this.lives == 0) {
             this.board.deleteTile(posY, posX);
         } else if (moveSteps > 0) {
