@@ -2,6 +2,7 @@ package puzzle;
 
 import shapes.*;
 
+
 /**
  * The initial project aims to develop an application that allows simulating a
  * situation inspired by Problem F of the 2023 Tilting international programming marathon
@@ -11,7 +12,7 @@ import shapes.*;
  * @author Andrés Felipe Chavarro Plazas
  * @author David Santiago Espinosa Rojas
  * @since 27-08-2024
- * @version Version 0.9
+ * @version Version 1.0
  */
 public class Puzzle {
 
@@ -67,9 +68,10 @@ public class Puzzle {
         this.missingSpace = this.width*this.height;
         this.actualEnding = ending;
         this.actualBoard = new char[height][width];
-        setActualBoard();
         //setActualGlue();
         makeVisibleC();
+        initialPrint();
+        setActualBoard();
     }
 
 
@@ -471,10 +473,16 @@ public class Puzzle {
      */
     public void makeVisible() {
         table.makeVisible();
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
                 if (board[i][j] != null) {
                     board[i][j].makeVisible();
+                }
+                if (holesBoard[i][j] != null) {
+                    holesBoard[i][j].makeVisible();
+                }
+                if (gluesBoard[i][j] != null) {
+                    gluesBoard[i][j].makeVisible();
                 }
             }
         }

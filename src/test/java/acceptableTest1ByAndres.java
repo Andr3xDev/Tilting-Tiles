@@ -1,5 +1,7 @@
 import puzzle.Puzzle;
 
+import java.util.Arrays;
+
 public class acceptableTest1ByAndres {
     static int time = 500;
     public static void main(String[] args) {
@@ -65,8 +67,8 @@ public class acceptableTest1ByAndres {
         }
         puzzle.makeInvisible();
         System.out.println("Juan reset the puzzle and select the option to add a board custom with goal");
-        char[][] ending = new char[][]{{'r','r'},{'r','.'},{'.','.'}};
-        char[][] starting = new char[][]{{'r','.'},{'.','.',},{'r','r'}};
+        char[][] ending = new char[][]{{'r','w'},{'b','.'},{'.','.'}};
+        char[][] starting = new char[][]{{'r','.'},{'.','.',},{'b','w'}};
         Puzzle puzzle2 = new Puzzle(starting, ending);
         try{
             Thread.sleep(time);
@@ -76,9 +78,7 @@ public class acceptableTest1ByAndres {
             Thread.sleep(time);
             System.out.println("Juan's daughter wanted to see, the objective board");
             Thread.sleep(time);
-            //! Show the final board
-            Thread.sleep(time);
-            //! reset the board
+            System.out.println(Arrays.deepToString(puzzle2.getEndingBoard()));
             System.out.println("She tried to tilt the board down and then see if she completed the puzzle");
             Thread.sleep(time);
             puzzle2.tilt('U');
