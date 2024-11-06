@@ -53,7 +53,7 @@ public class PuzzleTest {
     public void shouldCreatePuzzle3(){
         char[][] finish = new char[][]{{'r','r','r'},{'.','r','.'},{'.','.','.'}};
         char[][] start = new char[][]{{'r','.','.'},{'.','b','.'},{'w','.','.'}};
-        Puzzle puzzle = new Puzzle(finish);
+        Puzzle puzzle = new Puzzle(start, finish);
         assertEquals(puzzle.getHeight(),3);
     }
     @Test
@@ -246,24 +246,6 @@ public class PuzzleTest {
         assertFalse(puzzle.isGoal());
     }
 
-//    //* Can move
-//    @Test
-//    public void tileCanMove(){
-//        Puzzle puzzle = new Puzzle(3,3);
-//        puzzle.addTile(0,0,"red");
-//        puzzle.addTile(0,1,"blue");
-//        //assertTrue(puzzle.canNotMove());
-//    }
-//    @Test
-//    public void tileCanNotMove(){
-//        Puzzle puzzle = new Puzzle(3,3);
-//        puzzle.addTile(0,0,"red");
-//        puzzle.addTile(0,1,"blue");
-//        puzzle.addTile(1,0,"green");
-//        puzzle.addTile(2,0,"white");
-//        puzzle.addTile(0,2,"orange");
-//        //assertFalse(puzzle.canNotMove());
-//    }
 
     //* Fixed tiles
     @Test
@@ -281,6 +263,7 @@ public class PuzzleTest {
             puzzle.getTile(1,1).relocateTile(new int[]{1,1}, new int[]{0,0});
         });
     }
+
 
     //* Rough tiles
     @Test
@@ -304,15 +287,18 @@ public class PuzzleTest {
 
     //* Freelance tiles
     @Test
-    public void shouldWorkFreelanceTile() throws puzzleExceptions {
-        Puzzle puzzle = new Puzzle(3, 3);
-        puzzle.addFreelance(1, 1, "red");
+    public void shouldWorkFreelanceTile() {
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addFreelance(1, 1, "red");
+            puzzle.addGlue(1, 1);
+        });
     }
     @Test
     public void shouldNotWorkFreelanceTile() {
         assertThrows(puzzle.puzzleExceptions.class, () -> {
             Puzzle puzzle = new Puzzle(3, 3);
-            puzzle.addFreelance(10, 1, "red");
+            puzzle.addFreelance(10, 0, "red");
         });
     }
 
@@ -332,6 +318,23 @@ public class PuzzleTest {
         });
     }
 
+    //* Temporal tiles
+    @Test
+    public void shouldWorkTemporalTile() throws puzzleExceptions {
+        Puzzle puzzle = new Puzzle(3, 3);
+        puzzle.addTemporal(0, 0, "red");
+        puzzle.tilt('R');
+        puzzle.tilt('L');
+        puzzle.tilt('R');
+        assertEquals(9, puzzle.getMissingSpace());
+    }
+    @Test
+    public void shouldNotWorkTemporalTile() {
+        assertThrows(puzzle.puzzleExceptions.class, () -> {
+            Puzzle puzzle = new Puzzle(3, 3);
+            puzzle.addTemporal(10, 1, "red");
+        });
+    }
     /**
      * Tears down the test fixture.
      * Called after every test case method.
