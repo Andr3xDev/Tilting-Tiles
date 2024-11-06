@@ -2,8 +2,8 @@ shapes/Canvas.class
 puzzle/Tiles.class
 puzzle/Super.class
 puzzle/Flying.class
-puzzle/Fragil.class
 puzzle/Freelance.class
+puzzle/Fragile.class
 shapes/Canvas$CanvasPane.class
 shapes/Triangle.class
 puzzle/puzzleExceptions.class
