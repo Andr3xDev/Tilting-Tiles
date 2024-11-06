@@ -19,7 +19,7 @@ public class Puzzle {
     //* ------ Variables ------
     private final int height;
     private final int width;
-    private final Tiles[][] board;
+    public final Tiles[][] board;
     public Glues[][] gluesBoard;
     private char[][] actualGlue;
     public Holes[][] holesBoard;
@@ -70,7 +70,6 @@ public class Puzzle {
         this.actualBoard = new char[height][width];
         //setActualGlue();
         makeVisibleC();
-        initialPrint();
         setActualBoard();
     }
 
@@ -228,7 +227,7 @@ public class Puzzle {
             throw new puzzleExceptions(puzzleExceptions.INVALID_POS);
         } else {
             Tiles tile = getTile(row,column);
-            if (tile == null) {
+            if (tile == null || tile instanceof Fixed){
                 throw new puzzleExceptions(puzzleExceptions.INVALID_DELETE);
             }else {
                 tile.makeInvisible();
@@ -575,16 +574,16 @@ public class Puzzle {
      * Function to print the initial arrangement of the board. It's a help function to make visible the initial board.
      */
     private void initialPrint(){
-        for (int i = 0; i < this.height; i++) {
-            for (int j = 0; j < this.width; j++) {
-                if (startBoard[i][j] != '.') {
-                    try{
+        try {
+            for (int i = 0; i < this.height; i++) {
+                for (int j = 0; j < this.width; j++) {
+                    if (startBoard[i][j] != '.') {
                         addTile(i,j,setColorConstructor(String.valueOf(startBoard[i][j])));
-                    } catch (puzzleExceptions e){
-                        System.out.println(e.getMessage());
                     }
                 }
             }
+        }catch (puzzleExceptions e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -614,6 +613,10 @@ public class Puzzle {
 
     public int getMissingSpace() {
         return this.missingSpace;
+    }
+
+    public void moreSpace(){
+        this.missingSpace++;
     }
 
     public char[][] getActualBoard() {

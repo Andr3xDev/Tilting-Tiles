@@ -56,7 +56,7 @@ public class Fixed extends Tiles{
      * @param to Position to add the tile.
      * @throws puzzleExceptions Exception to indicate that the tile can't complete method
      */
-    private void relocate(int[] from, int[] to) throws puzzleExceptions{
+    private void relocateFixed(int[] from, int[] to) throws puzzleExceptions{
         int row = from[0];
         int column = from[1];
         int newRow = to[0];
@@ -74,7 +74,9 @@ public class Fixed extends Tiles{
             tile.setPosX(newColumn);
             tile.setPosY(newRow);
             String name = tile.getColor();
-            board.deleteTile(row,column);
+            tile.makeInvisible();
+            this.board.board[row][column] = null;
+            board.moreSpace();
             board.addFixed(newRow,newColumn,name);
         }
         board.setActualBoard();
@@ -93,7 +95,7 @@ public class Fixed extends Tiles{
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() - moveSteps};
             try {
-                relocate(from, to);
+                relocateFixed(from, to);
             } catch (puzzleExceptions e) {
                 System.out.println(e.getMessage());
             }
@@ -113,7 +115,7 @@ public class Fixed extends Tiles{
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY(), getPosX() + moveSteps};
             try {
-                relocate(from, to);
+                relocateFixed(from, to);
             } catch (puzzleExceptions e) {
                 System.out.println(e.getMessage());
             }
@@ -133,7 +135,7 @@ public class Fixed extends Tiles{
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() + moveSteps,getPosX()};
             try {
-                relocate(from, to);
+                relocateFixed(from, to);
             } catch (puzzleExceptions e) {
                 System.out.println(e.getMessage());
             }
@@ -153,7 +155,7 @@ public class Fixed extends Tiles{
             int[] from = {getPosY(), getPosX()};
             int[] to = {getPosY() - moveSteps,getPosX()};
             try {
-                relocate(from, to);
+                relocateFixed(from, to);
             } catch (puzzleExceptions e) {
                 System.out.println(e.getMessage());
             }
