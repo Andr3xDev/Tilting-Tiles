@@ -73,6 +73,16 @@ base grafica del proyecto. Entonces, no es un error nuestro y tampoco nos intere
 
 ![Errores de shapes](/Screenshots/PMD2.png)
 
+Aun asi, hay evidencia de multiples errores del estilo `ShoudBeFinal` que realmente no entendemos el motivo por el que esten mal declarados los 
+metodos. Pues muchos de estos terminan siendo heredeados de alguna u otra forma. Asi mismo, la presencia de múltiples advertencias de este estilo en las variables y métodos se debe a que algunas herramientas de análisis recomiendan marcar elementos como final para mejorar la seguridad y evitar modificaciones no deseadas. Sin embargo, en nuestro caso, estas variables y métodos deben ser modificables porque son heredados en subclases dentro de la arquitectura de nuestro paquete. Esto permite a las subclases personalizar el comportamiento y adaptar las propiedades de los elementos de acuerdo con sus necesidades específicas, lo cual es crucial para asegurar la flexibilidad y funcionalidad esperada en la jerarquía de clases del paquete shapes.
+
+
+![Errores de beFinal](/Screenshots/PMD4.png)
+
+Por ultimo, hay errores con la sobrecarga de constructores pero esta es necesaria debido a la construcción del paquete shapes, que requiere múltiples versiones del mismo constructor para la representacion de los objetos, permitiendo la creación flexible de diversas formas geométricas. Esta implementación es fundamental para el correcto funcionamiento y versatilidad del paquete, aunque ocasione desafíos adicionales en las pruebas PDM.
+
+![Errores de beFinal](/Screenshots/PMD3.png)
+
 En conclucion, la prueba fue exitosa gracias a un código de alta calidad que sigue los pilares fundamentales de la Programación Orientada
 a Objetos (POO), como la encapsulación, la herencia, el polimorfismo y la abstracción, lo cual asegura una estructura robusta y bien
 organizada. Además, al aplicar los principios SOLID, se logró un diseño modular y flexible, facilitando la escalabilidad y el mantenimiento 
