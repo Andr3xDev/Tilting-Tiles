@@ -65,36 +65,64 @@ Existen múltiples tipos de baldosas, cada una con propiedades y comportamientos
 <br>
 
 ### Normal
-Son una *Tile* que no tiene ninguna característica extra, pues es la **base** para todas las demás. En esta, se planteo lo pueden como lo siguiente
+Son una *Tile* que no tiene ninguna característica extra, pues es la **base** para todas las demás. En esta, se planteo de la siguiente manera
 - **Moverse con el Tilt**: sin restricciones mas allá de las eliminaciones/caídas producidas por un hueco. 
 - **Caída en los huecos**: eliminan la casilla.
-- **Relocalización: es posible mover su posición a otra deseada por el usuario.
+- **Relocalización**: es posible mover su posición a otra deseada por el usuario.
 - **Eliminación**: puede ser destruida si el usuario lo quiere.
 - **Pegamento**: Es capaz de recibir y ser afectada por cualquier tipo de pegamento.
 <br>
 
 ### Fixed
-
+Son una *Tile* cuya caracteristica es el no poder reubicarse ni eliminarse. En esta, se heredo de la clase de *Tile* original y se planteo de la siguiente manera
+- **Moverse con el Tilt**: sin restricciones mas allá de las eliminaciones/caídas producidas por un hueco. 
+- **Caída en los huecos**: eliminan la casilla.
+- **Relocalización**: No es posible relocalizar, para esto sobreescribimos el metodo *RelocateTile()* para que en lugar de trasladar la pieza lance una excepción.
+- **Eliminación**: No es posible eliminar, para esto sobreescribimos el metodo *DeleteTile()* para que en lugar de eliminar la pieza lance una excepcion
+- **Pegamento**: Es capaz de recibir y ser afectada por cualquier tipo de pegamento.
 </br>
 
 ### Rough
+Son una *Tile* cuya caracteristica es el no poder desplazarse con el metodo *Tilt()*. En esta, se heredo de la clase de *Tile* original y se planteo de la siguiente manera
+- **Moverse con el Tilt**: No es posible cambiar su ubicacion con este metodo, para ello lo sobreescribimos para que en lugar de tener un comportamiento lance una excepcion. 
+- **Caída en los huecos**: eliminan la casilla.
+- **Relocalización**: es posible mover su posición a otra deseada por el usuario.
+- **Eliminación**: puede ser destruida si el usuario lo quiere.
+- **Pegamento**: Es capaz de recibir y ser afectada por cualquier tipo de pegamento.
 
 </br>
 
 ### Flying
-
+Son una *Tile* cuya caracteristica que al desplazarse con el metodo *Tilt()* ignore los huecos. En esta, se heredo de la clase de *Tile* original y se planteo de la siguiente manera
+- **Moverse con el Tilt**: sin restricciones incluso queda por encima de los huecos. 
+- **Caída en los huecos**: No cae en los huecos por ende no se elimina y se superpone a ellos
+- **Relocalización**: es posible mover su posición a otra deseada por el usuario.
+- **Eliminación**: puede ser destruida si el usuario lo quiere.
+- **Pegamento**: Es capaz de recibir y ser afectada por cualquier tipo de pegamento.
 </br>
 
 ### Freelance
-
+Son una *Tile* cuya caracteristica es no ser afectada por pegamento. En esta, se heredo de la clase de *Tile* original y se planteo de la siguiente manera
+- **Moverse con el Tilt**: sin restricciones mas allá de las eliminaciones/caídas producidas por un hueco. 
+- **Caída en los huecos**: eliminan la casilla.
+- **Relocalización**: es posible mover su posición a otra deseada por el usuario.
+- **Eliminación**: puede ser destruida si el usuario lo quiere.
+- **Pegamento**: No es capaz de recibir y ser afectada por cualquier tipo de pegamento.
 </br>
 
 ### Temporal
-
+Son una *Tile* cuya caracteristica es que al usar un *Tilt()* son eliminadas. En esta, se heredo de la clase de *Tile* original y se planteo de la siguiente manera
+- **Moverse con el Tilt**: mas allá de las eliminaciones/caídas producidas por un hueco, solo se puede utilizar una vez por que posterior a esto la pieza es eliminada. 
+- **Caída en los huecos**: eliminan la casilla.
+- **Relocalización**: es posible mover su posición a otra deseada por el usuario.
+- **Eliminación**: puede ser destruida si el usuario lo quiere.
+- **Pegamento**: Es capaz de recibir y ser afectada por cualquier tipo de pegamento.
+</br>
 </br>
 </br>
 
 ## Holes
+Son agujeros que se aplican a una baldosa del tablero y provoca que las baldosas que sean desplazadas hacia el caigan y por ende se desaparecen del tablero exceptuando las Tiles de tipo Flying.
 
 </br>
 </br>
@@ -107,7 +135,7 @@ de adhesión entre baldosas.
 </br>
 
 ### Normal
-Este pegamento simplemente hara que el comportamiento del tilt sea mucho mas 
+Este pegamento simplemente hara de base para el resto de pegamentos y su comportamiento es tan simple como adherir las piezas circundantes
 
 <br>
 
@@ -116,7 +144,10 @@ Este pegamento es muy similar al normal, el tema es que solamente aguanta 1 tilt
 pero al realizar un movimiento, este pierde sus cualidades de pegante y tecnicamente se destruiria en el siguiente.
 </br>
 Para poder implementar este tipo de pegamento, la clase heredada solo tuvo que añadir un contador interno que verificara la cantidad de
-movimientos realizados por el pegante, en el momento que llegase a 2 arrancando desde 1, 
-
+movimientos realizados por el pegante, en el momento que llegase a 2 arrancando desde 1
+</br>
 ### Super
+Este pegamento a diferencia del normal no se aplica solamente a la casilla original si no que se aplica en todas las piezas interconectadas al bloque especifico
+</br>
+
 

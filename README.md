@@ -39,7 +39,7 @@ This project is focused on the use of the OOP paradigm. Using this, it was possi
 This proyec came from the subjet "Programacion Orientada A Objetos" (POOB) of the Escuela Colombiana de Ingeniería Julio Garavito (ECI).
 
 > [!TIP]
-> If you want precise information about the different elements and their types, look at the documentation.
+> If you want precise information about the different elements and their types, look at the documentation/Informe.md.
 
 </br>
 
@@ -117,19 +117,18 @@ Sprints 3:
   - [x] Document.
 
 Sprints 4:
-- [ ] Mini-cicle 1.
+- [x] Mini-cicle 1.
   - [x] Refactor of all code structure.  
   - [x] Add type of tiles.
-  - [ ] Functionals type of tiles.
-- [ ] Mini-cicle 2.
-  - [ ] Refactor all glue.
+  - [x] Functionals type of tiles.
+- [x] Mini-cicle 2.
+  - [x] Refactor all glue.
   - [x] Refactor all holes.
 - [ ] Mini-cicle 3.
   - [ ] Add types of glue.
-  - [ ] Functionals type of glues.
-- [ ] Mini-cicle 4.
-  - [ ] Document.
-  - [ ] Actualizate ASTAH.
+  - [x] Functionals type of glues.
+- [x] Mini-cicle 4.
+  - [x] Document.
   
 
 
