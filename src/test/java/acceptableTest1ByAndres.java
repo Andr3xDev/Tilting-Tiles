@@ -3,7 +3,7 @@ import puzzle.Puzzle;
 import java.util.Arrays;
 
 public class acceptableTest1ByAndres {
-    static int time = 500;
+    static int time = 3000;
     public static void main(String[] args) {
         System.out.println("This is an acceptable test");
         System.out.println("Juan created a puzzle with 4 rows and 4 columns");
@@ -47,17 +47,21 @@ public class acceptableTest1ByAndres {
             Thread.sleep(time);
             puzzle.addTile(1, 1, "black");
             puzzle.addTile(3, 2, "white");
+            puzzle.addTile(0, 2, "blue");
+            puzzle.addTile(2, 1, "green");
             Thread.sleep(time);
             puzzle.tilt('L');
             Thread.sleep(time);
             puzzle.tilt('D');
             Thread.sleep(time);
             System.out.println("Juan's daughter saw a button that said 'glue', so she tried to glue the black tile");
-            puzzle.addGlue(2, 0);
+            puzzle.addGlue(0, 0);
             Thread.sleep(time);
             System.out.println("She tried to glue the board, not a tile");
-            puzzle.addGlue(0, 0);
+            puzzle.addGlue(-1, 5);
             //! glued tilt missing
+            Thread.sleep(time);
+            puzzle.getGlue();
             Thread.sleep(time);
             System.out.println("She tried to eliminate glue of the tile");
             puzzle.deleteGlue(2, 0);

@@ -2,7 +2,7 @@
 import puzzle.*;
 
 public class acceptableTest2ByDavid {
-    static int time = 100;
+    static int time = 3000;
     public static void main(String[] args) throws InterruptedException {
         System.out.println("This is an acceptable test");
         System.out.println("Juan updated the puzzle to get the new features");

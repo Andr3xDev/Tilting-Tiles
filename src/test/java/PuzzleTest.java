@@ -401,6 +401,7 @@ public class PuzzleTest {
         });
     }
 
+    
     //* Temporal tiles
     @Test
     public void shouldWorkTemporalTile() throws puzzleExceptions {
